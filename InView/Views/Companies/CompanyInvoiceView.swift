@@ -8,6 +8,7 @@
 import UIKit
 import WebKit
 import PDFKit
+import ColorManager
 
 class CompanyInvoiceView: ParentView {
     
@@ -29,19 +30,34 @@ class CompanyInvoiceView: ParentView {
             
             context.beginPage()
             
+            let coreData = parentController!.contactController.coreData!
             let paragraphStyle = NSMutableParagraphStyle()
+        
             paragraphStyle.alignment = .center
+            
+            if !coreData.invoices!.isEmpty {
+                
+                let invoiceInfo = coreData.invoices!.first!
+                let logoData = Data(base64Encoded: invoiceInfo.logo!)!
+                let logoImage = UIImage(data: logoData)
+                let imageRect = CGRect(x: 20, y: 20,width: 50,height: 50)
+              
+                logoImage!.draw(in: imageRect)
+            }
             
             let attributes = [
                 
                 NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14),
-                NSAttributedString.Key.paragraphStyle: paragraphStyle
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.backgroundColor: ColorManager(r: 2, g: 65, b: 140, a: 255).uicolor
             ]
             
-            let text = "Hello, World!"
-            let textRect = CGRect(x: 100, y: 100,width: 200,height: 20) // x = left margin, y = top margin
+            let text = "Company Name"
+            let textRect = CGRect(x: 70, y: 20, width: 200, height: 20) // x = left margin, y = top margin
             
             text.draw(in: textRect, withAttributes: attributes)
+            
         }
         
         return data

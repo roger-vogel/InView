@@ -314,10 +314,3 @@ extension InvoiceView: UIImagePickerControllerDelegate, UINavigationControllerDe
         })
     }
 }
-
-
-/*
- 
- invoiceInfo = GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.first!
- 
- */
