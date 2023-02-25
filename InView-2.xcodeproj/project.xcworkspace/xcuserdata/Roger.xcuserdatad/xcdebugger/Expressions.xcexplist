@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "CompanyListView.setupView():CompanyListView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "parentController!.contactController.coreData!.products!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ReportsFunnelByStartView.setupView():ReportsFunnelByStartView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "project.start">
+            </PersistentString>
+            <PersistentString
+               value = "within[FunnelElements.within90]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CoreDataManager.loadCoreData():CoreDataManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "invoiceInfo!.count">
+            </PersistentString>
+            <PersistentString
+               value = "invoiceInfo!.[0].hasLogo">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InvoiceView.onLogo(_:):InvoiceView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "invoiceInfo.hasLogo">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InvoiceView.setupView():InvoiceView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProjectListView.tableView(_:cellForRowAt:):ProjectListView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "project.name1">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CompanyInvoiceView.setCompany(company:):CompanyInvoiceView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "invoicePDFData">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProjectViewController.viewWillDisappear(_:):ProjectViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "contactController.coreData!.projects!.first!.products!.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ReportsFunnelProjectView.setSource(isFrom:filteredBy:withTitle:):ReportsFunnelProjectView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "tableEntries">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "InvoiceView.onSave(_:):InvoiceView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "invoiceInfo.logo">
+            </PersistentString>
+            <PersistentString
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!">
+            </PersistentString>
+            <PersistentString
+               value = "hasLogo!">
+            </PersistentString>
+            <PersistentString
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProjectProductDetailsView.onSave(_:):ProjectProductDetailsView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "theProject!.products!.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ReportsByAccountView.yearToDate(_:):ReportsByAccountView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "project.stage!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataManager.initializeInvoiceInfo():CoreDataManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "invoiceInfo!.count">
+            </PersistentString>
+            <PersistentString
+               value = "info.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ContactListView.setupView():ContactListView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "parentController!.contactController.coreData!.projects!.first!.products!.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ReportsFunnelByStageView.setupView():ReportsFunnelByStageView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sales">
+            </PersistentString>
+            <PersistentString
+               value = "project.name!">
+            </PersistentString>
+            <PersistentString
+               value = "theProduct.productDescription">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ReportsFunnelByProductView.setupView():ReportsFunnelByProductView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "product.category!.category!">
+            </PersistentString>
+            <PersistentString
+               value = "product.project!.status">
+            </PersistentString>
+            <PersistentString
+               value = "categoryDetails">
+            </PersistentString>
+            <PersistentString
+               value = "categoryDetails.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ReportsFunnelProjectView.onReturn(_:):ReportsFunnelProjectView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "isFrom">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DateManager.isIn(month:):DateManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dateComponents">
+            </PersistentString>
+            <PersistentString
+               value = "theDate!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProjectListView.setupView():ProjectListView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "parentController!.contactController.coreData!.projects!.first!.products!.count">
+            </PersistentString>
+            <PersistentString
+               value = "parentController!.contactController.coreData!.products!.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ReportsTotalSalesView.monthToDate(month:):ReportsTotalSalesView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "$0.completionDate">
+            </PersistentString>
+            <PersistentString
+               value = "$0.stage!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProjectProductListView.reloadProductList():ProjectProductListView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "theProject!.products!.count">
+            </PersistentString>
+            <PersistentString
+               value = "parentController!.contactController.coreData!.projects!.first!.products!.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ReportsCompletedProjectView.setupView():ReportsCompletedProjectView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "theProjects!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProjectDetailsView.onReturn(_:):ProjectDetailsView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "isFromReports">
+            </PersistentString>
+            <PersistentString
+               value = "parentController!.contactController.coreData!.projects!.first!.products!.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

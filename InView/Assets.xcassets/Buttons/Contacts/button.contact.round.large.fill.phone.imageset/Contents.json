@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "button.contact.teal.round.large.phone.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "button.contact.teal.round.large.phone-1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "button.contact.teal.round.large.phone-2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

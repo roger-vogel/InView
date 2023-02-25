@@ -1,0 +1,91 @@
+//
+//  FileTypes.swift
+//  InView
+//
+//  Created by Roger Vogel on 10/12/22.
+//
+
+import Foundation
+
+class FileTypes {
+    
+    // MARK: - TYPES
+    static var types = [
+        
+        "aac":"AUDIO",
+        "abw":"ABIWORD",
+        "arc":"FREEARC",
+        "avi":"VIDEO",
+        "azw":"EBOOK",
+        "bin":"BINARY",
+        "bmp":"BITMAP",
+        "bz":"ZIP",
+        "bz2":"ZIP",
+        "csh":"CSH",
+        "css":"CSS",
+        "csv":"CSV",
+        "doc":"WORD",
+        "docx":"WORD",
+        "eot":"FONT",
+        "epub":"EPUB",
+        "gz":"ZIP",
+        "gif":"GIF",
+        "htm":"HTML",
+        "html":"HTML",
+        "ico":"ICON",
+        "ics":"CALENDAR",
+        "jar":"ARCHIVE",
+        "jpeg":"JPEG",
+        "jpg":"JPEG",
+        "js":"JAVA",
+        "json":"JSON",
+        "jsonld":"JSON",
+        "mid":"AUDIO",
+        "midi":"AUDIO",
+        "mjs":"JAVA",
+        "mp3":"AUDIO",
+        "mpeg":"VIDEO",
+        "mpkg":"INSTALLER",
+        "odp":"DOC",
+        "ods":"SHEET",
+        "odt":"TEXT",
+        "oga":"AUDIO",
+        "ogv":"VIDEO",
+        "ogx":"OGG",
+        "opus":"AUDIO",
+        "otf":"FONT",
+        "png":"PNG",
+        "pdf":"PDF",
+        "php":"PHP",
+        "ppt":"POWER POINT",
+        "pptx":"aPOWER POINT",
+        "rar":"RAR",
+        "rtf":"RICH TEXT",
+        "sh":"SH",
+        "svg":"ICON",
+        "swf":"FLASH",
+        "tar":"ARCHIVE",
+        "tif":"TIFF",
+        "tiff":"TIFF",
+        "ts":"MP2",
+        "ttf":"FONT",
+        "txt":"TEXT",
+        "vcf":"",
+        "vsd":"VSD",
+        "wav":"AUDIO",
+        "weba":"AUDIO",
+        "webm":"VIDEO",
+        "webp":"IMAGE",
+        "woff":"FONT",
+        "woff2":"FONT",
+        "xhtml":"XML",
+        "xls":"EXCEL",
+        "xlsx":"EXCEL",
+        "xml":"XML",
+        "xul":"XML",
+        "zip":"ZIP",
+        "3gp":"VIDEO",
+        "3g2":"VIDEO",
+        "7z":"COMPRESSED"
+    ]
+}

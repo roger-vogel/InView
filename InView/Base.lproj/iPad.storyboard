@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="a9k-oq-agq">
+    <device id="ipad12_9rounded" orientation="landscape" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Companies-->
+        <scene sceneID="G4o-TI-82l">
+            <objects>
+                <viewController id="dfM-4H-Wok" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VWq-d2-wJf">
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="UzM-mA-FLU"/>
+                        <color key="backgroundColor" name="color.theme.teal"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Companies" image="tab.company.lightmode" selectedImage="tab.company.lightmode" id="mYY-0E-Hwd"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ryT-pM-qF3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="333" y="-479"/>
+        </scene>
+        <!--People-->
+        <scene sceneID="dhZ-fx-99G">
+            <objects>
+                <viewController id="cQ1-rV-02a" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="58d-nb-2T7">
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="InView CRM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uB9-Wr-4xn">
+                                <rect key="frame" x="0.0" y="24" width="1366" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="xTf-YP-q0a"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="iSw-Eu-8Oh"/>
+                        <color key="backgroundColor" name="color.theme.teal"/>
+                        <constraints>
+                            <constraint firstItem="uB9-Wr-4xn" firstAttribute="width" secondItem="58d-nb-2T7" secondAttribute="width" id="EQp-hd-Ki5"/>
+                            <constraint firstItem="uB9-Wr-4xn" firstAttribute="top" secondItem="iSw-Eu-8Oh" secondAttribute="top" id="NcN-rL-ywo"/>
+                            <constraint firstItem="uB9-Wr-4xn" firstAttribute="centerX" secondItem="iSw-Eu-8Oh" secondAttribute="centerX" id="feV-Pk-BTX"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="People" image="tab.people.lightmode" selectedImage="tab.people.lightmode" id="ofw-uX-s6E"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wsb-Ll-Q2M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-314.05563689604685" y="-479.29687499999994"/>
+        </scene>
+        <!--Activities-->
+        <scene sceneID="a5y-3p-ZIF">
+            <objects>
+                <viewController id="N3t-0s-gsf" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yKo-kY-qS5">
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="TwJ-Bz-sm4"/>
+                        <color key="backgroundColor" name="color.theme.teal"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Activities" image="tab.activity.lightmode" selectedImage="tab.activity.lightmode" id="Mbm-fO-ZAh"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gE6-Cl-jBS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2288" y="-479"/>
+        </scene>
+        <!--Projects-->
+        <scene sceneID="OU4-ru-prs">
+            <objects>
+                <viewController id="dHo-pm-a5z" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0uE-JU-TzJ">
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="rHi-Cf-pUC"/>
+                        <color key="backgroundColor" name="color.theme.teal"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Projects" image="tab.project.lightmode" selectedImage="tab.project.lightmode" id="Ge8-z2-jxv"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bNM-oU-p8Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1640" y="-479"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="jcd-6z-xeZ">
+            <objects>
+                <tabBarController id="a9k-oq-agq" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sOS-tX-KVw">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="cQ1-rV-02a" kind="relationship" relationship="viewControllers" id="mXM-Fq-slu"/>
+                        <segue destination="dfM-4H-Wok" kind="relationship" relationship="viewControllers" id="auJ-yx-hpZ"/>
+                        <segue destination="iN7-8k-tkd" kind="relationship" relationship="viewControllers" id="o0W-5Z-7dO"/>
+                        <segue destination="dHo-pm-a5z" kind="relationship" relationship="viewControllers" id="z9z-DT-qUh"/>
+                        <segue destination="N3t-0s-gsf" kind="relationship" relationship="viewControllers" id="u4g-Qm-mp3"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vzW-PO-c2u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-965" y="-479"/>
+        </scene>
+        <!--Groups-->
+        <scene sceneID="YTd-mf-Cxg">
+            <objects>
+                <viewController id="iN7-8k-tkd" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Xjd-AX-Joh">
+                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="sMU-Gd-dYr"/>
+                        <color key="backgroundColor" name="color.theme.teal"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Groups" image="tab.group.lightmode" selectedImage="tab.group.lightmode" id="VeD-CB-MIg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y8I-Na-Wfy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="986" y="-479"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="tab.activity.lightmode" width="35" height="35"/>
+        <image name="tab.company.lightmode" width="35" height="35"/>
+        <image name="tab.group.lightmode" width="56" height="35"/>
+        <image name="tab.people.lightmode" width="35" height="35"/>
+        <image name="tab.project.lightmode" width="45" height="35"/>
+        <namedColor name="color.theme.teal">
+            <color red="0.49399998784065247" green="0.70999997854232788" blue="0.70999997854232788" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

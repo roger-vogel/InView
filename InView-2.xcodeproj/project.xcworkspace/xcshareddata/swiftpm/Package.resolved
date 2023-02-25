@@ -1,0 +1,77 @@
+{
+  "pins" : [
+    {
+      "identity" : "alertmanager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/roger-vogel/AlertManager",
+      "state" : {
+        "branch" : "main",
+        "revision" : "cf7b7dd96bcba958623d4b235b102b89a352e141"
+      }
+    },
+    {
+      "identity" : "colormanager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/roger-vogel/ColorManager",
+      "state" : {
+        "branch" : "master",
+        "revision" : "2f7e9eeaad45c0c5f4b686ffe94f2917382269c9"
+      }
+    },
+    {
+      "identity" : "customcontrols",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/roger-vogel/CustomControls",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b77c35d040f6b206c25189f88d88e2b682de0d67"
+      }
+    },
+    {
+      "identity" : "datemanager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/roger-vogel/DateManager",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d62d10cb12a9ffa5d8297f14598afd0c698b2c3e"
+      }
+    },
+    {
+      "identity" : "extensions",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/roger-vogel/Extensions",
+      "state" : {
+        "branch" : "main",
+        "revision" : "f8cb209b91d006e4b5e4508de30e7c480029780e"
+      }
+    },
+    {
+      "identity" : "keychainmanager",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/roger-vogel/keychainmanager",
+      "state" : {
+        "branch" : "master",
+        "revision" : "62976b9e539efa47024cbeb872ff05d97827b4bc"
+      }
+    },
+    {
+      "identity" : "swiftkeychainwrapper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jrendel/SwiftKeychainWrapper.git",
+      "state" : {
+        "revision" : "185a3165346a03767101c4f62e9a545a0fe0530f",
+        "version" : "4.0.1"
+      }
+    },
+    {
+      "identity" : "togglegroup",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/roger-vogel/ToggleGroup",
+      "state" : {
+        "branch" : "main",
+        "revision" : "7e4eb2b8580d20e8b1e4311c01e12aed3e7bf296"
+      }
+    }
+  ],
+  "version" : 2
+}

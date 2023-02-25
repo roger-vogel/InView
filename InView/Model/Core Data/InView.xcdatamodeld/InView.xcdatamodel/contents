@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D68" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Activity" representedClassName=".Activity" syncable="YES">
+        <attribute name="activityDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="activityDescription" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="activityEndTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="activityStartTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="appId" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="daysOfMonth" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="daysOfWeek" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="frequency" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isAllDay" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isEvent" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isTask" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="companies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Company" inverseName="activities" inverseEntity="Company"/>
+        <relationship name="contacts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contact" inverseName="activities" inverseEntity="Contact"/>
+        <relationship name="projects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="activities" inverseEntity="Project"/>
+    </entity>
+    <entity name="Company" representedClassName=".Company" syncable="YES">
+        <attribute name="appId" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="city" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="hasPhoto" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="manualEntry" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="phone" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="photo" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="postalCode" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="primaryStreet" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="priorYear" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="quickNotes" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="state" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="subStreet" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="website" optional="YES" attributeType="String" defaultValueString=""/>
+        <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Activity" inverseName="companies" inverseEntity="Activity"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CompanyCategory" inverseName="companies" inverseEntity="CompanyCategory"/>
+        <relationship name="employees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contact" inverseName="company" inverseEntity="Contact"/>
+        <relationship name="logEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LogEntry" inverseName="company" inverseEntity="LogEntry"/>
+        <relationship name="market" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MarketArea" inverseName="companies" inverseEntity="MarketArea"/>
+        <relationship name="memberOf" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="companyMembers" inverseEntity="Group"/>
+        <relationship name="projects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="companies" inverseEntity="Project"/>
+    </entity>
+    <entity name="CompanyCategory" representedClassName=".CompanyCategory" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="companies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Company" inverseName="category" inverseEntity="Company"/>
+    </entity>
+    <entity name="Contact" representedClassName=".Contact" syncable="YES">
+        <attribute name="appId" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="city" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="customEmail" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="customPhone" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="firstName" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="hasPhoto" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="homePhone" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lastName" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="mobilePhone" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="otherEmail" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="personalEmail" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="photo" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="postalCode" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="primaryStreet" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="quickNotes" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="state" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="subStreet" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="workEmail" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="workPhone" optional="YES" attributeType="String" defaultValueString=""/>
+        <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Activity" inverseName="contacts" inverseEntity="Activity"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ContactCategory" inverseName="contacts" inverseEntity="ContactCategory"/>
+        <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="employees" inverseEntity="Company"/>
+        <relationship name="logEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LogEntry" inverseName="contact" inverseEntity="LogEntry"/>
+        <relationship name="memberOf" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="peopleMembers" inverseEntity="Group"/>
+        <relationship name="projects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="team" inverseEntity="Project"/>
+    </entity>
+    <entity name="ContactCategory" representedClassName=".ContactCategory" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="contacts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contact" inverseName="category" inverseEntity="Contact"/>
+    </entity>
+    <entity name="DefaultSort" representedClassName=".DefaultSort" syncable="YES">
+        <attribute name="forCompany" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="forPeople" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="Document" representedClassName=".Document" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="fileExtension" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="url" optional="YES" attributeType="String" defaultValueString=""/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="documents" inverseEntity="Project"/>
+    </entity>
+    <entity name="Goal" representedClassName=".Goal" syncable="YES">
+        <attribute name="goal" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="month" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="monthToDate" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="priorYear" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="Group" representedClassName=".Group" syncable="YES">
+        <attribute name="appId" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isDivider" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="companyMembers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Company" inverseName="memberOf" inverseEntity="Company"/>
+        <relationship name="peopleMembers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contact" inverseName="memberOf" inverseEntity="Contact"/>
+    </entity>
+    <entity name="Invoice" representedClassName=".Invoice" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="hasLogo" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="logo" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="market" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="name" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="phone" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="postalCode" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="primaryStreet" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="state" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="subStreet" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="tax" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="website" optional="YES" attributeType="String" defaultValueString=""/>
+    </entity>
+    <entity name="LogEntry" representedClassName=".LogEntry" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="logEntries" inverseEntity="Company"/>
+        <relationship name="contact" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Contact" inverseName="logEntries" inverseEntity="Contact"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="logEntries" inverseEntity="Project"/>
+    </entity>
+    <entity name="MarketArea" representedClassName=".MarketArea" syncable="YES">
+        <attribute name="area" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="companies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Company" inverseName="market" inverseEntity="Company"/>
+    </entity>
+    <entity name="Photo" representedClassName=".Photo" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="photo" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="photos" inverseEntity="Project"/>
+    </entity>
+    <entity name="Product" representedClassName=".Product" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="productDescription" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="productID" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="quantity" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="unitPrice" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductCategory" inverseName="products" inverseEntity="ProductCategory"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="products" inverseEntity="Project"/>
+    </entity>
+    <entity name="ProductCategory" representedClassName=".ProductCategory" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="funnelEntry" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="manualEntry" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="priorYear" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="category" inverseEntity="Product"/>
+    </entity>
+    <entity name="Project" representedClassName=".Project" syncable="YES">
+        <attribute name="appId" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="completionDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="market" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="name" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="postalCode" optional="YES" attributeType="String"/>
+        <attribute name="primaryStreet" optional="YES" attributeType="String"/>
+        <attribute name="stage" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="start" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="state" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="subStreet" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Activity" inverseName="projects" inverseEntity="Activity"/>
+        <relationship name="companies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Company" inverseName="projects" inverseEntity="Company"/>
+        <relationship name="documents" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Document" inverseName="project" inverseEntity="Document"/>
+        <relationship name="logEntries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LogEntry" inverseName="project" inverseEntity="LogEntry"/>
+        <relationship name="photos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="project" inverseEntity="Photo"/>
+        <relationship name="products" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="project" inverseEntity="Product"/>
+        <relationship name="team" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contact" inverseName="projects" inverseEntity="Contact"/>
+    </entity>
+    <entity name="Report" representedClassName=".Report" syncable="YES">
+        <attribute name="funnelEntries" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isManual" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="reportType" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+</model>
