@@ -27,7 +27,7 @@ class InvoiceView: ParentView {
     @IBOutlet weak var taxTextField: UITextField!
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var logoButton: RoundedBorderedButton!
-    
+  
     // MARK: - PROPERTIES
     var theInvoice: Invoice?
     var toolbar = Toolbar()
@@ -65,8 +65,7 @@ class InvoiceView: ParentView {
         theContentHeightConstraint = contentHeightConstraint
        
         logoImagePicker.delegate = self
-        logoImageView.roundAllCorners(value: 3)
-        
+              
         statePicker.delegate = self
         statePicker.dataSource = self
         stateTextField.inputView = statePicker
@@ -121,11 +120,13 @@ class InvoiceView: ParentView {
        
         if theInvoice!.hasLogo {
             
-            logoButton.isHidden = true
+            showButton(false)
             
             let logoData = Data(base64Encoded: theInvoice!.logo!)
             logoImageView.image = UIImage(data: logoData!)
-        }
+            
+        } else { showButton(true) }
+            
         
         nameTextField.text = theInvoice!.name!
         primaryStreetTextField.text = theInvoice!.primaryStreet!
@@ -160,6 +161,22 @@ class InvoiceView: ParentView {
         let textFields = [nameTextField,primaryStreetTextField,subStreetTextField,cityTextField,stateTextField,postalCodeTextField,phoneTextField,marketTextField,websiteTextField,taxTextField]
         for field in textFields { field!.delegate = self }
     }
+    
+    func showButton(_ state: Bool) {
+        
+        if state {
+           
+            logoImageView.image = nil
+            
+            logoButton.setBorder(width: 1.0, color: ThemeColors.darkGray.cgcolor)
+            logoButton.setTitle("Tap To Add Logo", for: .normal)
+            
+        } else {
+            
+            logoButton.setBorder(width: 0.0)
+            logoButton.setTitle("", for: .normal)
+        }
+    }
 
     // MARK: - ACTION HANDLERS
     @IBAction func primaryActionTriggered(_ sender: Any) { dismissKeyboard() }
@@ -168,19 +185,20 @@ class InvoiceView: ParentView {
         
         if theInvoice!.hasLogo {
             
-            AlertManager(controller: GlobalData.shared.activeController!).popupWithCustomButtons(aTitle: "Logo Update", buttonTitles: ["Change Logo","Delete Logo","Cancel"], theStyle: [.default, .destructive, .cancel], theType: .actionSheet) { (choice) in
+            AlertManager(controller: GlobalData.shared.menuController!).popupWithCustomButtons(aTitle: "Logo Update", buttonTitles: ["Change Logo","Delete Logo","Cancel"], theStyle: [.default, .destructive, .cancel], theType: .actionSheet) { (choice) in
                 
                 switch choice {
                     
                     case 0:
                     
-                    GlobalData.shared.menuController!.present(self.logoImagePicker, animated: true, completion: nil)
+                        GlobalData.shared.menuController!.present(self.logoImagePicker, animated: true, completion: nil)
                     
                     case 1:
                     
                         self.theInvoice!.hasLogo = false
                         self.theInvoice!.logo = ""
-                        self.logoButton.isHidden = false
+                
+                        self.showButton(true)
                   
                     default: break
                 }
@@ -190,7 +208,6 @@ class InvoiceView: ParentView {
         else {
             
             GlobalData.shared.menuController!.present(logoImagePicker, animated: true, completion: nil) }
-        
     }
     
     @IBAction func onSave(_ sender: Any) {
@@ -293,7 +310,7 @@ extension InvoiceView: UIImagePickerControllerDelegate, UINavigationControllerDe
             self.theInvoice!.hasLogo = true
             
             self.logoImageView.image = selectedImage!
-            self.logoButton.isHidden = true
+            self.showButton(false)
         })
     }
 }

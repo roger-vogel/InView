@@ -11,17 +11,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ReportsFunnelByStartView.setupView():ReportsFunnelByStartView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "project.start">
-            </PersistentString>
-            <PersistentString
-               value = "within[FunnelElements.within90]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in CoreDataManager.loadCoreData():CoreDataManager.swift">
          <PersistentStrings>
             <PersistentString
@@ -29,6 +18,17 @@
             </PersistentString>
             <PersistentString
                value = "invoiceInfo!.[0].hasLogo">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ReportsFunnelByStartView.setupView():ReportsFunnelByStartView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "project.start">
+            </PersistentString>
+            <PersistentString
+               value = "within[FunnelElements.within90]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -44,15 +44,10 @@
          contextName = "InvoiceView.setupView():InvoiceView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
+               value = "logoImageView.image!.size.width">
             </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ProjectListView.tableView(_:cellForRowAt:):ProjectListView.swift">
-         <PersistentStrings>
             <PersistentString
-               value = "project.name1">
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -61,6 +56,14 @@
          <PersistentStrings>
             <PersistentString
                value = "invoicePDFData">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProjectListView.tableView(_:cellForRowAt:):ProjectListView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "project.name1">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -87,21 +90,24 @@
                value = "invoiceInfo.logo">
             </PersistentString>
             <PersistentString
-               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!">
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
             </PersistentString>
             <PersistentString
                value = "hasLogo!">
             </PersistentString>
             <PersistentString
-               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProjectProductDetailsView.onSave(_:):ProjectProductDetailsView.swift">
+         contextName = "CoreDataManager.initializeInvoiceInfo():CoreDataManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "theProject!.products!.count">
+               value = "invoiceInfo!.count">
+            </PersistentString>
+            <PersistentString
+               value = "info.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -114,13 +120,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CoreDataManager.initializeInvoiceInfo():CoreDataManager.swift">
+         contextName = "ProjectProductDetailsView.onSave(_:):ProjectProductDetailsView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "invoiceInfo!.count">
-            </PersistentString>
-            <PersistentString
-               value = "info.count">
+               value = "theProject!.products!.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

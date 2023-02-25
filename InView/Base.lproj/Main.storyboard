@@ -94,8 +94,8 @@
                                             <rect key="frame" x="143" y="17" width="128" height="84"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="BqA-OW-LZX" secondAttribute="height" multiplier="32:21" id="Gww-ty-ZBS"/>
                                                 <constraint firstAttribute="height" constant="84" id="KWm-Gf-DEI"/>
+                                                <constraint firstAttribute="width" secondItem="BqA-OW-LZX" secondAttribute="height" multiplier="32:21" id="Y4u-77-YBI"/>
                                             </constraints>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KQQ-Xc-vKx" customClass="RoundedBorderedButton" customModule="CustomControls">
@@ -106,7 +106,7 @@
                                                 <color key="titleColor" name="color.theme.aqua"/>
                                             </state>
                                             <connections>
-                                                <action selector="onLogo:" destination="MNh-XV-y01" eventType="touchUpInside" id="Imi-Re-Bae"/>
+                                                <action selector="onLogo:" destination="MNh-XV-y01" eventType="touchUpInside" id="AVN-2h-4Gu"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Company Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Qu-Iu-JDa">
@@ -17069,7 +17069,7 @@
         <image name="button.projects.square.large.map" width="103.66666412353516" height="102.33333587646484"/>
         <image name="button.projects.square.large.products" width="103.66666412353516" height="103.66666412353516"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
-        <image name="chevron.left" catalog="system" width="32" height="32"/>
+        <image name="chevron.left" catalog="system" width="97" height="128"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="circle" catalog="system" width="128" height="123"/>
         <image name="icon.delete" width="25.666666030883789" height="32"/>
