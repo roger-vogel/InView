@@ -220,7 +220,7 @@ class CompanyInvoiceView: ParentView {
     // MARK: - PROPERTIES
     var theCompany: Company?
     
-   // MARK: METHODS
+    // MARK: METHODS
     func setCompany(company: Company) {
         
         theCompany = company
