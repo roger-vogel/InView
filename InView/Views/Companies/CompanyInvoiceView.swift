@@ -9,6 +9,8 @@ import UIKit
 import WebKit
 import PDFKit
 import ColorManager
+import DateManager
+import Extensions
 
 class CompanyInvoiceView: ParentView {
     
@@ -16,34 +18,34 @@ class CompanyInvoiceView: ParentView {
     @IBOutlet weak var webView: WKWebView!
     
     // MARK: PROPERTIES
+    var yIndex = 0
     var invoiceInfo: Invoice?
     var textRect: CGRect?
     var attributes: [NSAttributedString.Key: NSObject]?
+    var infoOffset: CGFloat = 120
+    let addressFont = UIFont.systemFont(ofSize: 14, weight: .regular)
     
     // MARK: - COMPUTED PROPERTIES
     var invoicePDFData: Data {
         
         let format = UIGraphicsPDFRendererFormat()
         let metaData = [kCGPDFContextTitle: "Invoice", kCGPDFContextAuthor: "InView" ]
-        
-        invoiceInfo = parentController!.contactController.coreData!.invoices!.first!
-        
-        format.documentInfo = metaData as [String: Any]
-        
         let pageRect = CGRect(x: 0, y: 0, width: 612, height: 792)
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
         
+        invoiceInfo = parentController!.contactController.coreData!.invoices!.first!
+        format.documentInfo = metaData as [String: Any]
+        
         let data = renderer.pdfData { (context) in
             
-        // MARK: -Initialization
+        // MARK: - INITIALIZATION
             context.beginPage()
             
             let coreData = parentController!.contactController.coreData!
             let paragraphStyle = NSMutableParagraphStyle()
-        
             paragraphStyle.alignment = .left
             
-        // MARK: Logo Image
+        // MARK: LOGO IMAGE
             if !coreData.invoices!.isEmpty {
                 
                 let logoData = Data(base64Encoded: invoiceInfo!.logo!)!
@@ -53,27 +55,30 @@ class CompanyInvoiceView: ParentView {
                 logoImage!.draw(in: imageRect)
             }
             
-        // MARK: Company Name
-            attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium),NSAttributedString.Key.paragraphStyle: paragraphStyle,NSAttributedString.Key.foregroundColor: UIColor.label]
-            
+        // MARK: - COMPANY NAME
+            attributes = [
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium),
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.foregroundColor: UIColor.label
+            ]
+    
             textRect = CGRect(x: 80, y: 33, width: 200, height: 40) // x = left margin, y = top margin
             invoiceInfo!.name!.draw(in: textRect!, withAttributes: attributes)
             
-        // MARK: Invoice Title
-            attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium),NSAttributedString.Key.paragraphStyle: paragraphStyle,NSAttributedString.Key.foregroundColor: UIColor.label]
-            
+        // MARK: - INVOICE TITLE
             let title = "INVOICE"
             let length = title.widthofString(withFont: UIFont.systemFont(ofSize: 20, weight: .medium)) + 10
-          
             textRect = CGRect(x: 612-20-length, y: 35, width: length, height: 40)
             title.draw(in: textRect!, withAttributes: attributes)
             
-        // MARK: Company Address
-            attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .regular),NSAttributedString.Key.paragraphStyle: paragraphStyle,NSAttributedString.Key.foregroundColor: ThemeColors.darkGray.uicolor]
+        // MARK: - COMPANY ADDRESS
+            attributes = [
+                
+                NSAttributedString.Key.font: addressFont,
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.foregroundColor: UIColor.label
+            ]
             
-            var yIndex = 0
-            let addressFont = UIFont.systemFont(ofSize: 14, weight: .regular)
-           
             // Render each line
             for yAddress in 0...5 {
                 
@@ -91,9 +96,9 @@ class CompanyInvoiceView: ParentView {
                         
                     case 1:
                         
-                    
-                    invoiceInfo!.subStreet!.draw(in: textRect!, withAttributes: attributes)
                         if invoiceInfo!.subStreet! != "" {
+                            
+                            invoiceInfo!.subStreet!.draw(in: textRect!, withAttributes: attributes)
                             yIndex += 1
                         }
                         
@@ -106,14 +111,14 @@ class CompanyInvoiceView: ParentView {
                             if invoiceInfo!.state != "" {
                                 
                                 let theState = States.nameToAbbrev(name: invoiceInfo!.state!)
-                                var textOffset = invoiceInfo!.city!.widthofString(withFont: addressFont) + 20
+                                var textOffset = invoiceInfo!.city!.widthofString(withFont: addressFont) + 5
                                 
                                 textRect!.origin.x += textOffset
                                 theState.draw(in: textRect!, withAttributes: attributes)
                                 
                                 if invoiceInfo!.postalCode! != "" {
                                     
-                                    textOffset = theState.widthofString(withFont: addressFont) + 10
+                                    textOffset = theState.widthofString(withFont: addressFont) + 5
                                    
                                     textRect!.origin.x += textOffset
                                     invoiceInfo!.postalCode!.draw(in: textRect!, withAttributes: attributes)
@@ -151,13 +156,62 @@ class CompanyInvoiceView: ParentView {
                 }
             }
             
-        // MARK: - Date and Info
+        // MARK: - DATE AND INFO
+            // Render each line
             for yInfo in 0...4 {
+
+                switch yInfo {
+
+                    case 0:
+
+                        // Propeties
+                        let dateLength = "Date".widthofString(withFont: addressFont)
+                        let today = DateManager().dateString
+                    
+                        // Draw date title
+                        textRect = CGRect(x: 612-20-Int(dateLength + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                        "Date".draw(in: textRect!, withAttributes: attributes)
+                    
+                        // Draw date
+                    //    textRect!.origin.x += dateLength + 30
+                    //    textRect!.size.width = today.widthofString(withFont: addressFont) + 10
+                    //    today.draw(in: textRect!, withAttributes: attributes)
                 
+                    case 1:
+
+                        textRect = CGRect(x: 612-20-Int("Invoice #".widthofString(withFont: addressFont) + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                        "Invoice #".draw(in: textRect!, withAttributes: attributes)
                 
-                
-                
+                    case 2:
+
+                        textRect = CGRect(x: 612-20-Int("Due Date".widthofString(withFont: addressFont) + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                        "Due Date".draw(in: textRect!, withAttributes: attributes)
+                    
+                    case 3:
+
+                        textRect = CGRect(x: 612-20-Int("PO Reference".widthofString(withFont: addressFont) + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                        "PO Reference".draw(in: textRect!, withAttributes: attributes)
+              
+                    case 4:
+
+                        textRect = CGRect(x: 612-20-Int("Project ID / Name".widthofString(withFont: addressFont) + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                        "Project ID / Name".draw(in: textRect!, withAttributes: attributes)
+                       
+                    default: break
+                }
             }
+            
+        // MARK: - BILL TO
+            attributes = [
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .semibold),
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.backgroundColor: ColorManager(r: 2, g: 65, b: 140, a: 255).uicolor
+            ]
+            
+            let text = "  BILL TO".rightPadSpaces(count: 50)
+            textRect = CGRect(x: 20, y: 200, width: 300, height: 34)
+            text.draw(in: textRect!, withAttributes: attributes)
         }
         
         return data
@@ -213,10 +267,4 @@ class CompanyInvoiceView: ParentView {
      return nil
  }
  
- */
-
-
-
-/*
- NSAttributedString.Key.backgroundColor: ColorManager(r: 2, g: 65, b: 140, a: 255).uicolor
  */
