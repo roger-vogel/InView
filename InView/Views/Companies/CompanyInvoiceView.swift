@@ -35,6 +35,7 @@ class CompanyInvoiceView: ParentView {
         
         let data = renderer.pdfData { (context) in
             
+        // MARK: -Initialization
             context.beginPage()
             
             let coreData = parentController!.contactController.coreData!
@@ -42,7 +43,7 @@ class CompanyInvoiceView: ParentView {
         
             paragraphStyle.alignment = .left
             
-            // MARK: Logo Image
+        // MARK: Logo Image
             if !coreData.invoices!.isEmpty {
                 
                 let logoData = Data(base64Encoded: invoiceInfo!.logo!)!
@@ -52,29 +53,33 @@ class CompanyInvoiceView: ParentView {
                 logoImage!.draw(in: imageRect)
             }
             
-            // MARK: Company Name
-            textRect = CGRect(x: 80, y: 33, width: 200, height: 40) // x = left margin, y = top margin
+        // MARK: Company Name
             attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium),NSAttributedString.Key.paragraphStyle: paragraphStyle,NSAttributedString.Key.foregroundColor: UIColor.label]
+            
+            textRect = CGRect(x: 80, y: 33, width: 200, height: 40) // x = left margin, y = top margin
             invoiceInfo!.name!.draw(in: textRect!, withAttributes: attributes)
             
-            // MARK: Invoice Title
-            let title = "INVOICE"
+        // MARK: Invoice Title
             attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium),NSAttributedString.Key.paragraphStyle: paragraphStyle,NSAttributedString.Key.foregroundColor: UIColor.label]
+            
+            let title = "INVOICE"
             let length = title.widthofString(withFont: UIFont.systemFont(ofSize: 20, weight: .medium)) + 10
+          
             textRect = CGRect(x: 612-20-length, y: 35, width: length, height: 40)
             title.draw(in: textRect!, withAttributes: attributes)
             
-            // MARK: Company Address
+        // MARK: Company Address
             attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .regular),NSAttributedString.Key.paragraphStyle: paragraphStyle,NSAttributedString.Key.foregroundColor: ThemeColors.darkGray.uicolor]
             
             var yIndex = 0
             let addressFont = UIFont.systemFont(ofSize: 14, weight: .regular)
            
-            for originY in 0...5 {
+            // Render each line
+            for yAddress in 0...5 {
                 
                 textRect = CGRect(x: 22, y: 80 + (20 * yIndex), width: 300, height: 20)
                 
-                switch originY {
+                switch yAddress {
                     
                     case 0:
                         
@@ -144,6 +149,14 @@ class CompanyInvoiceView: ParentView {
                         
                     default: break
                 }
+            }
+            
+        // MARK: - Date and Info
+            for yInfo in 0...4 {
+                
+                
+                
+                
             }
         }
         
