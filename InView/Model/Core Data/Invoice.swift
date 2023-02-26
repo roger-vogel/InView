@@ -24,6 +24,7 @@ extension Invoice {
     @NSManaged public var name: String?
     @NSManaged public var phone: String?
     @NSManaged public var postalCode: String?
+    @NSManaged public var email: String?
     @NSManaged public var state: String?
     @NSManaged public var primaryStreet: String?
     @NSManaged public var subStreet: String?

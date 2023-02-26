@@ -21,6 +21,7 @@ class InvoiceView: ParentView {
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var postalCodeTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var marketTextField: UITextField!
     @IBOutlet weak var websiteTextField: UITextField!
@@ -134,6 +135,7 @@ class InvoiceView: ParentView {
         cityTextField.text = theInvoice!.city!
         stateTextField.text = theInvoice!.state!
         postalCodeTextField.text = theInvoice!.postalCode!
+        emailTextField.text = theInvoice!.email!
         phoneTextField.text = theInvoice!.phone!
         marketTextField.text = theInvoice!.market!
         websiteTextField.text = theInvoice!.website
@@ -158,7 +160,7 @@ class InvoiceView: ParentView {
     
     func setTextFieldDelegates() {
         
-        let textFields = [nameTextField,primaryStreetTextField,subStreetTextField,cityTextField,stateTextField,postalCodeTextField,phoneTextField,marketTextField,websiteTextField,taxTextField]
+        let textFields = [nameTextField,primaryStreetTextField,subStreetTextField,cityTextField,stateTextField,postalCodeTextField,emailTextField,phoneTextField,marketTextField,websiteTextField,taxTextField]
         for field in textFields { field!.delegate = self }
     }
     
@@ -220,6 +222,7 @@ class InvoiceView: ParentView {
         theInvoice!.city = cityTextField.text!
         theInvoice!.state = stateTextField.text!
         theInvoice!.postalCode = postalCodeTextField.text!
+        theInvoice!.email = emailTextField.text!
         theInvoice!.phone = phoneTextField.text!
         theInvoice!.market = marketTextField.text!
         theInvoice!.website = websiteTextField.text!

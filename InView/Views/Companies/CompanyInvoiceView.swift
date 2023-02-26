@@ -18,6 +18,7 @@ class CompanyInvoiceView: ParentView {
     // MARK: PROPERTIES
     var invoiceInfo: Invoice?
     var textRect: CGRect?
+    var attributes: [NSAttributedString.Key: NSObject]?
     
     // MARK: - COMPUTED PROPERTIES
     var invoicePDFData: Data {
@@ -41,7 +42,7 @@ class CompanyInvoiceView: ParentView {
         
             paragraphStyle.alignment = .left
             
-            // Logo Image
+            // MARK: Logo Image
             if !coreData.invoices!.isEmpty {
                 
                 let logoData = Data(base64Encoded: invoiceInfo!.logo!)!
@@ -51,24 +52,99 @@ class CompanyInvoiceView: ParentView {
                 logoImage!.draw(in: imageRect)
             }
             
-            // Company Name
-            let attributes = [
-                
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium),
-                NSAttributedString.Key.paragraphStyle: paragraphStyle,
-                NSAttributedString.Key.foregroundColor: UIColor.label
-            ]
+            // MARK: Company Name
+            textRect = CGRect(x: 80, y: 33, width: 200, height: 40) // x = left margin, y = top margin
+            attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium),NSAttributedString.Key.paragraphStyle: paragraphStyle,NSAttributedString.Key.foregroundColor: UIColor.label]
+            invoiceInfo!.name!.draw(in: textRect!, withAttributes: attributes)
             
-            let name = invoiceInfo!.name!
-            textRect = CGRect(x: 80, y: 35, width: 200, height: 40) // x = left margin, y = top margin
-            
-            name.draw(in: textRect!, withAttributes: attributes)
-            
-            // Invoice Title
+            // MARK: Invoice Title
             let title = "INVOICE"
+            attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium),NSAttributedString.Key.paragraphStyle: paragraphStyle,NSAttributedString.Key.foregroundColor: UIColor.label]
             let length = title.widthofString(withFont: UIFont.systemFont(ofSize: 20, weight: .medium)) + 10
             textRect = CGRect(x: 612-20-length, y: 35, width: length, height: 40)
             title.draw(in: textRect!, withAttributes: attributes)
+            
+            // MARK: Company Address
+            attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .regular),NSAttributedString.Key.paragraphStyle: paragraphStyle,NSAttributedString.Key.foregroundColor: ThemeColors.darkGray.uicolor]
+            
+            var yIndex = 0
+            let addressFont = UIFont.systemFont(ofSize: 14, weight: .regular)
+           
+            for originY in 0...5 {
+                
+                textRect = CGRect(x: 22, y: 80 + (20 * yIndex), width: 300, height: 20)
+                
+                switch originY {
+                    
+                    case 0:
+                        
+                        if invoiceInfo!.primaryStreet! != "" {
+                            
+                            invoiceInfo!.primaryStreet!.draw(in: textRect!, withAttributes: attributes)
+                            yIndex += 1
+                        }
+                        
+                    case 1:
+                        
+                    
+                    invoiceInfo!.subStreet!.draw(in: textRect!, withAttributes: attributes)
+                        if invoiceInfo!.subStreet! != "" {
+                            yIndex += 1
+                        }
+                        
+                    case 2:
+                        
+                        if invoiceInfo!.city! != "" {
+                            
+                            invoiceInfo!.city!.draw(in: textRect!, withAttributes: attributes)
+                            
+                            if invoiceInfo!.state != "" {
+                                
+                                let theState = States.nameToAbbrev(name: invoiceInfo!.state!)
+                                var textOffset = invoiceInfo!.city!.widthofString(withFont: addressFont) + 20
+                                
+                                textRect!.origin.x += textOffset
+                                theState.draw(in: textRect!, withAttributes: attributes)
+                                
+                                if invoiceInfo!.postalCode! != "" {
+                                    
+                                    textOffset = theState.widthofString(withFont: addressFont) + 10
+                                   
+                                    textRect!.origin.x += textOffset
+                                    invoiceInfo!.postalCode!.draw(in: textRect!, withAttributes: attributes)
+                                }
+                            }
+                                
+                            yIndex += 1
+                        }
+                        
+                    case 3:
+                    
+                        if invoiceInfo!.phone! != "" {
+                            
+                            invoiceInfo!.phone!.formattedPhone.draw(in: textRect!, withAttributes: attributes)
+                            yIndex += 1
+                        }
+              
+                    case 4:
+                    
+                        if invoiceInfo!.email! != "" {
+                            
+                            invoiceInfo!.email!.draw(in: textRect!, withAttributes: attributes)
+                            yIndex += 1
+                        }
+                    
+                    case 5:
+                    
+                        if invoiceInfo!.website! != "" {
+                            
+                            invoiceInfo!.website!.draw(in: textRect!, withAttributes: attributes)
+                            yIndex += 1
+                        }
+                        
+                    default: break
+                }
+            }
         }
         
         return data

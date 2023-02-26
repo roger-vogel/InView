@@ -120,6 +120,7 @@
     </entity>
     <entity name="Invoice" representedClassName=".Invoice" syncable="YES">
         <attribute name="city" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="email" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="hasLogo" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="logo" optional="YES" attributeType="String" defaultValueString=""/>
