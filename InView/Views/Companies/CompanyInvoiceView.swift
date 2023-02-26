@@ -15,11 +15,17 @@ class CompanyInvoiceView: ParentView {
     // MARK: - STORY BOARD OUTLETS
     @IBOutlet weak var webView: WKWebView!
     
+    // MARK: PROPERTIES
+    var invoiceInfo: Invoice?
+    var textRect: CGRect?
+    
     // MARK: - COMPUTED PROPERTIES
     var invoicePDFData: Data {
         
         let format = UIGraphicsPDFRendererFormat()
         let metaData = [kCGPDFContextTitle: "Invoice", kCGPDFContextAuthor: "InView" ]
+        
+        invoiceInfo = parentController!.contactController.coreData!.invoices!.first!
         
         format.documentInfo = metaData as [String: Any]
         
@@ -33,31 +39,36 @@ class CompanyInvoiceView: ParentView {
             let coreData = parentController!.contactController.coreData!
             let paragraphStyle = NSMutableParagraphStyle()
         
-            paragraphStyle.alignment = .center
+            paragraphStyle.alignment = .left
             
+            // Logo Image
             if !coreData.invoices!.isEmpty {
                 
-                let invoiceInfo = coreData.invoices!.first!
-                let logoData = Data(base64Encoded: invoiceInfo.logo!)!
+                let logoData = Data(base64Encoded: invoiceInfo!.logo!)!
                 let logoImage = UIImage(data: logoData)
-                let imageRect = CGRect(x: 20, y: 20,width: 50,height: 50)
+                let imageRect = CGRect(x: 20, y: 20, width: 50, height: 50)
               
                 logoImage!.draw(in: imageRect)
             }
             
+            // Company Name
             let attributes = [
                 
-                NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14),
+                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium),
                 NSAttributedString.Key.paragraphStyle: paragraphStyle,
-                NSAttributedString.Key.foregroundColor: UIColor.white,
-                NSAttributedString.Key.backgroundColor: ColorManager(r: 2, g: 65, b: 140, a: 255).uicolor
+                NSAttributedString.Key.foregroundColor: UIColor.label
             ]
             
-            let text = "Company Name"
-            let textRect = CGRect(x: 70, y: 20, width: 200, height: 20) // x = left margin, y = top margin
+            let name = invoiceInfo!.name!
+            textRect = CGRect(x: 80, y: 35, width: 200, height: 40) // x = left margin, y = top margin
             
-            text.draw(in: textRect, withAttributes: attributes)
+            name.draw(in: textRect!, withAttributes: attributes)
             
+            // Invoice Title
+            let title = "INVOICE"
+            let length = title.widthofString(withFont: UIFont.systemFont(ofSize: 20, weight: .medium)) + 10
+            textRect = CGRect(x: 612-20-length, y: 35, width: length, height: 40)
+            title.draw(in: textRect!, withAttributes: attributes)
         }
         
         return data
@@ -113,4 +124,10 @@ class CompanyInvoiceView: ParentView {
      return nil
  }
  
+ */
+
+
+
+/*
+ NSAttributedString.Key.backgroundColor: ColorManager(r: 2, g: 65, b: 140, a: 255).uicolor
  */

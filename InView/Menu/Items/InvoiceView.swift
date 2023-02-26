@@ -306,7 +306,7 @@ extension InvoiceView: UIImagePickerControllerDelegate, UINavigationControllerDe
             
             guard selectedImage != nil else { return }
         
-            self.theInvoice!.logo = selectedImage!.jpegData(compressionQuality: 1.0)!.base64EncodedString()
+            self.theInvoice!.logo = selectedImage!.pngData()!.base64EncodedString()
             self.theInvoice!.hasLogo = true
             
             self.logoImageView.image = selectedImage!
