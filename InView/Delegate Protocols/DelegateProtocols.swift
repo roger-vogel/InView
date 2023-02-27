@@ -126,6 +126,13 @@ protocol ReportsByProductListCellDelegate: AnyObject {
     func textFieldDidChange(info: UIButton, category: ProductCategory, value: Int32, indexPath: IndexPath)
 }
 
+// MARK: - PRODUCT INVOICE DELEGATE
+protocol ProjectProductCellDelegate: AnyObject {
+    
+    func invoiceProductWasSelected(indexPath: IndexPath)
+    func invoiceProductWasDeselected(indexPath: IndexPath)
+}
+
 // MARK: - DEFAULTS FOR OPTIONAL METHODS
 extension ActivitySelectionViewDelegate {
     

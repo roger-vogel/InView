@@ -205,16 +205,16 @@ class ProjectDetailsView: ParentView {
             isSaved = true
             
             projectNameTextField.text = theProject!.name!
-            primaryStreetTextField.text = theProject!.primaryStreet!
-            subStreetTextField.text = theProject!.subStreet!
-            cityTextField.text = theProject!.city
-            stateTextField.text = theProject!.state
-            postalCodeTextField.text = theProject!.postalCode
+            primaryStreetTextField.text = theProject!.primaryStreet == nil ? "" : theProject!.primaryStreet!
+            subStreetTextField.text = theProject!.subStreet == nil ? "" : theProject!.subStreet!
+            cityTextField.text = theProject!.city == nil ? "" : theProject!.city
+            stateTextField.text = theProject!.state == nil ? "" : theProject!.state
+            postalCodeTextField.text = theProject!.postalCode == nil ? "" : theProject!.postalCode
        
-            marketTextField.text = theProject!.market!
-            statusTextField.text = theProject!.status!
+            marketTextField.text = theProject!.market == nil ? "" : theProject!.market!
+            statusTextField.text = theProject!.status == nil ? "" : theProject!.status!
+            stageTextField.text = theProject!.stage == nil ? "" : theProject!.stage!
             startTextField.text = startAsString
-            stageTextField.text = theProject!.stage!
             
             setEditMode(false)
         }

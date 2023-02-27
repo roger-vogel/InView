@@ -29,7 +29,7 @@ class ProjectCompanyView: ParentView {
         companiesTableView.delegate = self
         companiesTableView.dataSource = self
         
-        companiesTableView.isEditing = true
+        companiesTableView.isEditing = false
         companiesTableView.allowsSelectionDuringEditing = true
         companiesTableView.sectionHeaderTopPadding = 10
         companiesTableView.sectionIndexMinimumDisplayRowCount = 15
@@ -78,7 +78,6 @@ class ProjectCompanyView: ParentView {
         recordCountLabel.text = String(format: "%d " + description, theProject!.companies!.count )
     }
    
-    
     // MARK: - ACTION HANDLERS
     @IBAction func onPlusMinus(_ sender: Any) {
         

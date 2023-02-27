@@ -31,7 +31,14 @@ class ProjectCompanySelectionView: ParentSelectionView {
         
         guard !theSelectedCompanies!.contains(company) else { return }
         
+        // Only one company can be selected
+        if theSelectedCompanies!.first != nil {
+            theProject!.removeFromCompanies(theSelectedCompanies!.first!)
+        }
+        
+        theSelectedCompanies!.removeAll()
         theSelectedCompanies!.append(company)
+        
         theProject!.addToCompanies(company)
         
         setRecordCount()

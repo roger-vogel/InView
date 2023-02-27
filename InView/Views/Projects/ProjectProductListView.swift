@@ -12,8 +12,8 @@ class ProjectProductListView: ParentView {
 
     // MARK: - STORYBOARD CONNECTORS
     @IBOutlet weak var productTableView: UITableView!
-    @IBOutlet weak var projectNameLabel: UILabel!
     @IBOutlet weak var totalValueLabel: UILabel!
+    @IBOutlet weak var totalInvoiceLabel: UILabel!
     
     // MARK: - PROPERTIES
     var theProducts = [Product]()
@@ -26,6 +26,20 @@ class ProjectProductListView: ParentView {
         
         for product in theProducts { totalCost += (product.unitPrice * Double(product.quantity)) }
 
+        return totalCost
+    }
+    
+    var totalInvoiceCost: Double {
+        
+        var totalCost: Double = 0
+        
+        for product in theProducts {
+            
+            if product.invoiced == Invoiced.pending {
+                
+                totalCost += (product.unitPrice * Double(product.quantity)) }
+            }
+        
         return totalCost
     }
     
@@ -61,6 +75,7 @@ class ProjectProductListView: ParentView {
         
         formatter.setup()
         totalValueLabel.text = "$" + formatter.string(from: NSNumber(value: totalProductCost))!
+        totalInvoiceLabel.text = "$" + formatter.string(from: NSNumber(value: totalInvoiceCost))!
     }
     
     // MARK: - ACTION HANDLERS
@@ -108,7 +123,9 @@ extension ProjectProductListView: UITableViewDelegate, UITableViewDataSource {
         
         var theProduct: Product?
         let cell = tableView.dequeueReusableCell(withIdentifier: "productListStyle", for: indexPath) as! ProjectProductListCell
-       
+        
+        cell.delegate = self
+        cell.myIndexPath = indexPath
         theProduct = theProducts[indexPath.row]
        
         if theProduct!.category == nil {
@@ -118,6 +135,26 @@ extension ProjectProductListView: UITableViewDelegate, UITableViewDataSource {
         } else {
             
             cell.setFields(category: theProduct!.category!.category!, id: theProduct!.productID!, description: theProduct!.productDescription!, qty: theProduct!.quantity, price: theProduct!.unitPrice)
+        }
+        
+        switch theProduct!.invoiced {
+            
+            case Invoiced.no:
+                
+                cell.invoiceCheckbox.setState(false)
+                cell.invoiceCheckbox.isEnabled = true
+                
+            case Invoiced.pending:
+                
+                cell.invoiceCheckbox.setState(true)
+                cell.invoiceCheckbox.isEnabled = true
+                
+            case Invoiced.complete:
+                
+                cell.invoiceCheckbox.setState(true)
+                cell.invoiceCheckbox.isEnabled = false
+            
+            default: break
         }
         
         cell.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
@@ -175,5 +212,24 @@ extension ProjectProductListView: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
+    }
+}
+
+extension ProjectProductListView: ProjectProductCellDelegate {
+    
+    func invoiceProductWasSelected(indexPath: IndexPath) {
+        
+        theProducts[indexPath.row].invoiced = Invoiced.pending
+        reloadProductList()
+        
+        GlobalData.shared.saveCoreData()
+    }
+    
+    func invoiceProductWasDeselected(indexPath: IndexPath) {
+        
+        theProducts[indexPath.row].invoiced = Invoiced.no
+        reloadProductList()
+        
+        GlobalData.shared.saveCoreData()
     }
 }

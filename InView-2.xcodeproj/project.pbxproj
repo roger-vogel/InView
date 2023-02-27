@@ -136,6 +136,7 @@
 		DB0F1FE4299D86EA00ED0CCF /* ProductCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1FDB299D86EA00ED0CCF /* ProductCategoryView.swift */; };
 		DB0F1FE5299D86EA00ED0CCF /* CompanyCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1FDC299D86EA00ED0CCF /* CompanyCategoryView.swift */; };
 		DB484C4329A349CF00DB29FA /* CompanyInvoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB484C4229A349CF00DB29FA /* CompanyInvoiceView.swift */; };
+		DB5DCF3B29AC84BF00441DB5 /* Invoiced.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5DCF3A29AC84BF00441DB5 /* Invoiced.swift */; };
 		DB752FA7299EE09F00D8505F /* button.15.selected.png in Resources */ = {isa = PBXBuildFile; fileRef = DB752F69299EE09C00D8505F /* button.15.selected.png */; };
 		DB752FA8299EE09F00D8505F /* button.23.selected.png in Resources */ = {isa = PBXBuildFile; fileRef = DB752F6A299EE09C00D8505F /* button.23.selected.png */; };
 		DB752FA9299EE09F00D8505F /* button.14.selected.png in Resources */ = {isa = PBXBuildFile; fileRef = DB752F6B299EE09C00D8505F /* button.14.selected.png */; };
@@ -368,6 +369,7 @@
 		DB0F1FDB299D86EA00ED0CCF /* ProductCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCategoryView.swift; sourceTree = "<group>"; };
 		DB0F1FDC299D86EA00ED0CCF /* CompanyCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyCategoryView.swift; sourceTree = "<group>"; };
 		DB484C4229A349CF00DB29FA /* CompanyInvoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyInvoiceView.swift; sourceTree = "<group>"; };
+		DB5DCF3A29AC84BF00441DB5 /* Invoiced.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoiced.swift; sourceTree = "<group>"; };
 		DB752F69299EE09C00D8505F /* button.15.selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button.15.selected.png; path = ../../../Buttons/button.15.selected.png; sourceTree = "<group>"; };
 		DB752F6A299EE09C00D8505F /* button.23.selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button.23.selected.png; path = ../../../Buttons/button.23.selected.png; sourceTree = "<group>"; };
 		DB752F6B299EE09C00D8505F /* button.14.selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button.14.selected.png; path = ../../../Buttons/button.14.selected.png; sourceTree = "<group>"; };
@@ -723,6 +725,7 @@
 				DB0F1F2A299D857B00ED0CCF /* Tabs.swift */,
 				DB0F1F27299D857B00ED0CCF /* ThemeColors.swift */,
 				DB752FE5299F4C8000D8505F /* FunnelElements.swift */,
+				DB5DCF3A29AC84BF00441DB5 /* Invoiced.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1170,6 +1173,7 @@
 				DB0F1FB5299D865400ED0CCF /* ProjectLogListView.swift in Sources */,
 				DB0F1ED9299D84CB00ED0CCF /* PhotoCollectionCell.swift in Sources */,
 				DBD1E481299DAD5900C3D8C6 /* ReportsByProductView.swift in Sources */,
+				DB5DCF3B29AC84BF00441DB5 /* Invoiced.swift in Sources */,
 				DB0F1F85299D862900ED0CCF /* EmployeeSelectionView.swift in Sources */,
 				DB0F1F60299D85B900ED0CCF /* Product.swift in Sources */,
 				DB0F1FB7299D865400ED0CCF /* ProjectPhotoView.swift in Sources */,

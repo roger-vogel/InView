@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import ToggleGroup
 
 class ProjectProductListCell: UITableViewCell {
     
@@ -17,6 +18,21 @@ class ProjectProductListCell: UITableViewCell {
     @IBOutlet weak var quantityTextField: UITextField!
     @IBOutlet weak var unitPriceTextField: UITextField!
     @IBOutlet weak var totalPriceTextField: UITextField!
+    @IBOutlet weak var invoiceCheckbox: ToggleButton!
+    
+    // MARK: - PROPERTIES
+    var myIndexPath: IndexPath?
+    var theProduct: Product?
+    var delegate: ProjectProductCellDelegate?
+    
+    // MARK: - INITIALIZATION
+    override func awakeFromNib() {
+        
+        super.awakeFromNib()
+        
+        invoiceCheckbox.initToggle(selectedImage: UIImage(systemName: "checkmark.circle.fill")!, unselectedImage: UIImage(systemName: "circle")!)
+        invoiceCheckbox.setState(false)
+    }
     
     // MARK: - METHODS
     func setFields(category: String, id: String, description: String, qty: Int32, price: Double) {
@@ -34,5 +50,16 @@ class ProjectProductListCell: UITableViewCell {
         formatter.revertToDefault()
         unitPriceTextField.text = "$" + formatter.string(from: NSNumber(value: price))!
         totalPriceTextField.text = "$" + formatter.string(from: NSNumber(value: totalPrice))!
+        
+        
+    }
+    
+    // MARK: - ACTION HANDLERS
+    @IBAction func onInvoice(_ sender: Any) {
+        
+        invoiceCheckbox.toggle()
+        
+        if invoiceCheckbox.isOn { delegate!.invoiceProductWasSelected(indexPath: myIndexPath!)  }
+        else {delegate!.invoiceProductWasDeselected(indexPath: myIndexPath!) }
     }
 }
