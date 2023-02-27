@@ -526,7 +526,6 @@
 			children = (
 				DB0F1F19299D854D00ED0CCF /* AppDelegate.swift */,
 				DB0F1F1B299D854D00ED0CCF /* SceneDelegate.swift */,
-				DB0F1F1A299D854D00ED0CCF /* LaunchManager.swift */,
 			);
 			path = Launch;
 			sourceTree = "<group>";
@@ -940,6 +939,7 @@
 			children = (
 				DB0F1F18299D854D00ED0CCF /* GlobalData.swift */,
 				DBAB806829ACB1B300448387 /* InvoiceManager.swift */,
+				DB0F1F1A299D854D00ED0CCF /* LaunchManager.swift */,
 			);
 			path = Singletons;
 			sourceTree = "<group>";
