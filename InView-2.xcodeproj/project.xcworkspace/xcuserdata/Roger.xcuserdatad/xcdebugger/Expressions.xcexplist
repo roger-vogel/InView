@@ -57,6 +57,9 @@
             <PersistentString
                value = "invoicePDFData">
             </PersistentString>
+            <PersistentString
+               value = "productInvoicingPending.first!.unitPrice">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -90,13 +93,13 @@
                value = "invoiceInfo.logo">
             </PersistentString>
             <PersistentString
-               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!">
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
             </PersistentString>
             <PersistentString
                value = "hasLogo!">
             </PersistentString>
             <PersistentString
-               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

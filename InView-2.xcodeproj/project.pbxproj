@@ -208,6 +208,7 @@
 		DB99CC49299D931F00D5DE4A /* KeychainManager in Frameworks */ = {isa = PBXBuildFile; productRef = DB99CC48299D931F00D5DE4A /* KeychainManager */; };
 		DB99CC4C299D934000D5DE4A /* CustomControls in Frameworks */ = {isa = PBXBuildFile; productRef = DB99CC4B299D934000D5DE4A /* CustomControls */; };
 		DB99CC4F299D936200D5DE4A /* ToggleGroup in Frameworks */ = {isa = PBXBuildFile; productRef = DB99CC4E299D936200D5DE4A /* ToggleGroup */; };
+		DBAB806929ACB1B300448387 /* InvoiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB806829ACB1B300448387 /* InvoiceManager.swift */; };
 		DBC6991229A9EFEF00A931B6 /* Invoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC6991029A9EFEF00A931B6 /* Invoice.swift */; };
 		DBD1E461299DA21E00C3D8C6 /* ParentLogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E458299DA21D00C3D8C6 /* ParentLogListView.swift */; };
 		DBD1E462299DA21E00C3D8C6 /* ParentActivityDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E459299DA21D00C3D8C6 /* ParentActivityDetailsView.swift */; };
@@ -434,6 +435,7 @@
 		DB752FA6299EE09F00D8505F /* button.2.selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = button.2.selected.png; path = ../../../Buttons/button.2.selected.png; sourceTree = "<group>"; };
 		DB752FE5299F4C8000D8505F /* FunnelElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunnelElements.swift; sourceTree = "<group>"; };
 		DB783629299DBC6600F3C028 /* ReportsFunnelProjectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportsFunnelProjectView.swift; sourceTree = "<group>"; };
+		DBAB806829ACB1B300448387 /* InvoiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceManager.swift; sourceTree = "<group>"; };
 		DBC6991029A9EFEF00A931B6 /* Invoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoice.swift; sourceTree = "<group>"; };
 		DBD1E458299DA21D00C3D8C6 /* ParentLogListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentLogListView.swift; sourceTree = "<group>"; };
 		DBD1E459299DA21D00C3D8C6 /* ParentActivityDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentActivityDetailsView.swift; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				DB0F1E11299D7B1B00ED0CCF /* Launch */,
+				DBAB806729ACB18200448387 /* Singletons */,
 				DB0F1EBC299D829F00ED0CCF /* Parent Classes */,
 				DB0F1E13299D7B2F00ED0CCF /* Tab Controllers */,
 				DB0F1E12299D7B2600ED0CCF /* Custom Controls */,
@@ -523,7 +526,6 @@
 			children = (
 				DB0F1F19299D854D00ED0CCF /* AppDelegate.swift */,
 				DB0F1F1B299D854D00ED0CCF /* SceneDelegate.swift */,
-				DB0F1F18299D854D00ED0CCF /* GlobalData.swift */,
 				DB0F1F1A299D854D00ED0CCF /* LaunchManager.swift */,
 			);
 			path = Launch;
@@ -933,6 +935,15 @@
 			path = Calendar;
 			sourceTree = "<group>";
 		};
+		DBAB806729ACB18200448387 /* Singletons */ = {
+			isa = PBXGroup;
+			children = (
+				DB0F1F18299D854D00ED0CCF /* GlobalData.swift */,
+				DBAB806829ACB1B300448387 /* InvoiceManager.swift */,
+			);
+			path = Singletons;
+			sourceTree = "<group>";
+		};
 		DBD1E48A299DB2F600C3D8C6 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -1179,6 +1190,7 @@
 				DB0F1FB7299D865400ED0CCF /* ProjectPhotoView.swift in Sources */,
 				DBD1E46D299DA4B500C3D8C6 /* ReportsMenuView.swift in Sources */,
 				DB0F1FB4299D865400ED0CCF /* ProjectTeamSelectionView.swift in Sources */,
+				DBAB806929ACB1B300448387 /* InvoiceManager.swift in Sources */,
 				DB0F1F3D299D859C00ED0CCF /* CompanySectionTitle.swift in Sources */,
 				DBD1E475299DA6C100C3D8C6 /* SettingsByEntityListCell.swift in Sources */,
 				DBD1E47B299DACBA00C3D8C6 /* ReportsTotalSalesListCell.swift in Sources */,

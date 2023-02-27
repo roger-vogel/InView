@@ -2372,7 +2372,7 @@
                                 </textField>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qHc-lS-GZD">
                                     <rect key="frame" x="69.666666666666686" y="314" width="275" height="25"/>
-                                    <color key="backgroundColor" name="color.theme.teal"/>
+                                    <color key="backgroundColor" name="color.theme.aqua"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="25" id="l6K-27-KO2"/>
                                     </constraints>

@@ -156,8 +156,7 @@ class CompanyDetailsView: ParentView {
            categoryLabel.text = theCompany!.category!.category == "" ? "No Category Selected" : "Category: " + theCompany!.category!.category!
             
         } else { categoryLabel.text = "Category: None Selected" }
-            
-       
+        
         reloadEmployeeTable()
         setActionButtonState()
    
@@ -227,6 +226,17 @@ class CompanyDetailsView: ParentView {
             
             mapButton.alpha = 1.0
             mapButton.isEnabled = true
+        }
+        
+        if InvoiceManager.shared.createInvoiceItems(company: theCompany!).isEmpty {
+            
+            createInvoiceButton.isEnabled = false
+            createInvoiceButton.alpha = 0.50
+            
+        } else {
+            
+            createInvoiceButton.isEnabled = true
+            createInvoiceButton.alpha = 1.0
         }
     }
     

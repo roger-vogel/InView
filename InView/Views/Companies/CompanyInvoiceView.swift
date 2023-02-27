@@ -26,6 +26,7 @@ class CompanyInvoiceView: ParentView {
     var infoOffset: CGFloat = 120
     let addressFont = UIFont.systemFont(ofSize: 14, weight: .regular)
     let paragraphStyle = NSMutableParagraphStyle()
+    var productPendingInvoice: [Product]?
     
     // MARK: - COMPUTED PROPERTIES
     var invoicePDFData: Data {
@@ -80,10 +81,14 @@ class CompanyInvoiceView: ParentView {
     // MARK: - PROPERTIES
     var theCompany: Company?
     
+    // MARK: - INITIALIZATON
+    
     // MARK: METHODS
     func setCompany(company: Company) {
         
         theCompany = company
+     
+        productPendingInvoice = InvoiceManager.shared.createInvoiceItems(company: theCompany!)
         displayInvoice()
     }
   
@@ -505,11 +510,6 @@ extension CompanyInvoiceView {
         return Int(theTextRect.origin.x)
     }
 }
-
-
-
-
-
 
 /*
  // Save the file to disk and return the resulting url

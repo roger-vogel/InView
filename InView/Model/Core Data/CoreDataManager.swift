@@ -284,6 +284,14 @@ class CoreDataManager {
         return theActivities
     }
     
+    func setToArray(products: NSSet) -> [Product] {
+        
+        var theProducts = [Product]()
+        
+        for product in products { theProducts.append(product as! Product) }
+        return theProducts
+    }
+    
     // MARK: - CATEGORIES/MARKETS TO ARRAY
     func contactCategoriesAsArray() -> [String] {
         
