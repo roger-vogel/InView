@@ -33,6 +33,12 @@
         <attribute name="primaryStreet" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="priorYear" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="quickNotes" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="shipToCity" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="shipToPhone" optional="YES" attributeType="String"/>
+        <attribute name="shipToPostalCode" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="shipToPrimaryStreet" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="shipToState" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="shipToSubStreet" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="state" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="subStreet" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>

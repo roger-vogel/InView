@@ -33,6 +33,12 @@ extension Company {
     @NSManaged public var subStreet: String?
     @NSManaged public var timestamp: Date?
     @NSManaged public var website: String?
+    @NSManaged public var shipToPrimaryStreet: String?
+    @NSManaged public var shipToSubStreet: String?
+    @NSManaged public var shipToCity: String?
+    @NSManaged public var shipToState: String?
+    @NSManaged public var shipToPostalCode: String?
+    @NSManaged public var shipToPhone: String?
     @NSManaged public var category: CompanyCategory?
     @NSManaged public var market: MarketArea?
     @NSManaged public var priorYear: Int32
@@ -42,7 +48,6 @@ extension Company {
     @NSManaged public var logEntries: NSSet?
     @NSManaged public var projects: NSSet?
     @NSManaged public var memberOf: NSSet?
-
 }
 
 // MARK: - GENERATED ACCESSORS FOR ACTIVITIES

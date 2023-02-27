@@ -463,7 +463,7 @@ extension CompanyInvoiceView {
         }
     }
     
-    func drawInfoBarFromLeft(title: String, textRect: CGRect, padding: Padding) {
+    @discardableResult func drawInfoBarFromLeft(title: String, textRect: CGRect, padding: Padding) -> Int {
         
         let font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         var theTextRect = textRect
@@ -478,9 +478,11 @@ extension CompanyInvoiceView {
         let text = title.padWithSpaces(before: padding.before, after: padding.after)
         theTextRect.size.width = text.widthofString(withFont: font)
         text.draw(in: theTextRect, withAttributes: attributes)
+        
+        return Int(theTextRect.origin.x + theTextRect.size.width)
     }
     
-    func drawInfoBarFromRight(title: String, textRect: CGRect, padding: Padding) -> Int {
+    @discardableResult func drawInfoBarFromRight(title: String, textRect: CGRect, padding: Padding) -> Int {
         
         let font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         var theTextRect = textRect
