@@ -35,8 +35,7 @@ class CompanyInvoiceView: ParentView {
         let pageRect = CGRect(x: 0, y: 0, width: 612, height: 792)
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
         let coreData = parentController!.contactController.coreData!
-        let rightMargin = 592
-        
+     
         invoiceInfo = parentController!.contactController.coreData!.invoices!.first!
         format.documentInfo = metaData as [String: Any]
         
@@ -466,7 +465,7 @@ extension CompanyInvoiceView {
     
     func drawInfoBarFromLeft(title: String, textRect: CGRect, padding: Padding) {
         
-        var font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        let font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         var theTextRect = textRect
      
         attributes = [
@@ -483,7 +482,7 @@ extension CompanyInvoiceView {
     
     func drawInfoBarFromRight(title: String, textRect: CGRect, padding: Padding) -> Int {
         
-        var font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        let font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         var theTextRect = textRect
      
         attributes = [
