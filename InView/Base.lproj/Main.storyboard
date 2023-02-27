@@ -7297,7 +7297,7 @@
                             <rect key="frame" x="0.0" y="674" width="414" height="105"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   Total value of all products listed:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YWx-5q-abb">
-                                    <rect key="frame" x="0.0" y="43" width="233" height="24"/>
+                                    <rect key="frame" x="0.0" y="38" width="233" height="24"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="cwG-y1-hkU"/>
@@ -7307,7 +7307,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$17,500.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xfx-Bv-mt9">
-                                    <rect key="frame" x="317.33333333333331" y="43" width="73.666666666666686" height="24"/>
+                                    <rect key="frame" x="317.33333333333331" y="38" width="73.666666666666686" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="j0m-ql-yvA"/>
                                     </constraints>
@@ -7315,8 +7315,8 @@
                                     <color key="textColor" name="color.theme.aqua"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   Total value of items to be invoiced" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUg-0U-uDS">
-                                    <rect key="frame" x="0.0" y="14" width="244.66666666666666" height="24"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   Total value of items to be invoiced:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lUg-0U-uDS">
+                                    <rect key="frame" x="0.0" y="9" width="244.66666666666666" height="24"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="2me-2u-1Yg"/>
@@ -7326,7 +7326,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$17,500.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="crI-Dt-fYT">
-                                    <rect key="frame" x="317" y="14" width="73.666666666666686" height="24"/>
+                                    <rect key="frame" x="317" y="9" width="73.666666666666686" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="f9C-jc-by5"/>
                                     </constraints>
@@ -7342,10 +7342,10 @@
                                 <constraint firstAttribute="trailing" secondItem="Xfx-Bv-mt9" secondAttribute="trailing" constant="23" id="CmI-IN-aus"/>
                                 <constraint firstItem="crI-Dt-fYT" firstAttribute="leading" relation="lessThanOrEqual" secondItem="riI-7a-2KA" secondAttribute="leading" constant="317" id="DZo-ZN-kmR"/>
                                 <constraint firstItem="Xfx-Bv-mt9" firstAttribute="top" secondItem="crI-Dt-fYT" secondAttribute="bottom" constant="5" id="IXB-GM-yZq"/>
+                                <constraint firstAttribute="bottom" secondItem="YWx-5q-abb" secondAttribute="bottom" constant="43" id="PtK-ro-0cb"/>
                                 <constraint firstAttribute="trailing" relation="lessThanOrEqual" secondItem="lUg-0U-uDS" secondAttribute="trailing" constant="169.33000000000001" id="Rcz-NO-H2b"/>
                                 <constraint firstItem="YWx-5q-abb" firstAttribute="leading" secondItem="riI-7a-2KA" secondAttribute="leading" id="SaO-9I-rYu"/>
                                 <constraint firstItem="YWx-5q-abb" firstAttribute="top" secondItem="lUg-0U-uDS" secondAttribute="bottom" constant="5" id="YTa-qC-L3m"/>
-                                <constraint firstAttribute="bottom" secondItem="YWx-5q-abb" secondAttribute="bottom" constant="38" id="dN6-sI-wrd"/>
                                 <constraint firstItem="lUg-0U-uDS" firstAttribute="leading" secondItem="riI-7a-2KA" secondAttribute="leading" id="pa1-Sf-am7"/>
                                 <constraint firstItem="Xfx-Bv-mt9" firstAttribute="leading" relation="lessThanOrEqual" secondItem="riI-7a-2KA" secondAttribute="leading" constant="317.32999999999998" id="qOf-QW-WRG"/>
                                 <constraint firstAttribute="trailing" secondItem="crI-Dt-fYT" secondAttribute="trailing" constant="23.333333333333314" id="qWA-WU-9Qt"/>

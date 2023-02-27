@@ -7,6 +7,7 @@
 
 import UIKit
 import AlertManager
+import CustomControls
 
 class ProjectProductDetailsView: ParentView {
 
