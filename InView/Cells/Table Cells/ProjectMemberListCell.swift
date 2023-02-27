@@ -26,9 +26,9 @@ class ProjectMemberListCell: UITableViewCell {
     }
 
     // MARK: - ACTION HANDLERS
-    @IBAction func onPhone(_ sender: Any) {  LaunchManager(parent: parentController!).callContact(contact: theContact!) }
+    @IBAction func onPhone(_ sender: Any) {  LaunchManager.shared.callContact(contact: theContact!) }
     
-    @IBAction func onMessage(_ sender: Any) { LaunchManager(parent: parentController!).messageContact(contact: theContact!) }
+    @IBAction func onMessage(_ sender: Any) { LaunchManager.shared.messageContact(contact: theContact!) }
     
-    @IBAction func onEmail(_ sender: Any) { LaunchManager(parent: parentController!).emailContact(contact: theContact!) }
+    @IBAction func onEmail(_ sender: Any) { LaunchManager.shared.emailContact(contact: theContact!) }
 }

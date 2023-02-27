@@ -11,11 +11,14 @@ import AlertManager
 
 class LaunchManager {
     
+    // MARK: - SINGLETON
+    static var shared = LaunchManager()
+        
     // MARK: - PROPERTIES
     var parentController: ParentViewController?
     
     // MARK: - INITIALIZATION
-    init(parent: ParentViewController) { parentController = parent }
+    init() { parentController = GlobalData.shared.activeController! }
     
     // MARK: - METHODS
     func call(atNumber: String) {
@@ -65,7 +68,7 @@ class LaunchManager {
                 default: break
             }
             
-            if phoneNumber != "" { LaunchManager(parent: self.parentController!).call(atNumber: phoneNumber) }
+            if phoneNumber != "" { LaunchManager.shared.call(atNumber: phoneNumber) }
         }
     }
     
@@ -85,7 +88,7 @@ class LaunchManager {
                 default: break
             }
             
-            if phoneNumber != "" { LaunchManager(parent: self.parentController!).text(atNumber: [phoneNumber]) }
+            if phoneNumber != "" { LaunchManager.shared.text(atNumber: [phoneNumber]) }
         }
     }
     

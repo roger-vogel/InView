@@ -304,7 +304,7 @@ class ProjectDetailsView: ParentView {
     
     @IBAction func onMap(_ sender: Any) {
         
-        LaunchManager(parent: parentController!).launchMaps(project: theProject!)
+        LaunchManager.shared.launchMaps(project: theProject!)
     }
     
     @IBAction func onContacts(_ sender: Any) {

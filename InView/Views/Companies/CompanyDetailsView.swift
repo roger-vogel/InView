@@ -287,11 +287,11 @@ class CompanyDetailsView: ParentView {
   
     }
     
-    @IBAction func onPhone(_ sender: Any) { LaunchManager(parent: parentController!).call(atNumber: theCompany!.phone!) }
+    @IBAction func onPhone(_ sender: Any) { LaunchManager.shared.call(atNumber: theCompany!.phone!) }
   
-    @IBAction func onMessage(_ sender: Any) { LaunchManager(parent: parentController!).messageContacts(contacts: theEmployees) }
+    @IBAction func onMessage(_ sender: Any) { LaunchManager.shared.messageContacts(contacts: theEmployees) }
     
-    @IBAction func onEmail(_ sender: Any) { LaunchManager(parent: parentController!).emailContacts(contacts: theEmployees) }
+    @IBAction func onEmail(_ sender: Any) { LaunchManager.shared.emailContacts(contacts: theEmployees) }
     
     @IBAction func onLog(_ sender: Any) {
         
@@ -314,9 +314,9 @@ class CompanyDetailsView: ParentView {
         parentController!.companyController.companyProjectListView.showView(withTabBar: false)
     }
     
-    @IBAction func onBrowser(_ sender: Any) { LaunchManager(parent: parentController!).launchBrowser(url: theCompany!.website!) }
+    @IBAction func onBrowser(_ sender: Any) { LaunchManager.shared.launchBrowser(url: theCompany!.website!) }
     
-    @IBAction func onMap(_ sender: Any) { LaunchManager(parent: parentController!).launchMaps(company: theCompany!) }
+    @IBAction func onMap(_ sender: Any) { LaunchManager.shared.launchMaps(company: theCompany!) }
     
     @IBAction func modifyEmployeeList(_ sender: Any) {
         
@@ -434,11 +434,11 @@ extension CompanyDetailsView: EmployeeTableCellDelegate {
         
     }
   
-    func callEmployee(_ employee: Contact) { LaunchManager(parent: parentController!).callContact(contact: employee)}
+    func callEmployee(_ employee: Contact) { LaunchManager.shared.callContact(contact: employee)}
     
-    func messageEmployee(_ employee: Contact) { LaunchManager(parent: parentController!).messageContact(contact: employee) }
+    func messageEmployee(_ employee: Contact) { LaunchManager.shared.messageContact(contact: employee) }
     
-    func emailEmployee(_ employee: Contact) { LaunchManager(parent: parentController!).emailContact(contact: employee) }
+    func emailEmployee(_ employee: Contact) { LaunchManager.shared.emailContact(contact: employee) }
 }
 
 // MARK: - TABLE VIEW DELEGATE PROTOCOL

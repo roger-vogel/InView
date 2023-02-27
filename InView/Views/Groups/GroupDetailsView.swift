@@ -102,9 +102,9 @@ class GroupDetailsView: ParentView {
         parentController!.groupController.memberSelectionView.showView(withTabBar: false)
     }
 
-    @IBAction func onMessage(_ sender: Any) { LaunchManager(parent: parentController!).messageContacts(contacts: thePeopleMembers) }
+    @IBAction func onMessage(_ sender: Any) { LaunchManager.shared.messageContacts(contacts: thePeopleMembers) }
     
-    @IBAction func onEmail(_ sender: Any) { LaunchManager(parent: parentController!).emailContacts(contacts: thePeopleMembers) }
+    @IBAction func onEmail(_ sender: Any) { LaunchManager.shared.emailContacts(contacts: thePeopleMembers) }
      
     @IBAction func onReturn(_ sender: Any) {
         

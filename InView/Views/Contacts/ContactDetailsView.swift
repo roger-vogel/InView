@@ -303,17 +303,17 @@ class ContactDetailsView: ParentView {
     
     @IBAction func onPhoneAction(_ sender: UIButton) {
         
-        LaunchManager(parent: parentController!).callContact(contact: theContact!)
+        LaunchManager.shared.callContact(contact: theContact!)
     }
     
     @IBAction func onMessageAction(_ sender: Any) {
    
-        LaunchManager(parent: parentController!).messageContact(contact: theContact!)
+        LaunchManager.shared.messageContact(contact: theContact!)
     }
 
     @IBAction func onEmailAction(_ sender: Any) {
         
-        LaunchManager(parent: parentController!).emailContact(contact: theContact!)
+        LaunchManager.shared.emailContact(contact: theContact!)
     }
     
     @IBAction func onProjects(_ sender: Any) {
@@ -333,17 +333,17 @@ class ContactDetailsView: ParentView {
     
     @IBAction func onPhone(_ sender: UIButton) {
         
-        LaunchManager(parent: parentController!).call(atNumber: sender.titleLabel!.text!.cleanedPhone)
+        LaunchManager.shared.call(atNumber: sender.titleLabel!.text!.cleanedPhone)
     }
     
     @IBAction func onEmail(_ sender: UIButton) {
         
-        LaunchManager(parent: parentController!).email(atEmail: [sender.titleLabel!.text!])
+        LaunchManager.shared.email(atEmail: [sender.titleLabel!.text!])
     }
     
     @IBAction func onAddress(_ sender: UIButton) {
         
-        LaunchManager(parent: parentController!).launchMaps(contact: theContact!)
+        LaunchManager.shared.launchMaps(contact: theContact!)
     }
 }
 
