@@ -3,6 +3,17 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "CompanyInvoiceView.drawInvoiceLineItems(textRect:):CompanyInvoiceView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "paddedDescription.count">
+            </PersistentString>
+            <PersistentString
+               value = "value.productDescription!.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CompanyListView.setupView():CompanyListView.swift">
          <PersistentStrings>
             <PersistentString

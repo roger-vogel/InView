@@ -22,7 +22,6 @@ class CompanyInvoiceView: ParentView {
     // MARK: PROPERTIES
     var invoiceInfo: Invoice?
     var textRect: CGRect?
-    var attributes: [NSAttributedString.Key: NSObject]?
     var infoOffset: CGFloat = 120
     let addressFont = UIFont.systemFont(ofSize: 14, weight: .regular)
     let paragraphStyle = NSMutableParagraphStyle()
@@ -72,7 +71,10 @@ class CompanyInvoiceView: ParentView {
             drawShipToAddress(originX: xShipTo)
             
             // Product description info bar
-            drawInfoBarFromLeft(title: "Description", textRect: CGRect(x: 20, y: 335, width: 0, height: 36), padding: Padding(before: 2, after: 60))
+            let width = drawInfoBarFromLeft(title: "Description", textRect: CGRect(x: 20, y: 315, width: 0, height: 36), padding: Padding(before: 2, after: 60))
+            
+            // Invoice line items
+            drawInvoiceLineItems(textRect: CGRect(x: 20, y: 350, width: width, height: 36))
         }
         
         return data
@@ -126,7 +128,7 @@ extension CompanyInvoiceView {
     
     func drawCompanyName() {
         
-        attributes = [
+        let attributes = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium),
             NSAttributedString.Key.paragraphStyle: paragraphStyle,
             NSAttributedString.Key.foregroundColor: UIColor.label
@@ -139,6 +141,12 @@ extension CompanyInvoiceView {
     
     func drawInvoiceTitle() {
         
+        let attributes = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .medium),
+            NSAttributedString.Key.paragraphStyle: paragraphStyle,
+            NSAttributedString.Key.foregroundColor: UIColor.label
+        ]
+        
         let title = "INVOICE"
         let length = title.widthofString(withFont: UIFont.systemFont(ofSize: 20, weight: .medium))
         textRect = CGRect(x: 612-20-length, y: 35, width: length, height: 40)
@@ -149,7 +157,7 @@ extension CompanyInvoiceView {
         
         var yIndex = 0
         
-        attributes = [
+        let attributes = [
             
             NSAttributedString.Key.font: addressFont,
             NSAttributedString.Key.paragraphStyle: paragraphStyle,
@@ -245,6 +253,13 @@ extension CompanyInvoiceView {
     
     func drawInvoiceInfo() {
         
+        let attributes = [
+            
+            NSAttributedString.Key.font: addressFont,
+            NSAttributedString.Key.paragraphStyle: paragraphStyle,
+            NSAttributedString.Key.foregroundColor: UIColor.label
+        ]
+        
         // Render each line
         for yInfo in 0...4 {
 
@@ -294,7 +309,7 @@ extension CompanyInvoiceView {
         
         var yIndex = 0
         
-        attributes = [
+        let attributes = [
             
             NSAttributedString.Key.font: addressFont,
             NSAttributedString.Key.paragraphStyle: paragraphStyle,
@@ -383,7 +398,7 @@ extension CompanyInvoiceView {
         
         var yIndex = 0
         
-        attributes = [
+        let attributes = [
             
             NSAttributedString.Key.font: addressFont,
             NSAttributedString.Key.paragraphStyle: paragraphStyle,
@@ -468,12 +483,35 @@ extension CompanyInvoiceView {
         }
     }
     
+    func drawInvoiceLineItems(textRect: CGRect) {
+        
+        let productsToInvoice = InvoiceManager.shared.createInvoiceItems(company: theCompany!)
+        var theTextRect = textRect
+        
+        let attributes = [
+            
+            NSAttributedString.Key.font: addressFont,
+            NSAttributedString.Key.paragraphStyle: paragraphStyle,
+            NSAttributedString.Key.backgroundColor: ThemeColors.lightGray.uicolor,
+            NSAttributedString.Key.foregroundColor: UIColor.label
+        ]
+        
+        for (index,value) in productsToInvoice.enumerated() {
+            
+            let workingPad = value.productDescription!.padToWidth(width: theTextRect.width, font: addressFont)
+            let paddedDescription = workingPad.shiftPadToFront(count: 2)
+            
+            theTextRect.origin.y = CGFloat(333 + (20 * index))
+            paddedDescription.draw(in: theTextRect, withAttributes: attributes)
+        }
+    }
+    
     @discardableResult func drawInfoBarFromLeft(title: String, textRect: CGRect, padding: Padding) -> Int {
         
         let font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         var theTextRect = textRect
      
-        attributes = [
+        let attributes = [
             NSAttributedString.Key.font: font,
             NSAttributedString.Key.paragraphStyle: paragraphStyle,
             NSAttributedString.Key.foregroundColor: UIColor.white,
@@ -484,7 +522,7 @@ extension CompanyInvoiceView {
         theTextRect.size.width = text.widthofString(withFont: font)
         text.draw(in: theTextRect, withAttributes: attributes)
         
-        return Int(theTextRect.origin.x + theTextRect.size.width)
+        return Int(theTextRect.size.width)
     }
     
     @discardableResult func drawInfoBarFromRight(title: String, textRect: CGRect, padding: Padding) -> Int {
@@ -492,7 +530,7 @@ extension CompanyInvoiceView {
         let font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         var theTextRect = textRect
      
-        attributes = [
+        let attributes = [
             NSAttributedString.Key.font: font,
             NSAttributedString.Key.paragraphStyle: paragraphStyle,
             NSAttributedString.Key.foregroundColor: UIColor.white,
