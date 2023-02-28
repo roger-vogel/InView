@@ -632,7 +632,3 @@ extension CompanyInvoiceView {
  }
  
  */
-
-/*
- padWithSpaces(before: Int(pageWidth - pageWidth/2 - 167), after: 3)
- */
