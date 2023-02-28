@@ -3,13 +3,13 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "CompanyInvoiceView.drawInvoiceLineItems(textRect:):CompanyInvoiceView.swift">
+         contextName = "ProjectDetailsView.onReturn(_:):ProjectDetailsView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "paddedDescription.count">
+               value = "isFromReports">
             </PersistentString>
             <PersistentString
-               value = "value.productDescription!.count">
+               value = "parentController!.contactController.coreData!.projects!.first!.products!.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -98,19 +98,27 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CompanyInvoiceView.drawHeader(yLocation:height:font:headers:):CompanyInvoiceView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "header.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "InvoiceView.onSave(_:):InvoiceView.swift">
          <PersistentStrings>
             <PersistentString
                value = "invoiceInfo.logo">
             </PersistentString>
             <PersistentString
-               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!">
             </PersistentString>
             <PersistentString
                value = "hasLogo!">
             </PersistentString>
             <PersistentString
-               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!">
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -208,6 +216,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CompanyInvoiceView.drawInvoiceLineItems(textRect:):CompanyInvoiceView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "paddedDescription.count">
+            </PersistentString>
+            <PersistentString
+               value = "value.productDescription!.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ProjectListView.setupView():ProjectListView.swift">
          <PersistentStrings>
             <PersistentString
@@ -245,17 +264,6 @@
          <PersistentStrings>
             <PersistentString
                value = "theProjects!">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ProjectDetailsView.onReturn(_:):ProjectDetailsView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "isFromReports">
-            </PersistentString>
-            <PersistentString
-               value = "parentController!.contactController.coreData!.projects!.first!.products!.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

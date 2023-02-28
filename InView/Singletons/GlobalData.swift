@@ -41,6 +41,7 @@ enum ActivityType: Int { case task, event }
 enum AddEntityType: Int { case contact, company, activity }
 enum CommType: Int { case text, email }
 enum ImportType: Int { case vcard, csv }
+enum Justification: Int { case left, center, right }
 enum PhotoSide: Int { case width, height}
 enum Menu: Int { case sort, duplicates, addressbooks,customer, product,market, invoice,reports }
 enum SettingsType: Int { case customer, company, product, market }

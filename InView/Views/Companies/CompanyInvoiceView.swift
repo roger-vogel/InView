@@ -14,6 +14,8 @@ import Extensions
 
 struct Padding { var before: Int = 0; var after: Int = 0 }
 
+struct Header { var title: String = ""; var width: CGFloat; var justificaton: Justification? = .left }
+
 class CompanyInvoiceView: ParentView {
     
     // MARK: - STORY BOARD OUTLETS
@@ -27,7 +29,7 @@ class CompanyInvoiceView: ParentView {
     let heightFont = UIFont.systemFont(ofSize: 10, weight: .regular)
     let paragraphStyle = NSMutableParagraphStyle()
     var productPendingInvoice: [Product]?
-    var pageWidth = 612
+    var pageWidth: CGFloat = 612
     
     // MARK: - COMPUTED PROPERTIES
     var invoicePDFData: Data {
@@ -65,13 +67,21 @@ class CompanyInvoiceView: ParentView {
             drawInfoBar(title: "BILL TO", inRect: CGRect(x: 20, y: 200, width: 250, height: 18))
             drawInfoBar(title: "SHIP TO", inRect: CGRect(x: 270 + headerGap, y: 200, width: 250, height: 18))
        
-        
-            // BILL TO address
+            // BILL TO and SHIP TO addresses
             drawBillToAddress()
+            drawShipToAddress(originX: 270 + Int(headerGap))
             
-            // SHIP TO address
-            drawShipToAddress(originX: 270 + headerGap)
+            // Draw line item header
+            let theHeaders = [
+                
+                Header( title: "Description", width: pageWidth/2),
+                Header( title: "Unit", width: 50, justificaton: .center),
+                Header( title: "QTY", width: 50, justificaton: .center),
+                Header( title: "Unit Price", width: 70, justificaton: .center),
+                Header( title: "Amount", width: pageWidth - (pageWidth/2 + 210), justificaton: .right)
+            ]
             
+            drawHeader(yLocation: 315, height: 18, font: UIFont.systemFont(ofSize: 12, weight: .semibold), headers: theHeaders)
             
             // Product description info bar
             //let width = drawInfoBarFromLeft(title: "Description", textRect: CGRect(x: 20, y: 315, width: 0, height: 36), padding: Padding(before: 2, after: 60))
@@ -561,6 +571,43 @@ extension CompanyInvoiceView {
             title!.draw(in: theTextRect, withAttributes: attributes)
         }
     }
+    
+    func drawHeader(yLocation: Int, height: Int, font: UIFont, headers: [Header]) {
+        
+        var xSegment = 20
+        let widthOfSpace = " ".textSize(font: font).width
+        
+        for header in headers {
+            
+            var paddedTitle: String?
+            
+            switch header.justificaton {
+                
+                case .left:
+                    
+                    paddedTitle = header.title
+        
+                case .center:
+                    
+                    let textSize = header.title.textSize(font: font)
+                    let paddingNeeded = header.width-textSize.width
+                    let padding = (paddingNeeded/2)/widthOfSpace
+                    paddedTitle = header.title.padWithSpaces(before: Int(padding), after: Int(padding))
+                    
+                case .right:
+                         
+                    let textSize = header.title.textSize(font: font)
+                    let paddingNeeded = header.width-textSize.width
+                    let padding = paddingNeeded/widthOfSpace
+                    paddedTitle = header.title.padWithSpaces(before: Int(padding-3))
+                  
+                default: break
+            }
+            
+            drawInfoBar(title: paddedTitle, inRect: CGRect(x: xSegment, y: yLocation, width: Int(header.width), height: height), withFont: font)
+            xSegment += Int(header.width)
+        }
+    }
 }
 
 /*
@@ -584,4 +631,8 @@ extension CompanyInvoiceView {
      return nil
  }
  
+ */
+
+/*
+ padWithSpaces(before: Int(pageWidth - pageWidth/2 - 167), after: 3)
  */
