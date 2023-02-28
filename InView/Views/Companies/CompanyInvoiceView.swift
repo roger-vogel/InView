@@ -70,6 +70,7 @@ class CompanyInvoiceView: ParentView {
             drawBillToAddress()
             
             // SHIP TO address
+            drawShipToAddress(originX: 270 + headerGap)
             
             
             // Product description info bar
@@ -136,8 +137,8 @@ extension CompanyInvoiceView {
             NSAttributedString.Key.foregroundColor: UIColor.label
         ]
 
-        let length = invoiceInfo!.name!.widthofString(withFont:UIFont.systemFont(ofSize: 20, weight: .medium))
-        textRect = invoiceInfo!.hasLogo ? CGRect(x: 80, y: 33, width: length, height: 40) : CGRect(x: 20, y: 33, width: length, height: 40)
+        let length = invoiceInfo!.name!.textSize(font: UIFont.systemFont(ofSize: 20, weight: .medium))
+        textRect = invoiceInfo!.hasLogo ? CGRect(x: 80, y: 33, width: length.width, height: 40) : CGRect(x: 20, y: 33, width: length.width, height: 40)
         invoiceInfo!.name!.draw(in: textRect!, withAttributes: attributes)
     }
     
@@ -150,8 +151,8 @@ extension CompanyInvoiceView {
         ]
         
         let title = "INVOICE"
-        let length = title.widthofString(withFont: UIFont.systemFont(ofSize: 20, weight: .medium))
-        textRect = CGRect(x: 612-20-length, y: 35, width: length, height: 40)
+        let length = title.textSize(font: UIFont.systemFont(ofSize: 20, weight: .medium))
+        textRect = CGRect(x: 612-20-length.width, y: 35, width: length.width, height: 40)
         title.draw(in: textRect!, withAttributes: attributes)
     }
     
@@ -177,7 +178,7 @@ extension CompanyInvoiceView {
                     
                     if invoiceInfo!.primaryStreet! != "" {
                         
-                        textRect!.size.width = invoiceInfo!.primaryStreet!.widthofString(withFont: addressFont)
+                        textRect!.size.width = invoiceInfo!.primaryStreet!.textSize(font: addressFont).width
                         invoiceInfo!.primaryStreet!.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -186,7 +187,7 @@ extension CompanyInvoiceView {
                     
                     if invoiceInfo!.subStreet! != "" {
                         
-                        textRect!.size.width = invoiceInfo!.subStreet!.widthofString(withFont: addressFont)
+                        textRect!.size.width = invoiceInfo!.subStreet!.textSize(font: addressFont).width
                         invoiceInfo!.subStreet!.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -195,25 +196,25 @@ extension CompanyInvoiceView {
                     
                     if invoiceInfo!.city! != "" {
                         
-                        textRect!.size.width = invoiceInfo!.city!.widthofString(withFont: addressFont)
+                        textRect!.size.width = invoiceInfo!.city!.textSize(font: addressFont).width
                         invoiceInfo!.city!.draw(in: textRect!, withAttributes: attributes)
                         
                         if invoiceInfo!.state != "" {
                             
                             let theState = States.nameToAbbrev(name: invoiceInfo!.state!)
-                            var textOffset = invoiceInfo!.city!.widthofString(withFont: addressFont) + 5
+                            var textOffset = invoiceInfo!.city!.textSize(font: addressFont).width + 5
                             
                             textRect!.origin.x += textOffset
-                            textRect!.size.width = theState.widthofString(withFont: addressFont)
+                            textRect!.size.width = theState.textSize(font: addressFont).width
                         
                             theState.draw(in: textRect!, withAttributes: attributes)
                             
                             if invoiceInfo!.postalCode! != "" {
                                 
-                                textOffset = theState.widthofString(withFont: addressFont) + 5
+                                textOffset = theState.textSize(font: addressFont).width + 5
                                
                                 textRect!.origin.x += textOffset
-                                textRect!.size.width = invoiceInfo!.postalCode!.widthofString(withFont: addressFont)
+                                textRect!.size.width = invoiceInfo!.postalCode!.textSize(font: addressFont).width
                                 invoiceInfo!.postalCode!.draw(in: textRect!, withAttributes: attributes)
                             }
                         }
@@ -225,7 +226,7 @@ extension CompanyInvoiceView {
                 
                     if invoiceInfo!.phone! != "" {
                         
-                        textRect!.size.width = invoiceInfo!.phone!.formattedPhone.widthofString(withFont: addressFont)
+                        textRect!.size.width = invoiceInfo!.phone!.formattedPhone.textSize(font: addressFont).width
                         invoiceInfo!.phone!.formattedPhone.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -234,7 +235,7 @@ extension CompanyInvoiceView {
                 
                     if invoiceInfo!.email! != "" {
                         
-                        textRect!.size.width = invoiceInfo!.email!.widthofString(withFont: addressFont)
+                        textRect!.size.width = invoiceInfo!.email!.textSize(font: addressFont).width
                         invoiceInfo!.email!.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -243,7 +244,7 @@ extension CompanyInvoiceView {
                 
                     if invoiceInfo!.website! != "" {
                         
-                        textRect!.size.width = invoiceInfo!.website!.widthofString(withFont: addressFont)
+                        textRect!.size.width = invoiceInfo!.website!.textSize(font: addressFont).width
                         invoiceInfo!.website!.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -270,7 +271,7 @@ extension CompanyInvoiceView {
                 case 0:
 
                     // Propeties
-                    let dateLength = "Date".widthofString(withFont: addressFont)
+                    let dateLength = "Date".textSize(font: addressFont).width
                     let today = DateManager().dateString
                 
                     // Draw date title
@@ -279,27 +280,27 @@ extension CompanyInvoiceView {
                 
                     // Draw date
                     textRect!.origin.x += (dateLength + 15)
-                    textRect!.size.width = today.widthofString(withFont: addressFont) + 2
+                    textRect!.size.width = today.textSize(font: addressFont).width + 2
                     today.draw(in: textRect!, withAttributes: attributes)
             
                 case 1:
 
-                    textRect = CGRect(x: 612-20-Int("Invoice #".widthofString(withFont: addressFont) + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                    textRect = CGRect(x: 612-20-Int("Invoice #".textSize(font: addressFont).width + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
                     "Invoice #".draw(in: textRect!, withAttributes: attributes)
             
                 case 2:
 
-                    textRect = CGRect(x: 612-20-Int("Due Date".widthofString(withFont: addressFont) + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                    textRect = CGRect(x: 612-20-Int("Due Date".textSize(font: addressFont).width + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
                     "Due Date".draw(in: textRect!, withAttributes: attributes)
                 
                 case 3:
 
-                    textRect = CGRect(x: 612-20-Int("PO Reference".widthofString(withFont: addressFont) + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                    textRect = CGRect(x: 612-20-Int("PO Reference".textSize(font: addressFont).width + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
                     "PO Reference".draw(in: textRect!, withAttributes: attributes)
           
                 case 4:
 
-                    textRect = CGRect(x: 612-20-Int("Project ID / Name".widthofString(withFont: addressFont) + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                    textRect = CGRect(x: 612-20-Int("Project ID / Name".textSize(font: addressFont).width + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
                     "Project ID / Name".draw(in: textRect!, withAttributes: attributes)
                    
                 default: break
@@ -329,7 +330,7 @@ extension CompanyInvoiceView {
                 
                     if theCompany!.name! != "" {
                         
-                        textRect!.size.width = theCompany!.name!.widthofString(withFont: addressFont)
+                        textRect!.size.width = theCompany!.name!.textSize(font: addressFont).width
                         theCompany!.name!.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -338,7 +339,7 @@ extension CompanyInvoiceView {
                     
                     if theCompany!.primaryStreet! != "" {
                         
-                        textRect!.size.width = theCompany!.primaryStreet!.widthofString(withFont: addressFont)
+                        textRect!.size.width = theCompany!.primaryStreet!.textSize(font: addressFont).width
                         theCompany!.primaryStreet!.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -347,7 +348,7 @@ extension CompanyInvoiceView {
                     
                     if theCompany!.subStreet! != "" {
                         
-                        textRect!.size.width = theCompany!.subStreet!.widthofString(withFont: addressFont)
+                        textRect!.size.width = theCompany!.subStreet!.textSize(font: addressFont).width
                         theCompany!.subStreet!.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -356,25 +357,25 @@ extension CompanyInvoiceView {
                     
                     if theCompany!.city! != "" {
                         
-                        textRect!.size.width = theCompany!.city!.widthofString(withFont: addressFont)
+                        textRect!.size.width = theCompany!.city!.textSize(font: addressFont).width
                         theCompany!.city!.draw(in: textRect!, withAttributes: attributes)
                         
                         if theCompany!.state != "" {
                             
                             let theState = States.nameToAbbrev(name: theCompany!.state!)
-                            var textOffset = theCompany!.city!.widthofString(withFont: addressFont) + 5
+                            var textOffset = theCompany!.city!.textSize(font: addressFont).width + 5
                             
                             textRect!.origin.x += textOffset
-                            textRect!.size.width = theState.widthofString(withFont: addressFont)
+                            textRect!.size.width = theState.textSize(font: addressFont).width
                         
                             theState.draw(in: textRect!, withAttributes: attributes)
                             
                             if theCompany!.postalCode! != "" {
                                 
-                                textOffset = theState.widthofString(withFont: addressFont) + 5
+                                textOffset = theState.textSize(font: addressFont).width + 5
                                
                                 textRect!.origin.x += textOffset
-                                textRect!.size.width = theCompany!.postalCode!.widthofString(withFont: addressFont)
+                                textRect!.size.width = theCompany!.postalCode!.textSize(font: addressFont).width
                                 theCompany!.postalCode!.draw(in: textRect!, withAttributes: attributes)
                             }
                         }
@@ -386,7 +387,7 @@ extension CompanyInvoiceView {
                 
                     if theCompany!.phone! != "" {
                         
-                        textRect!.size.width = theCompany!.phone!.formattedPhone.widthofString(withFont: addressFont)
+                        textRect!.size.width = theCompany!.phone!.formattedPhone.textSize(font: addressFont).width
                         theCompany!.phone!.formattedPhone.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -418,7 +419,7 @@ extension CompanyInvoiceView {
                 
                     if theCompany!.name! != "" {
                         
-                        textRect!.size.width = theCompany!.name!.widthofString(withFont: addressFont)
+                        textRect!.size.width = theCompany!.name!.textSize(font: addressFont).width
                         theCompany!.name!.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -427,7 +428,7 @@ extension CompanyInvoiceView {
                     
                     if theCompany!.primaryStreet! != "" {
                         
-                        textRect!.size.width = theCompany!.primaryStreet!.widthofString(withFont: addressFont)
+                        textRect!.size.width = theCompany!.primaryStreet!.textSize(font: addressFont).width
                         theCompany!.primaryStreet!.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -436,7 +437,7 @@ extension CompanyInvoiceView {
                     
                     if theCompany!.subStreet! != "" {
                         
-                        textRect!.size.width = theCompany!.subStreet!.widthofString(withFont: addressFont)
+                        textRect!.size.width = theCompany!.subStreet!.textSize(font: addressFont).width
                         theCompany!.subStreet!.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -445,25 +446,25 @@ extension CompanyInvoiceView {
                     
                     if theCompany!.city! != "" {
                         
-                        textRect!.size.width = theCompany!.city!.widthofString(withFont: addressFont)
+                        textRect!.size.width = theCompany!.city!.textSize(font: addressFont).width
                         theCompany!.city!.draw(in: textRect!, withAttributes: attributes)
                         
                         if theCompany!.state != "" {
                             
                             let theState = States.nameToAbbrev(name: theCompany!.state!)
-                            var textOffset = theCompany!.city!.widthofString(withFont: addressFont) + 5
+                            var textOffset = theCompany!.city!.textSize(font: addressFont).width + 5
                             
                             textRect!.origin.x += textOffset
-                            textRect!.size.width = theState.widthofString(withFont: addressFont)
+                            textRect!.size.width = theState.textSize(font: addressFont).width
                         
                             theState.draw(in: textRect!, withAttributes: attributes)
                             
                             if theCompany!.postalCode! != "" {
                                 
-                                textOffset = theState.widthofString(withFont: addressFont) + 5
+                                textOffset = theState.textSize(font: addressFont).width + 5
                                
                                 textRect!.origin.x += textOffset
-                                textRect!.size.width = theCompany!.postalCode!.widthofString(withFont: addressFont)
+                                textRect!.size.width = theCompany!.postalCode!.textSize(font: addressFont).width
                                 theCompany!.postalCode!.draw(in: textRect!, withAttributes: attributes)
                             }
                         }
@@ -475,7 +476,7 @@ extension CompanyInvoiceView {
                 
                     if theCompany!.phone! != "" {
                         
-                        textRect!.size.width = theCompany!.phone!.formattedPhone.widthofString(withFont: addressFont)
+                        textRect!.size.width = theCompany!.phone!.formattedPhone.textSize(font: addressFont).width
                         theCompany!.phone!.formattedPhone.draw(in: textRect!, withAttributes: attributes)
                         yIndex += 1
                     }
@@ -531,11 +532,12 @@ extension CompanyInvoiceView {
         }
     }
     
-    func drawInfoBar(title: String? = "", inRect: CGRect) {
+    func drawInfoBar(title: String? = "", inRect: CGRect, withFont: UIFont? = UIFont.systemFont(ofSize: 14, weight: .semibold)) {
         
         let context = UIGraphicsGetCurrentContext()
-        let font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         context!.addRect(inRect)
+        
+        let font = withFont!
         
         ColorManager(r: 2, g: 65, b: 140, a: 255).uicolor.setFill()
         UIColor.clear.setStroke()
@@ -552,38 +554,14 @@ extension CompanyInvoiceView {
             ]
         
             var theTextRect = inRect
-            let textSize = "H".size(withAttributes: [NSAttributedString.Key.font: font])
+            let textSize = "H".textSize(font: font)
          
-            theTextRect.origin.x += 2
+            theTextRect.origin.x += 3
             theTextRect.origin.y += (inRect.size.height/2 - textSize.height/2)
             title!.draw(in: theTextRect, withAttributes: attributes)
         }
     }
     
-   
-    
-    @discardableResult func drawInfoBarFromRight(title: String, textRect: CGRect, padding: Padding) -> Int {
-        
-        let font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        var theTextRect = textRect
-     
-        let attributes = [
-            NSAttributedString.Key.font: font,
-            NSAttributedString.Key.paragraphStyle: paragraphStyle,
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.backgroundColor: ColorManager(r: 2, g: 65, b: 140, a: 255).uicolor
-        ]
-        
-        let text = title.padWithSpaces(before: padding.before, after: padding.after)
-        let width = text.widthofString(withFont: font)
-       
-        theTextRect.size.width = width
-        theTextRect.origin.x = 612-20-width
-        
-        text.draw(in: theTextRect, withAttributes: attributes)
-        
-        return Int(theTextRect.origin.x)
-    }
 }
 
 /*
@@ -607,26 +585,4 @@ extension CompanyInvoiceView {
      return nil
  }
  
- */
-
-
-/*
- @discardableResult func drawInfoBarFromLeft(title: String, textRect: CGRect, padding: Padding) -> Int {
-     
-     let font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-     var theTextRect = textRect
-  
-     let attributes = [
-         NSAttributedString.Key.font: font,
-         NSAttributedString.Key.paragraphStyle: paragraphStyle,
-         NSAttributedString.Key.foregroundColor: UIColor.white,
-         NSAttributedString.Key.backgroundColor: ColorManager(r: 2, g: 65, b: 140, a: 255).uicolor
-     ]
-     
-     let text = title.padWithSpaces(before: padding.before, after: padding.after)
-     theTextRect.size.width = text.widthofString(withFont: font)
-     text.draw(in: theTextRect, withAttributes: attributes)
-     
-     return Int(theTextRect.size.width)
- }
  */
