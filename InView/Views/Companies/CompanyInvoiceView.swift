@@ -561,7 +561,6 @@ extension CompanyInvoiceView {
             title!.draw(in: theTextRect, withAttributes: attributes)
         }
     }
-    
 }
 
 /*
