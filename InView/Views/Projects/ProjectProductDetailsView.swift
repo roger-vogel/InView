@@ -12,7 +12,6 @@ import CustomControls
 class ProjectProductDetailsView: ParentView {
 
     // MARK: - STORYBOARD CONNECTORS
-    @IBOutlet weak var projectNameTextField: UILabel!
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var productIDTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
@@ -91,11 +90,23 @@ class ProjectProductDetailsView: ParentView {
         
         if theProduct != nil {
             
+            categoryTextField.text = theProduct!.category!.category
             productIDTextField.text = theProduct!.productID!
             descriptionTextField.text = theProduct!.productDescription!
-            quantityTextField.text = String(theProduct!.quantity)
+            unitQuantityTextField.text = String(theProduct!.units).formattedValue
+            quantityTextField.text = String(theProduct!.quantity).formattedValue
             unitPriceTextField.text = String(theProduct!.unitPrice).formattedDollar
             
+            let unitPrice = NSString(string: unitPriceTextField.text!.cleanedDollar).doubleValue
+            let quantity = Double(theProduct!.quantity)
+            let unitQuantity = Double(theProduct!.units)
+           
+            let totalPrice = unitPrice * quantity
+            let totalItems = unitQuantity * quantity
+         
+            totalCostTextField.text = String(format: "%.02f", totalPrice).formattedDollar
+            totalItemsTextField.text = String(format: "%.02f", totalItems).formattedValue
+           
             if categoryTextField.text!.isEmpty || theProduct!.category == nil {
                 
                 categoryTextField.text = "No Category"
@@ -156,6 +167,7 @@ class ProjectProductDetailsView: ParentView {
             theProduct!.productID = productIDTextField.text!
             theProduct!.productDescription = descriptionTextField.text!
             theProduct!.quantity = Int32(NSString(string: quantityTextField.text!.cleanedValue).intValue)
+            theProduct!.units = Int32(NSString(string: unitQuantityTextField.text!.cleanedValue).intValue)
             theProduct!.unitPrice = NSString(string: unitPriceTextField.text!.cleanedDollar).doubleValue
             
             if selectedCategory != nil { theProduct!.category = selectedCategory }
@@ -175,14 +187,23 @@ extension ProjectProductDetailsView: UITextFieldDelegate, UIPickerViewDelegate {
  
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
-        guard !textField.text!.isEmpty else { return true }
+        if textField == quantityTextField {
             
-        if textField == quantityTextField || textField == unitQuantityTextField {
-            
+            if textField.text!.isEmpty { totalCostTextField.text = String(format: "%.02f", 0).formattedDollar }
             textField.text = textField.text!.cleanedValue
+            
+            return true
+        }
+
+        if textField == unitQuantityTextField && textField.text!.isEmpty {
+            
+            if textField.text!.isEmpty { totalItemsTextField.text = String(format: "%.02f", 0).formattedDollar }
+            textField.text = textField.text!.cleanedValue
+      
             return true
         }
         
+       
         textField.text = textField.text!.cleanedDollar
         return true
     }

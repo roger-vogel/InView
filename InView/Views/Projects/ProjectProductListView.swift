@@ -130,11 +130,11 @@ extension ProjectProductListView: UITableViewDelegate, UITableViewDataSource {
        
         if theProduct!.category == nil {
             
-            cell.setFields(category: "No Category", id: theProduct!.productID!, description: theProduct!.productDescription!, qty: theProduct!.quantity, price: theProduct!.unitPrice)
+            cell.setFields(category: "No Category", id: theProduct!.productID!, description: theProduct!.productDescription!, qty: theProduct!.quantity, price: theProduct!.unitPrice, unitQty: theProduct!.units)
      
         } else {
             
-            cell.setFields(category: theProduct!.category!.category!, id: theProduct!.productID!, description: theProduct!.productDescription!, qty: theProduct!.quantity, price: theProduct!.unitPrice)
+            cell.setFields(category: theProduct!.category!.category!, id: theProduct!.productID!, description: theProduct!.productDescription!, qty: theProduct!.quantity, price: theProduct!.unitPrice, unitQty: theProduct!.units)
         }
         
         switch theProduct!.invoiced {
