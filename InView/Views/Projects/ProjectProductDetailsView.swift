@@ -16,9 +16,11 @@ class ProjectProductDetailsView: ParentView {
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var productIDTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
+    @IBOutlet weak var unitQuantityTextField: UITextField!
     @IBOutlet weak var quantityTextField: UITextField!
     @IBOutlet weak var unitPriceTextField: UITextField!
     @IBOutlet weak var totalCostTextField: UITextField!
+    @IBOutlet weak var totalItemsTextField: UITextField!
     
     // MARK: - PROPERTIES
     var theProject: Project?
@@ -64,6 +66,7 @@ class ProjectProductDetailsView: ParentView {
         
         quantityTextField.delegate = self
         unitPriceTextField.delegate = self
+        unitQuantityTextField.delegate = self
         
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
@@ -73,6 +76,7 @@ class ProjectProductDetailsView: ParentView {
         
         quantityTextField.inputAccessoryView = toolbar
         unitPriceTextField.inputAccessoryView = toolbar
+        unitQuantityTextField.inputAccessoryView = toolbar
         
         super.initView(inController: inController)
     }
@@ -140,6 +144,7 @@ class ProjectProductDetailsView: ParentView {
             newProduct.productID = productIDTextField.text!
             newProduct.productDescription = descriptionTextField.text!
             newProduct.quantity = Int32(NSString(string: quantityTextField.text!.cleanedValue).intValue)
+            newProduct.units = Int32(NSString(string: unitQuantityTextField.text!.cleanedValue).intValue)
             newProduct.unitPrice = NSString(string: unitPriceTextField.text!.cleanedDollar).doubleValue
             
             if selectedCategory != nil { newProduct.category = selectedCategory }
@@ -170,9 +175,14 @@ extension ProjectProductDetailsView: UITextFieldDelegate, UIPickerViewDelegate {
  
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
-        guard textField != quantityTextField else { return true }
         guard !textField.text!.isEmpty else { return true }
-    
+            
+        if textField == quantityTextField || textField == unitQuantityTextField {
+            
+            textField.text = textField.text!.cleanedValue
+            return true
+        }
+        
         textField.text = textField.text!.cleanedDollar
         return true
     }
@@ -184,17 +194,22 @@ extension ProjectProductDetailsView: UITextFieldDelegate, UIPickerViewDelegate {
         if !textField.text!.isValidNumber {
             
             if textField == unitPriceTextField {  AlertManager(controller: GlobalData.shared.activeController!).popupOK(aMessage: "Please enter a valid number for the unit price") }
+            else if textField == unitQuantityTextField {  AlertManager(controller: GlobalData.shared.activeController!).popupOK(aMessage: "Please enter a valid number for the unit quantity") }
             else {  AlertManager(controller: GlobalData.shared.activeController!).popupOK(aMessage: "Please enter a valid number for the quantity")}
            
         } else {
             
             let quantity: Double = quantityTextField.text!.isEmpty ? 0 : NSString(string: quantityTextField.text!.cleanedValue).doubleValue
+            let unitQuantity: Double = unitQuantityTextField.text!.isEmpty ? 0 : NSString(string: unitQuantityTextField.text!.cleanedValue).doubleValue
             let price: Double = unitPriceTextField.text!.isEmpty ? 0 : NSString(string: unitPriceTextField.text!.cleanedDollar).doubleValue
             let totalPrice = price * quantity
-          
+            let itemCount = unitQuantity * quantity
+            
             totalCostTextField.text = String(totalPrice).formattedDollar
+            totalItemsTextField.text = String(itemCount).formattedValue
            
             if textField == quantityTextField { quantityTextField.text = quantityTextField.text!.formattedValue }
+            if textField == unitQuantityTextField { unitQuantityTextField.text = unitQuantityTextField.text!.formattedValue }
             if textField == unitPriceTextField { unitPriceTextField.text = unitPriceTextField.text!.formattedDollar }
         }
     }
