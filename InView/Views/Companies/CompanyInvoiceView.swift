@@ -515,13 +515,14 @@ extension CompanyInvoiceView {
     
     func drawLineItems(yLocation: Int, height: Int, font: UIFont) {
         
-        var xSegment = 20
-        var theYLocation = yLocation
         var lineBackgroundColor: ColorManager?
         let productsToInvoice = InvoiceManager.shared.createInvoiceItems(company: theCompany!)
+        var theYLocation = yLocation
         
         for (index,value) in productsToInvoice.enumerated() {
             
+            var xSegment = 20
+           
             // The column values for this line
             let theColumns = [
                 
@@ -551,11 +552,13 @@ extension CompanyInvoiceView {
                 }
                 
                 // Draw the column
-                drawInfoBar(title: paddedTitle, inRect: CGRect(x: xSegment, y: theYLocation, width: Int(column.width), height: height), withFont: font, background: lineBackgroundColor!, foreground: ColorManager(color: .white))
+                drawInfoBar(title: paddedTitle, inRect: CGRect(x: xSegment, y: theYLocation, width: Int(column.width), height: height), withFont: font, background: lineBackgroundColor!, foreground: ColorManager(color: .label))
               
                 xSegment += Int(column.width)
-                theYLocation += height
+                
             }
+            
+            theYLocation += height
         }
     }
     
