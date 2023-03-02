@@ -13,8 +13,7 @@ import DateManager
 import Extensions
 
 struct Padding { var before: Int = 0; var after: Int = 0 }
-
-struct Header { var title: String = ""; var width: CGFloat; var justificaton: Justification? = .left }
+struct Column { var title: String = ""; var width: CGFloat; var justificaton: Justification? = .left }
 
 class CompanyInvoiceView: ParentView {
     
@@ -64,30 +63,26 @@ class CompanyInvoiceView: ParentView {
             
             // BILL TO and SHIP TO info bar
             let headerGap = pageWidth - 540
-            drawInfoBar(title: "BILL TO", inRect: CGRect(x: 20, y: 200, width: 250, height: 18))
-            drawInfoBar(title: "SHIP TO", inRect: CGRect(x: 270 + headerGap, y: 200, width: 250, height: 18))
+            drawInfoBar(title: "BILL TO", inRect: CGRect(x: 20, y: 200, width: 250, height: 18), background: ThemeColors.blue, foreground: ColorManager().white)
+            drawInfoBar(title: "SHIP TO", inRect: CGRect(x: 270 + headerGap, y: 200, width: 250, height: 18), background: ThemeColors.blue, foreground: ColorManager().white)
        
             // BILL TO and SHIP TO addresses
             drawBillToAddress()
             drawShipToAddress(originX: 270 + Int(headerGap))
             
             // Draw line item header
-            let theHeaders = [
+            let theColumns = [
                 
-                Header( title: "Description", width: pageWidth/2),
-                Header( title: "Unit", width: 50, justificaton: .center),
-                Header( title: "QTY", width: 50, justificaton: .center),
-                Header( title: "Unit Price", width: 70, justificaton: .center),
-                Header( title: "Amount", width: pageWidth - (pageWidth/2 + 210), justificaton: .right)
+                Column( title: "Description", width: pageWidth/2),
+                Column( title: "Unit", width: 50, justificaton: .center),
+                Column( title: "QTY", width: 50, justificaton: .center),
+                Column( title: "Unit Price", width: 70, justificaton: .center),
+                Column( title: "Amount", width: pageWidth - (pageWidth/2 + 210), justificaton: .right)
             ]
             
-            drawHeader(yLocation: 315, height: 18, font: UIFont.systemFont(ofSize: 12, weight: .semibold), headers: theHeaders)
+            drawHeader(yLocation: 315, height: 18, font: UIFont.systemFont(ofSize: 12, weight: .semibold), columns: theColumns)
+            drawLineItems(yLocation: 335, height: 18, font: UIFont.systemFont(ofSize: 12, weight: .semibold))
             
-            // Product description info bar
-            //let width = drawInfoBarFromLeft(title: "Description", textRect: CGRect(x: 20, y: 315, width: 0, height: 36), padding: Padding(before: 2, after: 60))
-            
-            // Invoice line items
-            // drawInvoiceLineItems(textRect: CGRect(x: 20, y: 350, width: width, height: 40))
         }
         
         return data
@@ -496,60 +491,82 @@ extension CompanyInvoiceView {
         }
     }
     
-    func drawInvoiceLineItems(textRect: CGRect) {
+    func drawHeader(yLocation: Int, height: Int, font: UIFont, columns: [Column]) {
         
-        let productsToInvoice = InvoiceManager.shared.createInvoiceItems(company: theCompany!)
-        var theTextRect = textRect
-        var attributes: [NSAttributedString.Key : NSObject]?
-        
-        for (index,value) in productsToInvoice.enumerated() {
+        var xSegment = 20
+    
+        for column in columns {
             
-            if index % 2 == 0 {
+            var paddedTitle: String?
+            
+            switch column.justificaton {
                 
-                attributes = [
-                    
-                    NSAttributedString.Key.font: addressFont,
-                    NSAttributedString.Key.paragraphStyle: paragraphStyle,
-                    NSAttributedString.Key.foregroundColor: UIColor.label,
-                    NSAttributedString.Key.backgroundColor: ThemeColors.lightGray.uicolor
-                ]
-                
-            } else {
-                
-                attributes = [
-                    
-                    NSAttributedString.Key.font: addressFont,
-                    NSAttributedString.Key.paragraphStyle: paragraphStyle,
-                    NSAttributedString.Key.foregroundColor: UIColor.label,
-                    NSAttributedString.Key.backgroundColor: UIColor.systemTeal
-                ]
+                case .left: paddedTitle = justifyText(text: column.title, font: font, columnWidth: column.width, justify: .left)
+                case .center: paddedTitle = justifyText(text: column.title, font: font, columnWidth: column.width, justify: .center)
+                case .right: paddedTitle = justifyText(text: column.title, font: font, columnWidth: column.width, justify: .right)
+        
+                default: break
             }
             
-            let workingPad = value.productDescription!.padToWidth(width: theTextRect.width, font: addressFont)
-            let paddedDescription = workingPad.shiftPadToFront(count: 2)
-            let borderPad = " ".padToWidth(width: theTextRect.width, font: addressFont)
-           
-            theTextRect.origin.y = CGFloat(333 + (Int(theTextRect.size.height) * index))
-            borderPad.draw(in: theTextRect, withAttributes: attributes)
-            
-            theTextRect.origin.y = CGFloat(343 + (Int(theTextRect.size.height) * index))
-            borderPad.draw(in: theTextRect, withAttributes: attributes)
-            
-            theTextRect.origin.y = CGFloat(336 + (Int(theTextRect.size.height) * index))
-            paddedDescription.draw(in: theTextRect, withAttributes: attributes)
-            
-           
+            drawInfoBar(title: paddedTitle, inRect: CGRect(x: xSegment, y: yLocation, width: Int(column.width), height: height), withFont: font, background: ThemeColors.blue, foreground: ColorManager(color: .white))
+            xSegment += Int(column.width)
         }
     }
     
-    func drawInfoBar(title: String? = "", inRect: CGRect, withFont: UIFont? = UIFont.systemFont(ofSize: 14, weight: .semibold)) {
+    func drawLineItems(yLocation: Int, height: Int, font: UIFont) {
+        
+        var xSegment = 20
+        var theYLocation = yLocation
+        var lineBackgroundColor: ColorManager?
+        let productsToInvoice = InvoiceManager.shared.createInvoiceItems(company: theCompany!)
+        
+        for (index,value) in productsToInvoice.enumerated() {
+            
+            // The column values for this line
+            let theColumns = [
+                
+                Column( title: value.productDescription!, width: pageWidth/2),
+                Column( title: " ", width: 50, justificaton: .center),
+                Column( title: String(value.quantity).formattedValue, width: 50, justificaton: .right),
+                Column( title: String(value.unitPrice).formattedDollar, width: 70, justificaton: .right),
+                Column( title: String(Double(value.quantity) * value.unitPrice).formattedDollar, width: pageWidth - (pageWidth/2 + 210), justificaton: .right)
+            ]
+            
+            // Set the background color (alternating white and gray)
+            if index % 2 == 0 { lineBackgroundColor = ColorManager(color: .white) }
+            else { lineBackgroundColor = ThemeColors.lightGray }
+               
+            // Set the column justifications
+            for column in theColumns {
+                
+                var paddedTitle: String?
+                
+                switch column.justificaton {
+                    
+                    case .left: paddedTitle = justifyText(text: column.title, font: font, columnWidth: column.width, justify: .left)
+                    case .center: paddedTitle = justifyText(text: column.title, font: font, columnWidth: column.width, justify: .center)
+                    case .right: paddedTitle = justifyText(text: column.title, font: font, columnWidth: column.width, justify: .right)
+            
+                    default: break
+                }
+                
+                // Draw the column
+                drawInfoBar(title: paddedTitle, inRect: CGRect(x: xSegment, y: theYLocation, width: Int(column.width), height: height), withFont: font, background: lineBackgroundColor!, foreground: ColorManager(color: .white))
+              
+                xSegment += Int(column.width)
+                theYLocation += height
+            }
+        }
+    }
+    
+    func drawInfoBar(title: String? = "", inRect: CGRect, withFont: UIFont? = UIFont.systemFont(ofSize: 14, weight: .semibold), background: ColorManager, foreground: ColorManager) {
         
         let context = UIGraphicsGetCurrentContext()
         context!.addRect(inRect)
         
         let font = withFont!
         
-        ColorManager(r: 2, g: 65, b: 140, a: 255).uicolor.setFill()
+        background.uicolor.setFill()
         UIColor.clear.setStroke()
         
         context!.drawPath(using: .fillStroke)
@@ -559,8 +576,8 @@ extension CompanyInvoiceView {
             let attributes = [
                 NSAttributedString.Key.font: font,
                 NSAttributedString.Key.paragraphStyle: paragraphStyle,
-                NSAttributedString.Key.foregroundColor: UIColor.white,
-                NSAttributedString.Key.backgroundColor: UIColor.clear
+                NSAttributedString.Key.foregroundColor: UIColor(displayP3Red: foreground.red, green: foreground.green, blue: foreground.blue, alpha: foreground.alpha),
+                NSAttributedString.Key.backgroundColor: UIColor(displayP3Red: background.red, green: background.green, blue: background.blue, alpha: background.alpha)
             ]
         
             var theTextRect = inRect
@@ -572,40 +589,25 @@ extension CompanyInvoiceView {
         }
     }
     
-    func drawHeader(yLocation: Int, height: Int, font: UIFont, headers: [Header]) {
+    func justifyText(text: String, font: UIFont, columnWidth: CGFloat, justify: Justification) -> String {
         
-        var xSegment = 20
+        let justifiedText = text
         let widthOfSpace = " ".textSize(font: font).width
-        
-        for header in headers {
+        let textSize = justifiedText.textSize(font: font)
+        let paddingNeeded = columnWidth-textSize.width
+      
+        switch justify {
             
-            var paddedTitle: String?
+            case .left:
+                return text
             
-            switch header.justificaton {
+            case .right:
+                let padding = paddingNeeded/widthOfSpace
+                return justifiedText.padWithSpaces(before: Int(padding-3))
                 
-                case .left:
-                    
-                    paddedTitle = header.title
-        
-                case .center:
-                    
-                    let textSize = header.title.textSize(font: font)
-                    let paddingNeeded = header.width-textSize.width
-                    let padding = (paddingNeeded/2)/widthOfSpace
-                    paddedTitle = header.title.padWithSpaces(before: Int(padding), after: Int(padding))
-                    
-                case .right:
-                         
-                    let textSize = header.title.textSize(font: font)
-                    let paddingNeeded = header.width-textSize.width
-                    let padding = paddingNeeded/widthOfSpace
-                    paddedTitle = header.title.padWithSpaces(before: Int(padding-3))
-                  
-                default: break
-            }
-            
-            drawInfoBar(title: paddedTitle, inRect: CGRect(x: xSegment, y: yLocation, width: Int(header.width), height: height), withFont: font)
-            xSegment += Int(header.width)
+            case .center:
+                let padding = (paddingNeeded/2)/widthOfSpace
+                return justifiedText.padWithSpaces(before: Int(padding), after: Int(padding))
         }
     }
 }

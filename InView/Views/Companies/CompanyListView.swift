@@ -277,6 +277,7 @@ extension CompanyListView: UITableViewDelegate, UITableViewDataSource {
         
         let company = searchTextField.text!.isEmpty ? sectionTitles[indexPath.section].companies[indexPath.row] : searchCompanies[indexPath.row]
         
+        parentController!.companyController.companyDetailsView.thelastTab = nil
         parentController!.companyController.companyDetailsView.setCompanyRecord(company: company)
         parentController!.companyController.companyDetailsView.showView(withTabBar: false)
     }
