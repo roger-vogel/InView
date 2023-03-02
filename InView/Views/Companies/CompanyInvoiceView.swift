@@ -11,6 +11,7 @@ import PDFKit
 import ColorManager
 import DateManager
 import Extensions
+import AlertManager
 
 struct Padding { var before: Int = 0; var after: Int = 0 }
 struct Column { var title: String = ""; var width: CGFloat; var justificaton: Justification? = .left }
@@ -67,21 +68,23 @@ class CompanyInvoiceView: ParentView {
             drawInfoBar(title: "SHIP TO", inRect: CGRect(x: 270 + headerGap, y: 200, width: 250, height: 18), background: ThemeColors.blue, foreground: ColorManager().white)
        
             // BILL TO and SHIP TO addresses
-            drawBillToAddress()
-            drawShipToAddress(originX: 270 + Int(headerGap))
+            let billingY = drawBillToAddress()
+            let shippingY = drawShipToAddress(originX: 270 + Int(headerGap))
+            let maxY = max(billingY,shippingY)
+            let developmentWidth = pageWidth/2 - 40
             
             // Draw line item header
             let theColumns = [
                 
-                Column( title: "Description", width: pageWidth/2),
-                Column( title: "Unit", width: 50, justificaton: .center),
-                Column( title: "QTY", width: 50, justificaton: .center),
-                Column( title: "Unit Price", width: 70, justificaton: .center),
+                Column( title: "Description", width: pageWidth/2 - 55),
+                Column( title: "Unit", width: 65, justificaton: .right),
+                Column( title: "QTY", width: 65, justificaton: .right),
+                Column( title: "Unit Price", width: 85, justificaton: .right),
                 Column( title: "Amount", width: pageWidth - (pageWidth/2 + 210), justificaton: .right)
             ]
             
-            drawHeader(yLocation: 315, height: 18, font: UIFont.systemFont(ofSize: 12, weight: .semibold), columns: theColumns)
-            drawLineItems(yLocation: 335, height: 18, font: UIFont.systemFont(ofSize: 12, weight: .semibold))
+            drawHeader(yLocation: maxY + 15, height: 18, font: UIFont.systemFont(ofSize: 12, weight: .semibold), columns: theColumns)
+            drawLineItems(yLocation: maxY + 15 + 20, height: 18, font: UIFont.systemFont(ofSize: 12, weight: .semibold))
             
         }
         
@@ -104,6 +107,7 @@ class CompanyInvoiceView: ParentView {
   
     func displayInvoice() {
         
+        webView.reloadFromOrigin()
         let pdfDocument = PDFDocument(data: invoicePDFData)
         
         let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -116,7 +120,7 @@ class CompanyInvoiceView: ParentView {
     // MARK: ACTION HANDLERS
     @IBAction func onReturn(_ sender: Any) {
         
-        parentController!.companyController.companyDetailsView.showView()
+        parentController!.companyController.companyDetailsView.showView(withTabBar: false)
     }
 }
 
@@ -313,7 +317,7 @@ extension CompanyInvoiceView {
         }
     }
     
-    func drawBillToAddress() {
+    func drawBillToAddress() -> Int {
         
         var yIndex = 0
         
@@ -400,9 +404,11 @@ extension CompanyInvoiceView {
                 default: break
             }
         }
+        
+        return 225 + (20 * yIndex)
     }
     
-    func drawShipToAddress(originX: Int) {
+    func drawShipToAddress(originX: Int) -> Int {
         
         var yIndex = 0
         
@@ -489,6 +495,8 @@ extension CompanyInvoiceView {
                 default: break
             }
         }
+        
+        return 225 + (20 * yIndex)
     }
     
     func drawHeader(yLocation: Int, height: Int, font: UIFont, columns: [Column]) {
@@ -518,7 +526,7 @@ extension CompanyInvoiceView {
         var lineBackgroundColor: ColorManager?
         let productsToInvoice = InvoiceManager.shared.createInvoiceItems(company: theCompany!)
         var theYLocation = yLocation
-        
+    
         for (index,value) in productsToInvoice.enumerated() {
             
             var xSegment = 20
@@ -526,10 +534,10 @@ extension CompanyInvoiceView {
             // The column values for this line
             let theColumns = [
                 
-                Column( title: value.productDescription!, width: pageWidth/2),
-                Column( title: " ", width: 50, justificaton: .center),
-                Column( title: String(value.quantity).formattedValue, width: 50, justificaton: .right),
-                Column( title: String(value.unitPrice).formattedDollar, width: 70, justificaton: .right),
+                Column( title: value.productDescription!, width: pageWidth/2 - 55),
+                Column( title: String(value.units).formattedValue, width: 65, justificaton: .right),
+                Column( title: String(value.quantity).formattedValue, width: 65, justificaton: .right),
+                Column( title: String(value.unitPrice).formattedDollar, width: 85, justificaton: .right),
                 Column( title: String(Double(value.quantity) * value.unitPrice).formattedDollar, width: pageWidth - (pageWidth/2 + 210), justificaton: .right)
             ]
             
@@ -606,7 +614,7 @@ extension CompanyInvoiceView {
             
             case .right:
                 let padding = paddingNeeded/widthOfSpace
-                return justifiedText.padWithSpaces(before: Int(padding-3))
+                return justifiedText.padWithSpaces(before: Int(padding))
                 
             case .center:
                 let padding = (paddingNeeded/2)/widthOfSpace

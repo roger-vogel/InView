@@ -16,6 +16,7 @@ class MenuView: UIView {
     var closeButton: UIButton?
     var parentView: ParentView?
     var menuTableView: UITableView?
+    var preselectedValue: Menu?
     var menuItems = ["Sort Preferences","Find Duplicates","Import Contacts","Customer Categories","Company Categories","Product Categories","Market Areas","Setup Company Invoice","Reports"]
    
     weak var delegate: MenuViewDelegate?
@@ -50,7 +51,13 @@ class MenuView: UIView {
         menuTableView!.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: frame.size.width)
         menuTableView!.allowsSelection = true
         menuTableView!.register(UITableViewCell.self, forCellReuseIdentifier: "menuStyle")
-
+       
+        if GlobalData.shared.preselectedMenuOption != nil {
+            
+            menuTableView!.selectRow(at: IndexPath(row: GlobalData.shared.preselectedMenuOption!, section: 0), animated: false, scrollPosition: .top)
+            GlobalData.shared.preselectedMenuOption = nil
+        }
+        
         if #available(iOS 15, *) { menuTableView!.sectionHeaderTopPadding = 0 }
     
         addSubview(closeButton!)
@@ -167,7 +174,6 @@ class MenuView: UIView {
     }
     
     // MARK: - ACTION HANDLERS
-    
     func showMenu() {
         
         UIView.animate(withDuration: 0.25, animations: {
@@ -237,7 +243,7 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
         cell.contentConfiguration = content
         cell.backgroundColor = .clear
         cell.selectedBackgroundView = selectedView
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
        
         let chevron = UIImage(systemName: "chevron.right", withConfiguration: UIImage.SymbolConfiguration(scale: .small))!.withTintColor(.black, renderingMode: .alwaysOriginal)
         let chevronRight = UIImageView(image: chevron)

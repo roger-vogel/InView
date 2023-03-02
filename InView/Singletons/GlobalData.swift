@@ -27,6 +27,7 @@ class GlobalData {
     var peopleSort: PeopleSort = .last
     var companySort: CompanySort = .name
     var menuController: MenuViewController?
+    var preselectedMenuOption: Int?
        
     // MARK: - METHODS
     func saveCoreData() {

@@ -282,6 +282,21 @@ class CompanyDetailsView: ParentView {
  
     @IBAction func onInvoice(_ sender: Any) {
         
+       if parentController!.contactController.coreData!.invoices!.isEmpty {
+            
+            AlertManager(controller: GlobalData.shared.activeController!).popupWithCustomButtons(aMessage: "You need to complete the invoice setup before you can create an invoice", buttonTitles: ["SETUP","CANCEL"], theStyle: [.default,.cancel], theType: .alert) { choice in
+                
+                if choice == 0 {
+                    
+                    GlobalData.shared.preselectedMenuOption = MenuOptions.shared.invoiceSetup
+                    self.parentController!.companyController.companyListView.showView(withTabBar: true)
+                    self.parentController!.companyController.companyListView.onMenu(self)
+                }
+            }
+            
+            return
+        }
+        
         parentController!.companyController.companyInvoiceView.setCompany(company: theCompany!)
         parentController!.companyController.companyInvoiceView.showView(withTabBar: false)
   

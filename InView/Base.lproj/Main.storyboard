@@ -3051,19 +3051,6 @@
                         <outlet property="websiteTextField" destination="d2d-0R-q3e" id="FfD-Hg-z21"/>
                     </connections>
                 </view>
-                <view contentMode="scaleToFill" id="zxa-ab-dsP">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="abB-px-g3g">
-                            <rect key="frame" x="0.0" y="100" width="414" height="679"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" name="color.theme.beige"/>
-                        </view>
-                    </subviews>
-                    <viewLayoutGuide key="safeArea" id="Otr-fl-qpa"/>
-                    <color key="backgroundColor" name="color.theme.teal"/>
-                </view>
                 <view contentMode="scaleToFill" id="mnE-0G-aib" customClass="CompanyInvoiceView" customModule="InView_2" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3086,7 +3073,7 @@
                         <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E0k-QK-9aY">
                             <rect key="frame" x="0.0" y="100" width="414" height="679"/>
                             <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <wkWebViewConfiguration key="configuration">
+                            <wkWebViewConfiguration key="configuration" allowsInlineMediaPlayback="YES">
                                 <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                 <wkPreferences key="preferences"/>
                             </wkWebViewConfiguration>
