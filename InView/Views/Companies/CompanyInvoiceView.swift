@@ -30,6 +30,7 @@ class CompanyInvoiceView: ParentView {
     let paragraphStyle = NSMutableParagraphStyle()
     var productPendingInvoice: [Product]?
     var pageWidth: CGFloat = 612
+    var commentBoxY: Int?
     
     // MARK: - COMPUTED PROPERTIES
     var invoicePDFData: Data {
@@ -39,7 +40,7 @@ class CompanyInvoiceView: ParentView {
         let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: 792)
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
         let coreData = parentController!.contactController.coreData!
-     
+       
         invoiceInfo = parentController!.contactController.coreData!.invoices!.first!
         format.documentInfo = metaData as [String: Any]
         
@@ -71,8 +72,7 @@ class CompanyInvoiceView: ParentView {
             let billingY = drawBillToAddress()
             let shippingY = drawShipToAddress(originX: 270 + Int(headerGap))
             let maxY = max(billingY,shippingY)
-            let developmentWidth = pageWidth/2 - 40
-            
+          
             // Draw line item header
             let theColumns = [
                 
@@ -84,7 +84,9 @@ class CompanyInvoiceView: ParentView {
             ]
             
             drawHeader(yLocation: maxY + 15, height: 18, font: UIFont.systemFont(ofSize: 12, weight: .semibold), columns: theColumns)
-            drawLineItems(yLocation: maxY + 15 + 20, height: 18, font: UIFont.systemFont(ofSize: 12, weight: .semibold))
+            drawLineItems(yLocation: maxY + 15 + 20, height: 20, font: UIFont.systemFont(ofSize: 12, weight: .semibold))
+            
+            drawCommentBox()
             
         }
         
@@ -568,6 +570,36 @@ extension CompanyInvoiceView {
             
             theYLocation += height
         }
+        
+        if productsToInvoice.count < 13 {
+            
+            for index in productsToInvoice.count...13 {
+                
+                if index % 2 == 0 { lineBackgroundColor = ColorManager(color: .white) }
+                else { lineBackgroundColor = ThemeColors.lightGray }
+                
+                // Draw the column
+                drawInfoBar(title: " ", inRect: CGRect(x: 20, y: theYLocation, width: 560, height: height), withFont: font, background: lineBackgroundColor!, foreground: ColorManager(color: .label))
+                theYLocation += height
+            }
+        }
+        
+        commentBoxY = theYLocation + 20
+    }
+    
+    func drawCommentBox() {
+        
+        let yLocation = commentBoxY!
+        let context = UIGraphicsGetCurrentContext()
+        let inRect = CGRect(x: 20, y: yLocation, width: Int(pageWidth/2), height: 60)
+        
+        context!.addRect(inRect)
+        UIColor.white.setFill()
+        UIColor.label.setStroke()
+        context!.drawPath(using: .fillStroke)
+        
+        drawInfoBar(title: "Comments", inRect: CGRect(x: 20, y: yLocation, width: Int(pageWidth/2), height: 18), background: ThemeColors.blue, foreground: ColorManager(color: .white))
+        
     }
     
     func drawInfoBar(title: String? = "", inRect: CGRect, withFont: UIFont? = UIFont.systemFont(ofSize: 14, weight: .semibold), background: ColorManager, foreground: ColorManager) {
