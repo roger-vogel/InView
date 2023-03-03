@@ -15,6 +15,17 @@ import AlertManager
 
 struct Padding { var before: Int = 0; var after: Int = 0 }
 struct Column { var title: String = ""; var width: CGFloat; var justificaton: Justification? = .left }
+struct Widths {
+    
+    var description: CGFloat
+    var unit: CGFloat
+    var qty: CGFloat
+    var price: CGFloat
+    var total: CGFloat
+    var totalToPrice: Int { return Int(description + unit + qty) }
+    var totalToTotal: Int { return totalToPrice + Int(total) }
+    
+}
 
 class CompanyInvoiceView: ParentView {
     
@@ -31,6 +42,7 @@ class CompanyInvoiceView: ParentView {
     var productPendingInvoice: [Product]?
     var pageWidth: CGFloat = 612
     var commentBoxY: Int?
+    var widths: Widths?
     
     // MARK: - COMPUTED PROPERTIES
     var invoicePDFData: Data {
@@ -40,6 +52,8 @@ class CompanyInvoiceView: ParentView {
         let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: 792)
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
         let coreData = parentController!.contactController.coreData!
+        
+        widths = Widths(description: (pageWidth/2)-55, unit: 65, qty: 65, price: 85, total: pageWidth - ((pageWidth/2)+210))
        
         invoiceInfo = parentController!.contactController.coreData!.invoices!.first!
         format.documentInfo = metaData as [String: Any]
@@ -76,18 +90,17 @@ class CompanyInvoiceView: ParentView {
             // Draw line item header
             let theColumns = [
                 
-                Column( title: "Description", width: pageWidth/2 - 55),
-                Column( title: "Unit", width: 65, justificaton: .right),
-                Column( title: "QTY", width: 65, justificaton: .right),
-                Column( title: "Unit Price", width: 85, justificaton: .right),
-                Column( title: "Amount", width: pageWidth - (pageWidth/2 + 210), justificaton: .right)
+                Column( title: "Description", width: widths!.description),
+                Column( title: "Unit", width: widths!.unit, justificaton: .right),
+                Column( title: "QTY", width: widths!.qty, justificaton: .right),
+                Column( title: "Unit Price", width: widths!.price, justificaton: .right),
+                Column( title: "Amount", width: widths!.total, justificaton: .right)
             ]
             
             drawHeader(yLocation: maxY + 15, height: 18, font: UIFont.systemFont(ofSize: 12, weight: .semibold), columns: theColumns)
             drawLineItems(yLocation: maxY + 15 + 20, height: 20, font: UIFont.systemFont(ofSize: 12, weight: .semibold))
             
             drawCommentBox()
-            
         }
         
         return data
@@ -511,9 +524,9 @@ extension CompanyInvoiceView {
             
             switch column.justificaton {
                 
-                case .left: paddedTitle = justifyText(text: column.title, font: font, columnWidth: column.width, justify: .left)
-                case .center: paddedTitle = justifyText(text: column.title, font: font, columnWidth: column.width, justify: .center)
-                case .right: paddedTitle = justifyText(text: column.title, font: font, columnWidth: column.width, justify: .right)
+                case .left: paddedTitle = column.title.justified(width: column.width, justification: .left, font: font)
+                case .center: paddedTitle = column.title.justified(width: column.width, justification: .center, font: font)
+                case .right: paddedTitle = column.title.justified(width: column.width, justification: .right, font: font)
         
                 default: break
             }
@@ -536,11 +549,11 @@ extension CompanyInvoiceView {
             // The column values for this line
             let theColumns = [
                 
-                Column( title: value.productDescription!, width: pageWidth/2 - 55),
-                Column( title: String(value.units).formattedValue, width: 65, justificaton: .right),
-                Column( title: String(value.quantity).formattedValue, width: 65, justificaton: .right),
-                Column( title: String(value.unitPrice).formattedDollar, width: 85, justificaton: .right),
-                Column( title: String(Double(value.quantity) * value.unitPrice).formattedDollar, width: pageWidth - (pageWidth/2 + 210), justificaton: .right)
+                Column( title: value.productDescription!, width: widths!.description),
+                Column( title: String(value.units).formattedValue, width: widths!.unit, justificaton: .right),
+                Column( title: String(value.quantity).formattedValue, width: widths!.qty, justificaton: .right),
+                Column( title: String(value.unitPrice).formattedDollar, width: widths!.price, justificaton: .right),
+                Column( title: String(Double(value.quantity) * value.unitPrice).formattedDollar, width: widths!.total, justificaton: .right)
             ]
             
             // Set the background color (alternating white and gray)
@@ -554,10 +567,10 @@ extension CompanyInvoiceView {
                 
                 switch column.justificaton {
                     
-                    case .left: paddedTitle = justifyText(text: column.title, font: font, columnWidth: column.width, justify: .left)
-                    case .center: paddedTitle = justifyText(text: column.title, font: font, columnWidth: column.width, justify: .center)
-                    case .right: paddedTitle = justifyText(text: column.title, font: font, columnWidth: column.width, justify: .right)
-            
+                    case .left: paddedTitle = column.title.justified(width: column.width, justification: .left, font: font)
+                    case .center: paddedTitle = column.title.justified(width: column.width, justification: .center, font: font)
+                    case .right: paddedTitle = column.title.justified(width: column.width, justification: .right, font: font)
+                        
                     default: break
                 }
                 
@@ -589,10 +602,16 @@ extension CompanyInvoiceView {
     
     func drawCommentBox() {
         
-        let yLocation = commentBoxY!
+        var yLocation = commentBoxY!
         let context = UIGraphicsGetCurrentContext()
         let inRect = CGRect(x: 20, y: yLocation, width: Int(pageWidth/2), height: 60)
-        
+        var columnValue: String?
+        let font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+        var invoiceSubtotal: Double = 0
+        for product in productPendingInvoice! { invoiceSubtotal += (Double(product.quantity) * product.unitPrice) }
+        let tax = invoiceInfo!.tax * invoiceSubtotal
+        let discount: Double = 0.05 * invoiceSubtotal
+      
         context!.addRect(inRect)
         UIColor.white.setFill()
         UIColor.label.setStroke()
@@ -600,6 +619,28 @@ extension CompanyInvoiceView {
         
         drawInfoBar(title: "Comments", inRect: CGRect(x: 20, y: yLocation, width: Int(pageWidth/2), height: 18), background: ThemeColors.blue, foreground: ColorManager(color: .white))
         
+        for (index,value) in ["Subtotal","Discount","Taxes","Invoice Total"].enumerated() {
+            
+            let justifiedText = value.justified(width: widths!.price, justification: .right, font: font) + "   "
+            drawInfoBar(title: justifiedText, inRect: CGRect(x: widths!.totalToPrice - 50, y: yLocation-18, width: 100, height: 20), background: ColorManager(color: .white), foreground: ColorManager(color: .label))
+            
+            switch index {
+                
+                case 0: columnValue = String(format: "%.02f", invoiceSubtotal).formattedDollar
+                case 1: columnValue = String(format: "-%.02f", discount).formattedDollar
+                case 2: columnValue = String(format: "%.02f", tax).formattedDollar
+                case 3: columnValue = String(format: "%.02f", invoiceSubtotal - (0.1 * invoiceSubtotal) + tax).formattedDollar
+               
+                default: break
+            }
+            
+            let justifiedValue = columnValue!.justified(width: widths!.price, justification: .right, font: font)
+            let offset = index == 2 ? 2 : 0
+        
+            drawInfoBar(title: justifiedValue, inRect: CGRect(x: widths!.totalToTotal + offset, y: yLocation-18, width: 100, height: 20), background: ColorManager(color: .white), foreground: ColorManager(color: .label))
+         
+            yLocation += 20
+        }
     }
     
     func drawInfoBar(title: String? = "", inRect: CGRect, withFont: UIFont? = UIFont.systemFont(ofSize: 14, weight: .semibold), background: ColorManager, foreground: ColorManager) {
@@ -632,27 +673,7 @@ extension CompanyInvoiceView {
         }
     }
     
-    func justifyText(text: String, font: UIFont, columnWidth: CGFloat, justify: Justification) -> String {
-        
-        let justifiedText = text
-        let widthOfSpace = " ".textSize(font: font).width
-        let textSize = justifiedText.textSize(font: font)
-        let paddingNeeded = columnWidth-textSize.width
-      
-        switch justify {
-            
-            case .left:
-                return text
-            
-            case .right:
-                let padding = paddingNeeded/widthOfSpace
-                return justifiedText.padWithSpaces(before: Int(padding))
-                
-            case .center:
-                let padding = (paddingNeeded/2)/widthOfSpace
-                return justifiedText.padWithSpaces(before: Int(padding), after: Int(padding))
-        }
-    }
+   
 }
 
 /*
@@ -676,4 +697,27 @@ extension CompanyInvoiceView {
      return nil
  }
  
+ 
+ 
+ func justifyText(text: String, font: UIFont, columnWidth: CGFloat, justify: Justification) -> String {
+     
+     let justifiedText = text
+     let widthOfSpace = " ".textSize(font: font).width
+     let textSize = justifiedText.textSize(font: font)
+     let paddingNeeded = columnWidth-textSize.width
+   
+     switch justify {
+         
+         case .left:
+             return text
+         
+         case .right:
+             let padding = paddingNeeded/widthOfSpace
+             return justifiedText.padWithSpaces(before: Int(padding))
+             
+         case .center:
+             let padding = (paddingNeeded/2)/widthOfSpace
+             return justifiedText.padWithSpaces(before: Int(padding), after: Int(padding))
+     }
+ }
  */
