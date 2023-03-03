@@ -100,6 +100,7 @@ class CompanyInvoiceView: ParentView {
             drawLineItems(yLocation: maxY + 15 + 20, height: 20, font: UIFont.systemFont(ofSize: 12, weight: .semibold))
             
             drawCommentBox()
+            drawThankYou()
         }
         
         return data
@@ -672,6 +673,20 @@ extension CompanyInvoiceView {
         }
     }
     
+    func drawThankYou() {
+        
+        let font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        
+        let attributes = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.paragraphStyle: paragraphStyle,
+            NSAttributedString.Key.foregroundColor: UIColor.red
+        ]
+
+        let thankYou = "Thank You For Your Business!".justified(width: pageWidth/2, justification: .center, font: font)
+        textRect = CGRect(x: 20, y: CGFloat(commentBoxY! + 70), width: thankYou.textSize(font: font).width + 20, height: thankYou.textSize(font: font).height + 10)
+        thankYou.draw(in: textRect!, withAttributes: attributes)
+    }
    
 }
 
