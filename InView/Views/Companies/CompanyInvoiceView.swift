@@ -24,7 +24,6 @@ struct Widths {
     var total: CGFloat
     var totalToPrice: Int { return Int(description + unit + qty) }
     var totalToTotal: Int { return totalToPrice + Int(total) }
-    
 }
 
 class CompanyInvoiceView: ParentView {
