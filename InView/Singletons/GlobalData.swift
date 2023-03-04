@@ -40,7 +40,7 @@ class GlobalData {
 // MARK: - ENUMERATIONS
 enum ActivityType: Int { case task, event }
 enum AddEntityType: Int { case contact, company, activity }
-enum ColumnType: Int { case description, units, qty, price, amount }
+//enum ColumnType: Int { case description, units, qty, price, amount }
 enum CommType: Int { case text, email }
 enum ImportType: Int { case vcard, csv }
 enum PhotoSide: Int { case width, height}

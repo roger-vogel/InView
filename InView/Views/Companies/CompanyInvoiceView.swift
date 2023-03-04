@@ -90,7 +90,7 @@ class CompanyInvoiceView: ParentView {
             let theColumns = [
                 
                 Column( title: "Description", width: widths!.description),
-                Column( title: "Unit", width: widths!.unit, justificaton: .right),
+                Column( title: "Unit", width: widths!.unit),
                 Column( title: "QTY", width: widths!.qty, justificaton: .right),
                 Column( title: "Unit Price", width: widths!.price, justificaton: .right),
                 Column( title: "Amount", width: widths!.total, justificaton: .right)
@@ -550,7 +550,7 @@ extension CompanyInvoiceView {
             let theColumns = [
                 
                 Column( title: value.productDescription!, width: widths!.description),
-                Column( title: String(value.units).formattedValue, width: widths!.unit, justificaton: .right),
+                Column( title: String(value.units).formattedValue, width: widths!.unit),
                 Column( title: String(value.quantity).formattedValue, width: widths!.qty, justificaton: .right),
                 Column( title: String(value.unitPrice).formattedDollar, width: widths!.price, justificaton: .right),
                 Column( title: String(Double(value.quantity) * value.unitPrice).formattedDollar, width: widths!.total, justificaton: .right)

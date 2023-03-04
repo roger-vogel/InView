@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB0B686529B2D5BD00A50CF7 /* ColumnType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0B686429B2D5BD00A50CF7 /* ColumnType.swift */; };
 		DB0F1EBE299D845700ED0CCF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB0F1EBD299D845600ED0CCF /* Assets.xcassets */; };
 		DB0F1EC1299D847000ED0CCF /* ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1EBF299D847000ED0CCF /* ParentViewController.swift */; };
 		DB0F1EC2299D847000ED0CCF /* ParentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1EC0299D847000ED0CCF /* ParentView.swift */; };
@@ -240,6 +241,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB0B686429B2D5BD00A50CF7 /* ColumnType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnType.swift; sourceTree = "<group>"; };
 		DB0F1DDB299D788500ED0CCF /* InView-2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "InView-2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB0F1DEF299D788700ED0CCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB0F1EBD299D845600ED0CCF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -730,6 +732,7 @@
 				DB752FE5299F4C8000D8505F /* FunnelElements.swift */,
 				DB5DCF3A29AC84BF00441DB5 /* Invoiced.swift */,
 				DB4A2E4029B09A2C00785D1F /* MenuOptions.swift */,
+				DB0B686429B2D5BD00A50CF7 /* ColumnType.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -1250,6 +1253,7 @@
 				DB0F1F3B299D859C00ED0CCF /* GroupSectionTitle.swift in Sources */,
 				DB0F1F63299D85B900ED0CCF /* LogEntry.swift in Sources */,
 				DB0F1F56299D85B900ED0CCF /* Photo.swift in Sources */,
+				DB0B686529B2D5BD00A50CF7 /* ColumnType.swift in Sources */,
 				DB0F1F93299D863D00ED0CCF /* ContactActivityListView.swift in Sources */,
 				DB0F1F30299D857B00ED0CCF /* Activities.swift in Sources */,
 				DBD1E483299DADE300C3D8C6 /* ReportsFunnelByStartView.swift in Sources */,
