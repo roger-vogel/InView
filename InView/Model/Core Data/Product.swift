@@ -26,10 +26,10 @@ extension Product {
     @NSManaged public var category: ProductCategory?
     @NSManaged public var productDescription: String?
     @NSManaged public var productID: String?
+    @NSManaged public var unitDescription: String?
     @NSManaged public var timestamp: Date?
     @NSManaged public var unitPrice: Double
     @NSManaged public var quantity: Int32
-    @NSManaged public var units: Int32
     @NSManaged public var invoiced: Int16
     @NSManaged public var project: Project?
 }

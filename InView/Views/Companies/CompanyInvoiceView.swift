@@ -545,7 +545,7 @@ extension CompanyInvoiceView {
                 switch columnIndex {
                     
                     case ColumnType.shared.description: title = value.productDescription
-                    case ColumnType.shared.unit: title = String(value.units)
+                    case ColumnType.shared.unit: title = value.unitDescription
                     case ColumnType.shared.qty: title = String(value.quantity).formattedValue
                     case ColumnType.shared.price: title = String(value.unitPrice).formattedDollar
                     case ColumnType.shared.total: title = String(Double(value.quantity) * value.unitPrice).formattedDollar
@@ -595,9 +595,9 @@ extension CompanyInvoiceView {
         
         for product in productPendingInvoice! { invoiceSubtotal += (Double(product.quantity) * product.unitPrice) }
         
-        let tax = invoiceInfo!.tax * invoiceSubtotal
         let discount: Double = 0.05 * invoiceSubtotal
-        
+        let tax = invoiceInfo!.tax/100 * (invoiceSubtotal-discount)
+      
         context!.addRect(inRect)
         UIColor.white.setFill()
         UIColor.label.setStroke()
@@ -701,27 +701,4 @@ extension CompanyInvoiceView {
      return nil
  }
  
- 
- 
- func justifyText(text: String, font: UIFont, columnWidth: CGFloat, justify: Justification) -> String {
-     
-     let justifiedText = text
-     let widthOfSpace = " ".textSize(font: font).width
-     let textSize = justifiedText.textSize(font: font)
-     let paddingNeeded = columnWidth-textSize.width
-   
-     switch justify {
-         
-         case .left:
-             return text
-         
-         case .right:
-             let padding = paddingNeeded/widthOfSpace
-             return justifiedText.padWithSpaces(before: Int(padding))
-             
-         case .center:
-             let padding = (paddingNeeded/2)/widthOfSpace
-             return justifiedText.padWithSpaces(before: Int(padding), after: Int(padding))
-     }
- }
  */

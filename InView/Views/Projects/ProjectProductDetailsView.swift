@@ -15,11 +15,10 @@ class ProjectProductDetailsView: ParentView {
     @IBOutlet weak var categoryTextField: UITextField!
     @IBOutlet weak var productIDTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
-    @IBOutlet weak var unitQuantityTextField: UITextField!
+    @IBOutlet weak var unitDescriptionTextField: UITextField!
     @IBOutlet weak var quantityTextField: UITextField!
     @IBOutlet weak var unitPriceTextField: UITextField!
     @IBOutlet weak var totalCostTextField: UITextField!
-    @IBOutlet weak var totalItemsTextField: UITextField!
     
     // MARK: - PROPERTIES
     var theProject: Project?
@@ -63,9 +62,10 @@ class ProjectProductDetailsView: ParentView {
         categoryTextField.rightView!.heightAnchor.constraint(equalToConstant: categoryTextField.frame.height * 0.95).isActive = true
         categoryTextField.rightViewMode = .always
         
+        unitDescriptionTextField.delegate = self
         quantityTextField.delegate = self
         unitPriceTextField.delegate = self
-        unitQuantityTextField.delegate = self
+        unitDescriptionTextField.delegate = self
         
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
@@ -75,7 +75,7 @@ class ProjectProductDetailsView: ParentView {
         
         quantityTextField.inputAccessoryView = toolbar
         unitPriceTextField.inputAccessoryView = toolbar
-        unitQuantityTextField.inputAccessoryView = toolbar
+        unitDescriptionTextField.inputAccessoryView = toolbar
         
         super.initView(inController: inController)
     }
@@ -90,23 +90,19 @@ class ProjectProductDetailsView: ParentView {
         
         if theProduct != nil {
             
-            categoryTextField.text = theProduct!.category!.category
+            categoryTextField.text = theProduct!.category == nil ? "No Category" : theProduct!.category!.category
             productIDTextField.text = theProduct!.productID!
             descriptionTextField.text = theProduct!.productDescription!
-            unitQuantityTextField.text = String(theProduct!.units).formattedValue
+            unitDescriptionTextField.text = theProduct!.unitDescription!
             quantityTextField.text = String(theProduct!.quantity).formattedValue
             unitPriceTextField.text = String(theProduct!.unitPrice).formattedDollar
             
             let unitPrice = NSString(string: unitPriceTextField.text!.cleanedDollar).doubleValue
             let quantity = Double(theProduct!.quantity)
-            let unitQuantity = Double(theProduct!.units)
-           
             let totalPrice = unitPrice * quantity
-            let totalItems = unitQuantity * quantity
          
             totalCostTextField.text = String(format: "%.02f", totalPrice).formattedDollar
-            totalItemsTextField.text = String(format: "%.02f", totalItems).formattedValue
-           
+         
             if categoryTextField.text!.isEmpty || theProduct!.category == nil {
                 
                 categoryTextField.text = "No Category"
@@ -155,7 +151,7 @@ class ProjectProductDetailsView: ParentView {
             newProduct.productID = productIDTextField.text!
             newProduct.productDescription = descriptionTextField.text!
             newProduct.quantity = Int32(NSString(string: quantityTextField.text!.cleanedValue).intValue)
-            newProduct.units = Int32(NSString(string: unitQuantityTextField.text!.cleanedValue).intValue)
+            newProduct.unitDescription = unitDescriptionTextField.text!
             newProduct.unitPrice = NSString(string: unitPriceTextField.text!.cleanedDollar).doubleValue
             
             if selectedCategory != nil { newProduct.category = selectedCategory }
@@ -167,7 +163,7 @@ class ProjectProductDetailsView: ParentView {
             theProduct!.productID = productIDTextField.text!
             theProduct!.productDescription = descriptionTextField.text!
             theProduct!.quantity = Int32(NSString(string: quantityTextField.text!.cleanedValue).intValue)
-            theProduct!.units = Int32(NSString(string: unitQuantityTextField.text!.cleanedValue).intValue)
+            theProduct!.unitDescription = unitDescriptionTextField.text!
             theProduct!.unitPrice = NSString(string: unitPriceTextField.text!.cleanedDollar).doubleValue
             
             if selectedCategory != nil { theProduct!.category = selectedCategory }
@@ -187,6 +183,8 @@ extension ProjectProductDetailsView: UITextFieldDelegate, UIPickerViewDelegate {
  
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
+        guard textField != unitDescriptionTextField else { return true }
+        
         if textField == quantityTextField {
             
             if textField.text!.isEmpty { totalCostTextField.text = String(format: "%.02f", 0).formattedDollar }
@@ -195,42 +193,42 @@ extension ProjectProductDetailsView: UITextFieldDelegate, UIPickerViewDelegate {
             return true
         }
 
-        if textField == unitQuantityTextField && textField.text!.isEmpty {
-            
-            if textField.text!.isEmpty { totalItemsTextField.text = String(format: "%.02f", 0).formattedDollar }
-            textField.text = textField.text!.cleanedValue
-      
-            return true
-        }
-        
-       
         textField.text = textField.text!.cleanedDollar
         return true
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard textField == unitDescriptionTextField else { return true }
+   
+        if !string.isBackspace {
+            
+            if textField.text!.count > 20 { return false } //{ textField.text!.removeLast() }
+        }
+
+        return true
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        guard textField != unitDescriptionTextField else { return }
         
         if textField.text!.isEmpty { textField.text = "0" }
         
         if !textField.text!.isValidNumber {
             
             if textField == unitPriceTextField {  AlertManager(controller: GlobalData.shared.activeController!).popupOK(aMessage: "Please enter a valid number for the unit price") }
-            else if textField == unitQuantityTextField {  AlertManager(controller: GlobalData.shared.activeController!).popupOK(aMessage: "Please enter a valid number for the unit quantity") }
-            else {  AlertManager(controller: GlobalData.shared.activeController!).popupOK(aMessage: "Please enter a valid number for the quantity")}
+            else { AlertManager(controller: GlobalData.shared.activeController!).popupOK(aMessage: "Please enter a valid number for the quantity") }
            
         } else {
             
             let quantity: Double = quantityTextField.text!.isEmpty ? 0 : NSString(string: quantityTextField.text!.cleanedValue).doubleValue
-            let unitQuantity: Double = unitQuantityTextField.text!.isEmpty ? 0 : NSString(string: unitQuantityTextField.text!.cleanedValue).doubleValue
             let price: Double = unitPriceTextField.text!.isEmpty ? 0 : NSString(string: unitPriceTextField.text!.cleanedDollar).doubleValue
             let totalPrice = price * quantity
-            let itemCount = unitQuantity * quantity
-            
+          
             totalCostTextField.text = String(totalPrice).formattedDollar
-            totalItemsTextField.text = String(itemCount).formattedValue
-           
+          
             if textField == quantityTextField { quantityTextField.text = quantityTextField.text!.formattedValue }
-            if textField == unitQuantityTextField { unitQuantityTextField.text = unitQuantityTextField.text!.formattedValue }
             if textField == unitPriceTextField { unitPriceTextField.text = unitPriceTextField.text!.formattedDollar }
         }
     }
