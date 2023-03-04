@@ -13,17 +13,11 @@ import DateManager
 import Extensions
 import AlertManager
 
-struct Padding { var before: Int = 0; var after: Int = 0 }
-struct Column { var title: String = ""; var width: CGFloat; var justificaton: Justification? = .left }
-struct Widths {
+struct Column {
     
-    var description: CGFloat
-    var unit: CGFloat
-    var qty: CGFloat
-    var price: CGFloat
-    var total: CGFloat
-    var totalToPrice: Int { return Int(description + unit + qty) }
-    var totalToTotal: Int { return totalToPrice + Int(total) }
+    var title: String
+    var rect: CGRect
+    var justification: Justification
 }
 
 class CompanyInvoiceView: ParentView {
@@ -32,17 +26,23 @@ class CompanyInvoiceView: ParentView {
     @IBOutlet weak var webView: WKWebView!
     
     // MARK: PROPERTIES
-    var invoiceInfo: Invoice?
-    var textRect: CGRect?
+    var theCompany: Company?
+    let pageWidth: CGFloat = 612
+    let margin: CGFloat = 20
+    let pageWidthMargined: CGFloat = 572
+    let halfPageWidth: CGFloat = 286
     var infoOffset: CGFloat = 120
     let addressFont = UIFont.systemFont(ofSize: 14, weight: .regular)
     let heightFont = UIFont.systemFont(ofSize: 10, weight: .regular)
-    let paragraphStyle = NSMutableParagraphStyle()
-    var productPendingInvoice: [Product]?
-    var pageWidth: CGFloat = 612
-    var commentBoxY: Int?
-    var widths: Widths?
     
+    var paragraphStyle = NSMutableParagraphStyle()
+    var invoiceInfo: Invoice?
+    var textRect: CGRect?
+    var productPendingInvoice: [Product]?
+    var commentBoxY: Int?
+    var theColumns: [Column]?
+    var totalColumnsWidth: CGFloat = 545
+  
     // MARK: - COMPUTED PROPERTIES
     var invoicePDFData: Data {
         
@@ -51,9 +51,14 @@ class CompanyInvoiceView: ParentView {
         let pageRect = CGRect(x: 0, y: 0, width: pageWidth, height: 792)
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: format)
         let coreData = parentController!.contactController.coreData!
+        let theColumns = [
+                Column(title: " Description", rect: CGRect(x: margin, y: 0, width: 230, height: 18), justification: .left),
+                Column(title: "Unit", rect: CGRect(x: margin + 230, y: 0, width: 72, height: 18), justification: .left),
+                Column(title: "Qty", rect: CGRect(x: margin + 302, y: 0, width: 65, height: 18), justification: .right),
+                Column(title: "Unit Price", rect: CGRect(x: margin + 365, y: 0, width: 85, height: 18), justification: .right),
+                Column(title: "Amount ", rect: CGRect(x: margin + 445, y: 0, width: 120, height: 18), justification: .right)
+            ]
         
-        widths = Widths(description: (pageWidth/2)-55, unit: 65, qty: 65, price: 85, total: pageWidth - ((pageWidth/2)+210))
-       
         invoiceInfo = parentController!.contactController.coreData!.invoices!.first!
         format.documentInfo = metaData as [String: Any]
         
@@ -78,26 +83,16 @@ class CompanyInvoiceView: ParentView {
             
             // BILL TO and SHIP TO info bar
             let headerGap = pageWidth - 540
-            drawInfoBar(title: "BILL TO", inRect: CGRect(x: 20, y: 200, width: 250, height: 18), background: ThemeColors.blue, foreground: ColorManager().white)
-            drawInfoBar(title: "SHIP TO", inRect: CGRect(x: 270 + headerGap, y: 200, width: 250, height: 18), background: ThemeColors.blue, foreground: ColorManager().white)
+            drawInfoBar(title: " BILL TO", inRect: CGRect(x: 20, y: 200, width: 250, height: 18), background: ThemeColors.blue, foreground: ColorManager().white)
+            drawInfoBar(title: " SHIP TO", inRect: CGRect(x: 270 + headerGap, y: 200, width: 250, height: 18), background: ThemeColors.blue, foreground: ColorManager().white)
        
             // BILL TO and SHIP TO addresses
             let billingY = drawBillToAddress()
             let shippingY = drawShipToAddress(originX: 270 + Int(headerGap))
             let maxY = max(billingY,shippingY)
-          
-            // Draw line item header
-            let theColumns = [
-                
-                Column( title: "Description", width: widths!.description),
-                Column( title: "Unit", width: widths!.unit),
-                Column( title: "QTY", width: widths!.qty, justificaton: .right),
-                Column( title: "Unit Price", width: widths!.price, justificaton: .right),
-                Column( title: "Amount", width: widths!.total, justificaton: .right)
-            ]
-            
+           
             drawHeader(yLocation: maxY + 15, height: 18, font: UIFont.systemFont(ofSize: 12, weight: .semibold), columns: theColumns)
-            drawLineItems(yLocation: maxY + 15 + 20, height: 20, font: UIFont.systemFont(ofSize: 12, weight: .semibold))
+            drawLineItems(yLocation: maxY + 15 + 20, height: 20, font: UIFont.systemFont(ofSize: 12, weight: .semibold), columns: theColumns)
             
             drawCommentBox()
             drawThankYou()
@@ -105,12 +100,7 @@ class CompanyInvoiceView: ParentView {
         
         return data
     }
-    
-    // MARK: - PROPERTIES
-    var theCompany: Company?
-    
-    // MARK: - INITIALIZATON
-    
+   
     // MARK: METHODS
     func setCompany(company: Company) {
         
@@ -516,71 +506,65 @@ extension CompanyInvoiceView {
     
     func drawHeader(yLocation: Int, height: Int, font: UIFont, columns: [Column]) {
         
-        var xSegment = 20
+        var xOffset = Int(margin)
+        var justifiedRect: CGRect?
     
         for column in columns {
             
-            var paddedTitle: String?
+            if column.justification == .left { justifiedRect = column.rect }
+            else if column.justification == .right { justifiedRect = column.title.justified(textRect: column.rect, justification: .right, font: font) }
+            else if column.justification == .center { justifiedRect = column.title.justified(textRect: column.rect, justification: .center, font: font) }
             
-            switch column.justificaton {
-                
-                case .left: paddedTitle = column.title.justified(width: column.width, justification: .left, font: font)
-                case .center: paddedTitle = column.title.justified(width: column.width, justification: .center, font: font)
-                case .right: paddedTitle = column.title.justified(width: column.width, justification: .right, font: font)
-        
-                default: break
-            }
-            
-            drawInfoBar(title: paddedTitle, inRect: CGRect(x: xSegment, y: yLocation, width: Int(column.width), height: height), withFont: font, background: ThemeColors.blue, foreground: ColorManager(color: .white))
-            xSegment += Int(column.width)
+            let justificationOffset = justifiedRect!.origin.x - column.rect.origin.x
+    
+            drawInfoBar(title: column.title, inRect: CGRect(x: xOffset, y: yLocation, width: Int(column.rect.width), height: height), withOffset: justificationOffset, withFont: font, background: ThemeColors.blue, foreground: ColorManager(color: .white))
+            xOffset += Int(column.rect.width)
         }
     }
     
-    func drawLineItems(yLocation: Int, height: Int, font: UIFont) {
+    func drawLineItems(yLocation: Int, height: Int, font: UIFont, columns: [Column]) {
         
         var lineBackgroundColor: ColorManager?
         let productsToInvoice = InvoiceManager.shared.createInvoiceItems(company: theCompany!)
         var theYLocation = yLocation
     
         for (index,value) in productsToInvoice.enumerated() {
-            
-            var xSegment = 20
-           
-            // The column values for this line
-            let theColumns = [
-                
-                Column( title: value.productDescription!, width: widths!.description),
-                Column( title: String(value.units).formattedValue, width: widths!.unit),
-                Column( title: String(value.quantity).formattedValue, width: widths!.qty, justificaton: .right),
-                Column( title: String(value.unitPrice).formattedDollar, width: widths!.price, justificaton: .right),
-                Column( title: String(Double(value.quantity) * value.unitPrice).formattedDollar, width: widths!.total, justificaton: .right)
-            ]
-            
+    
+            var xOffset = margin
+            var title: String?
+
             // Set the background color (alternating white and gray)
             if index % 2 == 0 { lineBackgroundColor = ColorManager(color: .white) }
             else { lineBackgroundColor = ThemeColors.lightGray }
                
-            // Set the column justifications
-            for column in theColumns {
+            for (columnIndex,columnValue) in columns.enumerated() {
                 
-                var paddedTitle: String?
+                var theTextRect = columnValue.rect
+                theTextRect.origin.y = CGFloat(theYLocation)
                 
-                switch column.justificaton {
+                switch columnIndex {
                     
-                    case .left: paddedTitle = column.title.justified(width: column.width, justification: .left, font: font)
-                    case .center: paddedTitle = column.title.justified(width: column.width, justification: .center, font: font)
-                    case .right: paddedTitle = column.title.justified(width: column.width, justification: .right, font: font)
+                    case ColumnType.shared.description: title = value.productDescription
+                    case ColumnType.shared.unit: title = String(value.units)
+                    case ColumnType.shared.qty: title = String(value.quantity).formattedValue
+                    case ColumnType.shared.price: title = String(value.unitPrice).formattedDollar
+                    case ColumnType.shared.total: title = String(Double(value.quantity) * value.unitPrice).formattedDollar
                         
                     default: break
                 }
                 
-                // Draw the column
-                drawInfoBar(title: paddedTitle, inRect: CGRect(x: xSegment, y: theYLocation, width: Int(column.width), height: height), withFont: font, background: lineBackgroundColor!, foreground: ColorManager(color: .label))
+                let justifiedTextRect = title!.justified(textRect: columnValue.rect, justification: columnValue.justification, font: font)
+                let offset = justifiedTextRect.origin.x - theTextRect.origin.x
               
-                xSegment += Int(column.width)
+                theTextRect.origin.x = xOffset
+                theTextRect.origin.y = CGFloat(theYLocation)
                 
+                // Draw the column
+                drawInfoBar(title: title, inRect: theTextRect, withOffset: offset, withFont: font, background: lineBackgroundColor!, foreground: ColorManager(color: .label))
+                xOffset += columnValue.rect.width
+             
             }
-            
+
             theYLocation += height
         }
         
@@ -592,7 +576,7 @@ extension CompanyInvoiceView {
                 else { lineBackgroundColor = ThemeColors.lightGray }
                 
                 // Draw the column
-                drawInfoBar(title: " ", inRect: CGRect(x: 20, y: theYLocation, width: 560, height: height), withFont: font, background: lineBackgroundColor!, foreground: ColorManager(color: .label))
+                drawInfoBar(inRect: CGRect(x: Int(margin), y: theYLocation, width: Int(pageWidthMargined), height: height), withFont: font, background: lineBackgroundColor!, foreground: ColorManager(color: .label))
                 theYLocation += height
             }
         }
@@ -604,55 +588,59 @@ extension CompanyInvoiceView {
         
         var yLocation = commentBoxY!
         let context = UIGraphicsGetCurrentContext()
-        let inRect = CGRect(x: 20, y: yLocation, width: Int(pageWidth/2), height: 60)
+        let inRect = CGRect(x: Int(margin), y: yLocation, width: Int(halfPageWidth), height: 60)
         var columnValue: String?
         let font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         var invoiceSubtotal: Double = 0
+        
         for product in productPendingInvoice! { invoiceSubtotal += (Double(product.quantity) * product.unitPrice) }
+        
         let tax = invoiceInfo!.tax * invoiceSubtotal
         let discount: Double = 0.05 * invoiceSubtotal
-      
+        
         context!.addRect(inRect)
         UIColor.white.setFill()
         UIColor.label.setStroke()
         context!.drawPath(using: .fillStroke)
         
-        drawInfoBar(title: "Comments", inRect: CGRect(x: 20, y: yLocation, width: Int(pageWidth/2), height: 18), background: ThemeColors.blue, foreground: ColorManager(color: .white))
+        drawInfoBar(title: " Comments", inRect: CGRect(x: Int(margin), y: yLocation, width: Int(halfPageWidth), height: 18), withOffset: 0, background: ThemeColors.blue, foreground: ColorManager(color: .white))
         
         for (index,value) in ["Subtotal","Discount","Taxes","Invoice Total"].enumerated() {
             
-            let justifiedText = value.justified(width: widths!.price, justification: .right, font: font) + "   "
-            drawInfoBar(title: justifiedText, inRect: CGRect(x: widths!.totalToPrice - 50, y: yLocation-18, width: 100, height: 20), background: ColorManager(color: .white), foreground: ColorManager(color: .label))
+            var theTextRect = CGRect(x: Int(margin + 300), y: yLocation - 18, width: 100, height: 20)
+            var justifiedRect = value.justified(textRect: theTextRect, justification: .right, font: font)
+            var offset = justifiedRect.origin.x - theTextRect.origin.x
+            
+            drawInfoBar(title: value, inRect: theTextRect, withOffset: offset, background: ColorManager(color: .white), foreground: ColorManager(color: .label))
             
             switch index {
                 
                 case 0: columnValue = String(format: "%.02f", invoiceSubtotal).formattedDollar
-                case 1: columnValue = String(format: "-%.02f", discount).formattedDollar
+                case 1: columnValue = "-" + String(format: "%.02f", discount).formattedDollar
                 case 2: columnValue = String(format: "%.02f", tax).formattedDollar
                 case 3: columnValue = String(format: "%.02f", invoiceSubtotal - (0.1 * invoiceSubtotal) + tax).formattedDollar
                
                 default: break
             }
             
-            let justifiedValue = columnValue!.justified(width: widths!.price, justification: .right, font: font)
-            let offset = index == 2 ? 2 : 0
-        
-            drawInfoBar(title: justifiedValue, inRect: CGRect(x: widths!.totalToTotal + offset, y: yLocation-18, width: 100, height: 20), background: ColorManager(color: .white), foreground: ColorManager(color: .label))
-         
+            theTextRect = CGRect(x: Int(margin) + 440 + (index == 2 ? 1 : 0), y: yLocation - 18, width: 120, height: 20)
+            justifiedRect = columnValue!.justified(textRect: theTextRect, justification: .right, font: font)
+            offset = justifiedRect.origin.x - theTextRect.origin.x
+            
+            drawInfoBar(title: columnValue!, inRect: theTextRect, withOffset: offset, background: ColorManager(color: .white), foreground: ColorManager(color: .label))
             yLocation += 20
         }
     }
     
-    func drawInfoBar(title: String? = "", inRect: CGRect, withFont: UIFont? = UIFont.systemFont(ofSize: 14, weight: .semibold), background: ColorManager, foreground: ColorManager) {
-        
-        let context = UIGraphicsGetCurrentContext()
-        context!.addRect(inRect)
+    func drawInfoBar(title: String? = "", inRect: CGRect, withOffset: CGFloat? = 0, withFont: UIFont? = UIFont.systemFont(ofSize: 14, weight: .semibold), background: ColorManager, foreground: ColorManager) {
         
         let font = withFont!
-        
+        let context = UIGraphicsGetCurrentContext()
+      
+        // Draw box
+        context!.addRect(inRect)
         background.uicolor.setFill()
         UIColor.clear.setStroke()
-        
         context!.drawPath(using: .fillStroke)
         
         if title != "" {
@@ -667,7 +655,8 @@ extension CompanyInvoiceView {
             var theTextRect = inRect
             let textSize = "H".textSize(font: font)
          
-            theTextRect.origin.x += 3
+            // Draw text
+            theTextRect.origin.x = inRect.origin.x + withOffset!
             theTextRect.origin.y += (inRect.size.height/2 - textSize.height/2)
             title!.draw(in: theTextRect, withAttributes: attributes)
         }
@@ -683,9 +672,10 @@ extension CompanyInvoiceView {
             NSAttributedString.Key.foregroundColor: UIColor.red
         ]
 
-        let thankYou = "Thank You For Your Business!".justified(width: pageWidth/2, justification: .center, font: font)
-        textRect = CGRect(x: 20, y: CGFloat(commentBoxY! + 70), width: thankYou.textSize(font: font).width + 20, height: thankYou.textSize(font: font).height + 10)
-        thankYou.draw(in: textRect!, withAttributes: attributes)
+        let message = "Thank You For Your Business!"
+        let JustifiedMessageRect = message.justified(textRect: CGRect(x: margin, y: CGFloat(commentBoxY! + 70), width: halfPageWidth, height: message.textSize(font: font).height + 10), justification: .center, font: font)
+
+        message.draw(in: JustifiedMessageRect, withAttributes: attributes)
     }
    
 }
