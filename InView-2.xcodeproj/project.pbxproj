@@ -136,6 +136,8 @@
 		DB0F1FE3299D86EA00ED0CCF /* InvoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1FDA299D86EA00ED0CCF /* InvoiceView.swift */; };
 		DB0F1FE4299D86EA00ED0CCF /* ProductCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1FDB299D86EA00ED0CCF /* ProductCategoryView.swift */; };
 		DB0F1FE5299D86EA00ED0CCF /* CompanyCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1FDC299D86EA00ED0CCF /* CompanyCategoryView.swift */; };
+		DB12B4B529B42A6D00C5FD65 /* InvoiceOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB12B4B429B42A6D00C5FD65 /* InvoiceOptions.swift */; };
+		DB12B4C129B45DDB00C5FD65 /* InvCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB12B4BF29B45DDB00C5FD65 /* InvCounter.swift */; };
 		DB484C4329A349CF00DB29FA /* CompanyInvoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB484C4229A349CF00DB29FA /* CompanyInvoiceView.swift */; };
 		DB4A2E4129B09A2C00785D1F /* MenuOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4A2E4029B09A2C00785D1F /* MenuOptions.swift */; };
 		DB5DCF3B29AC84BF00441DB5 /* Invoiced.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5DCF3A29AC84BF00441DB5 /* Invoiced.swift */; };
@@ -372,6 +374,8 @@
 		DB0F1FDA299D86EA00ED0CCF /* InvoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceView.swift; sourceTree = "<group>"; };
 		DB0F1FDB299D86EA00ED0CCF /* ProductCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCategoryView.swift; sourceTree = "<group>"; };
 		DB0F1FDC299D86EA00ED0CCF /* CompanyCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyCategoryView.swift; sourceTree = "<group>"; };
+		DB12B4B429B42A6D00C5FD65 /* InvoiceOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceOptions.swift; sourceTree = "<group>"; };
+		DB12B4BF29B45DDB00C5FD65 /* InvCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvCounter.swift; sourceTree = "<group>"; };
 		DB484C4229A349CF00DB29FA /* CompanyInvoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyInvoiceView.swift; sourceTree = "<group>"; };
 		DB4A2E4029B09A2C00785D1F /* MenuOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOptions.swift; sourceTree = "<group>"; };
 		DB5DCF3A29AC84BF00441DB5 /* Invoiced.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoiced.swift; sourceTree = "<group>"; };
@@ -699,6 +703,7 @@
 				DB0F1F46299D85B700ED0CCF /* Goal.swift */,
 				DB0F1F4A299D85B800ED0CCF /* Group.swift */,
 				DBC6991029A9EFEF00A931B6 /* Invoice.swift */,
+				DB12B4BF29B45DDB00C5FD65 /* InvCounter.swift */,
 				DB0F1F50299D85B900ED0CCF /* LogEntry.swift */,
 				DB0F1F45299D85B700ED0CCF /* MarketArea.swift */,
 				DB0F1F43299D85B700ED0CCF /* Photo.swift */,
@@ -715,6 +720,7 @@
 			children = (
 				DB0F1F33299D858B00ED0CCF /* ActivityElement.swift */,
 				DB0F1F32299D858B00ED0CCF /* AttachmentInfo.swift */,
+				DB12B4B429B42A6D00C5FD65 /* InvoiceOptions.swift */,
 			);
 			path = "Data Structures";
 			sourceTree = "<group>";
@@ -1139,6 +1145,7 @@
 				DBC6991229A9EFEF00A931B6 /* Invoice.swift in Sources */,
 				DB4A2E4129B09A2C00785D1F /* MenuOptions.swift in Sources */,
 				DB0F1F80299D862900ED0CCF /* CompanyDetailsView.swift in Sources */,
+				DB12B4B529B42A6D00C5FD65 /* InvoiceOptions.swift in Sources */,
 				DB0F1F82299D862900ED0CCF /* CompanyProjectListView.swift in Sources */,
 				DB0F1F90299D863D00ED0CCF /* ContactLogListView.swift in Sources */,
 				DB0F1FB6299D865400ED0CCF /* ProjectActivityListView.swift in Sources */,
@@ -1160,6 +1167,7 @@
 				DB0F1F0B299D84DB00ED0CCF /* ActivityListCell.swift in Sources */,
 				DB0F1EF7299D84DB00ED0CCF /* MoveActivityListCell.swift in Sources */,
 				DB0F1ECA299D847F00ED0CCF /* ProjectViewController.swift in Sources */,
+				DB12B4C129B45DDB00C5FD65 /* InvCounter.swift in Sources */,
 				DB0F1F91299D863D00ED0CCF /* ContactProjectListView.swift in Sources */,
 				DB0F1F06299D84DB00ED0CCF /* EmployeeListCell.swift in Sources */,
 				DB0F1F9C299D864800ED0CCF /* GroupDetailsView.swift in Sources */,

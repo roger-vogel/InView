@@ -30,6 +30,7 @@ class CoreDataManager {
     var goals: [Goal]?
     var reports: [Report]?
     var products: [Product]?
+    var counterArray: [InvCounter]?
   
     // MARK: - COMPUTED PROPERTIES
     var companyNames: [String] {
@@ -92,6 +93,8 @@ class CoreDataManager {
         
         let reportFetchRequest = Report.fetchRequest()
         
+        let counterFetchRequest = InvCounter.fetchRequest()
+        
         GlobalData.shared.viewContext.perform {
             
             do {
@@ -110,6 +113,7 @@ class CoreDataManager {
                 self.goals = try goalFetchRequest.execute()
                 self.reports = try reportFetchRequest.execute()
                 self.products = try productFetchRequest.execute()
+                self.counterArray = try counterFetchRequest.execute()
              
                 self.initializeCategoryEntities()
                 self.initializeDefaultSorts()

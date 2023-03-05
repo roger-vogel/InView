@@ -8,6 +8,7 @@
 import UIKit
 import AlertManager
 import ColorManager
+import CustomControls
 
 class CompanyDetailsView: ParentView {
    
@@ -25,6 +26,7 @@ class CompanyDetailsView: ParentView {
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var sendButton: UIButton!
     
+    @IBOutlet weak var invoiceButton: UIButton!
     @IBOutlet weak var phoneButton: UIButton!
     @IBOutlet weak var messageButton: UIButton!
     @IBOutlet weak var emailButton: UIButton!
@@ -34,13 +36,30 @@ class CompanyDetailsView: ParentView {
     @IBOutlet weak var websiteButton: UIButton!
     @IBOutlet weak var mapButton: UIButton!
     @IBOutlet weak var employeeTableView: UITableView!
-    @IBOutlet weak var addContactView: UIView!
     
-    @IBOutlet weak var createInvoiceButton: UIButton!
+    @IBOutlet weak var invoiceInfoView: UIView!
+    @IBOutlet weak var poReferenceTextField: UITextField!
+    @IBOutlet weak var discountTextField: UITextField!
+    @IBOutlet weak var dueDateTextField: UITextField!
+    @IBOutlet weak var commentsTextView: UITextView!
+    @IBOutlet weak var cancelInvoiceButton: RoundedBorderedButton!
+    @IBOutlet weak var createInvoiceButton: RoundedBorderedButton!
+    
+    @IBOutlet weak var addContactView: UIView!
     @IBOutlet weak var existingContactButton: UIButton!
     @IBOutlet weak var newContactButton: UIButton!
     @IBOutlet weak var cancelContactButton: UIButton!
     
+    // MARK: - PROPERTIES
+    var photoImagePicker = UIImagePickerController()
+    var termsPicker = UIPickerView()
+    var toolbar = Toolbar()
+    var theCompany: Company?
+    var theEmployees = [Contact]()
+    var invoiceOptions: InvoiceOptions?
+    var theTerms = ["Due Upon Receipt", "Net 30", "Net 60", "Net 90"]
+    
+    // MARK: - COMPUTED PROPERTIES
     var hasProjects: Bool {
         
         if theCompany!.projects!.count > 0 { return true }
@@ -52,12 +71,6 @@ class CompanyDetailsView: ParentView {
         if theCompany!.activities != nil && theCompany!.activities!.count > 0 { return true }
         return false
     }
-    
-    // MARK: - PROPERTIES
-    var photoImagePicker = UIImagePickerController()
-    var toolbar = Toolbar()
-    var theCompany: Company?
-    var theEmployees = [Contact]()
     
     // MARK: - INITIALIZATION
     override func initView(inController: ParentViewController, backgroundImage: String? = nil, withAlpha: CGFloat? = 1.0) {
@@ -75,7 +88,7 @@ class CompanyDetailsView: ParentView {
         
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: employeeTableView.frame.width, height: 10))
         label.backgroundColor = ThemeColors.beige.uicolor
-       
+        
         employeeTableView.delegate = self
         employeeTableView.dataSource = self
         employeeTableView.isEditing = true
@@ -89,14 +102,37 @@ class CompanyDetailsView: ParentView {
         quickNotesTextView.setBorder(width: 1.0, color: ThemeColors.teal.cgcolor)
         quickNotesTextView.roundCorners(corners: .all)
         
+        commentsTextView.delegate = self
+        commentsTextView.inputAccessoryView = toolbar
+        commentsTextView.roundCorners(corners: .all)
+        
+        termsPicker.delegate = self
+        termsPicker.dataSource = self
+        
+        dueDateTextField.inputAccessoryView = toolbar
+        dueDateTextField.inputView = termsPicker
+        dueDateTextField.rightView = UIImageView(image: UIImage(named: "button.up.down"))
+        dueDateTextField.rightView!.contentMode = .scaleAspectFit
+        dueDateTextField.translatesAutoresizingMaskIntoConstraints = false
+        dueDateTextField.rightView!.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        dueDateTextField.rightView!.heightAnchor.constraint(equalToConstant: dueDateTextField.frame.height * 0.95).isActive = true
+        dueDateTextField.rightViewMode = .always
+        
         addContactView.setBorder(width: 2.0, color: UIColor.white.cgColor)
         addContactView.roundAllCorners(value: 10)
         addContactView.isHidden = true
         addContactView.alpha = 0.0
-        
         addContactView.layer.shadowColor = UIColor.black.cgColor
         addContactView.layer.shadowOpacity = 0.65
         addContactView.layer.shadowOffset = .zero
+        
+        invoiceInfoView.setBorder(width: 2.0, color: UIColor.white.cgColor)
+        invoiceInfoView.roundAllCorners(value: 10)
+        invoiceInfoView.isHidden = true
+        invoiceInfoView.alpha = 0.0
+        invoiceInfoView.layer.shadowColor = UIColor.black.cgColor
+        invoiceInfoView.layer.shadowOpacity = 0.65
+        invoiceInfoView.layer.shadowOffset = .zero
         
         existingContactButton.setBorder(width: 2.0, color: UIColor.white.cgColor)
         existingContactButton.roundAllCorners(value: 15)
@@ -107,7 +143,18 @@ class CompanyDetailsView: ParentView {
         cancelContactButton.setBorder(width: 1.0, color: ThemeColors.beige.cgcolor)
         cancelContactButton.roundAllCorners(value: 15)
         
-        createInvoiceButton.roundAllCorners(value: 3)
+        invoiceButton.roundAllCorners(value: 3)
+        
+        
+        
+    }
+    
+    func initializeOptions() {
+        
+        discountTextField.text = String(format: "%.02f", theCompany!.discount * 100).formattedPercent
+        dueDateTextField.text = theCompany!.terms
+        
+        termsPicker.setRow(forKey: theCompany!.terms!, inData: theTerms)
     }
     
     // MARK: - METHODS
@@ -157,6 +204,7 @@ class CompanyDetailsView: ParentView {
             
         } else { categoryLabel.text = "Category: None Selected" }
         
+        initializeOptions()
         reloadEmployeeTable()
         setActionButtonState()
    
@@ -230,13 +278,13 @@ class CompanyDetailsView: ParentView {
         
         if InvoiceManager.shared.createInvoiceItems(company: theCompany!).isEmpty {
             
-            createInvoiceButton.isEnabled = false
-            createInvoiceButton.alpha = 0.50
+            invoiceButton.isEnabled = false
+            invoiceButton.alpha = 0.50
             
         } else {
             
-            createInvoiceButton.isEnabled = true
-            createInvoiceButton.alpha = 1.0
+            invoiceButton.isEnabled = true
+            invoiceButton.alpha = 1.0
         }
     }
     
@@ -282,24 +330,27 @@ class CompanyDetailsView: ParentView {
  
     @IBAction func onInvoice(_ sender: Any) {
         
-       if parentController!.contactController.coreData!.invoices!.isEmpty {
-            
-            AlertManager(controller: GlobalData.shared.activeController!).popupWithCustomButtons(aMessage: "You need to complete the invoice setup before you can create an invoice", buttonTitles: ["SETUP","CANCEL"], theStyle: [.default,.cancel], theType: .alert) { choice in
-                
-                if choice == 0 {
-                    
-                    GlobalData.shared.preselectedMenuOption = MenuOptions.shared.invoiceSetup
-                    self.parentController!.companyController.companyListView.showView(withTabBar: true)
-                    self.parentController!.companyController.companyListView.onMenu(self)
-                }
-            }
-            
-            return
-        }
+        if parentController!.contactController.coreData!.invoices!.isEmpty {
+             
+             AlertManager(controller: GlobalData.shared.activeController!).popupWithCustomButtons(aMessage: "You need to complete the invoice setup before you can create an invoice", buttonTitles: ["SETUP","CANCEL"], theStyle: [.default,.cancel], theType: .alert) { choice in
+                 
+                 if choice == 0 {
+                     
+                     GlobalData.shared.preselectedMenuOption = MenuOptions.shared.invoiceSetup
+                     self.parentController!.companyController.companyListView.showView(withTabBar: true)
+                     self.parentController!.companyController.companyListView.onMenu(self)
+                 }
+             }
+             
+             return
+         }
         
-        parentController!.companyController.companyInvoiceView.setCompany(company: theCompany!)
-        parentController!.companyController.companyInvoiceView.showView(withTabBar: false)
-  
+        returnButton.isEnabled = false
+        editButton.isEnabled = false
+        sendButton.isEnabled = false
+        
+        invoiceInfoView.isHidden = false
+        UIView.animate(withDuration:0.25, animations: { self.invoiceInfoView.alpha = 1.0 })
     }
     
     @IBAction func onPhone(_ sender: Any) { LaunchManager.shared.call(atNumber: theCompany!.phone!) }
@@ -431,6 +482,32 @@ class CompanyDetailsView: ParentView {
         sendButton.isEnabled = true
     }
     
+    @IBAction func onCreateInvoice(_ sender: Any) {
+        
+        let projectName = parentController!.contactController.coreData!.setToArray(projects: theCompany!.projects!).first!.name!
+        
+        invoiceOptions!.poReference = poReferenceTextField.text!
+        invoiceOptions!.terms = dueDateTextField.text!
+        invoiceOptions!.discount = discountTextField.text!.cleanedValue
+        invoiceOptions!.comments = commentsTextView.text!
+        invoiceOptions!.projectName = projectName
+        
+        parentController!.companyController.companyInvoiceView.setCompany(company: theCompany!, options: invoiceOptions!)
+        parentController!.companyController.companyInvoiceView.showView(withTabBar: false)
+        
+        onCancelInvoice(self)
+    }
+    
+    @IBAction func onCancelInvoice(_ sender: Any) {
+        
+        returnButton.isEnabled = true
+        editButton.isEnabled = true
+        sendButton.isEnabled = true
+        
+        invoiceInfoView.alpha = 0.0
+        invoiceInfoView.isHidden = true
+    }
+
     @IBAction func onCancel(_ sender: Any) {
         
         returnButton.isEnabled = true
@@ -563,6 +640,20 @@ extension CompanyDetailsView: ToolBarDelegate {
             
         } else { quickNotesTextView.textColor = ThemeColors.darkGray.uicolor }
     }
+}
+
+// MARK: - PICKER PROTOCOL
+extension CompanyDetailsView: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int { return 1 }
+    
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat { return 30 }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int { return theTerms.count }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? { return theTerms[row] }
+ 
+    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) { dueDateTextField.text = theTerms[row] }
 }
 
 // MARK: - IMAGE PICKER PROTOTOL

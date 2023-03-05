@@ -42,6 +42,7 @@ class CompanyInvoiceView: ParentView {
     var commentBoxY: Int?
     var theColumns: [Column]?
     var totalColumnsWidth: CGFloat = 545
+    var invoiceOptions: InvoiceOptions?
   
     // MARK: - COMPUTED PROPERTIES
     var invoicePDFData: Data {
@@ -102,9 +103,10 @@ class CompanyInvoiceView: ParentView {
     }
    
     // MARK: METHODS
-    func setCompany(company: Company) {
+    func setCompany(company: Company, options: InvoiceOptions) {
         
         theCompany = company
+        invoiceOptions = options
      
         productPendingInvoice = InvoiceManager.shared.createInvoiceItems(company: theCompany!)
         displayInvoice()
@@ -284,11 +286,11 @@ extension CompanyInvoiceView {
 
                 case 0:
 
-                    // Propeties
+                    // Date
                     let dateLength = "Date".textSize(font: addressFont).width
                     let today = DateManager().dateString
                 
-                    // Draw date title
+                    // Draw date
                     textRect = CGRect(x: 612-20-Int(dateLength + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
                     "Date".draw(in: textRect!, withAttributes: attributes)
                 
@@ -298,10 +300,20 @@ extension CompanyInvoiceView {
                     today.draw(in: textRect!, withAttributes: attributes)
             
                 case 1:
+                
+                    let invoiceLength = "Invoice #".textSize(font: addressFont).width
 
                     textRect = CGRect(x: 612-20-Int("Invoice #".textSize(font: addressFont).width + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
                     "Invoice #".draw(in: textRect!, withAttributes: attributes)
-            
+                
+                    /*
+                     // Draw invoice number
+                     textRect!.origin.x += (dateLength + 15)
+                     textRect!.size.width = in.textSize(font: addressFont).width + 2
+                     today.draw(in: textRect!, withAttributes: attributes)
+             
+                     */
+                    
                 case 2:
 
                     textRect = CGRect(x: 612-20-Int("Due Date".textSize(font: addressFont).width + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)

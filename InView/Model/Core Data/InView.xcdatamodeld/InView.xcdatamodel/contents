@@ -23,8 +23,10 @@
     <entity name="Company" representedClassName=".Company" syncable="YES">
         <attribute name="appId" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="city" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="discount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="hasPhoto" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="invoicePrefix" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="manualEntry" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="phone" optional="YES" attributeType="String" defaultValueString=""/>
@@ -41,6 +43,7 @@
         <attribute name="shipToSubStreet" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="state" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="subStreet" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="terms" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="website" optional="YES" attributeType="String" defaultValueString=""/>
         <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Activity" inverseName="companies" inverseEntity="Activity"/>
@@ -124,8 +127,12 @@
         <relationship name="companyMembers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Company" inverseName="memberOf" inverseEntity="Company"/>
         <relationship name="peopleMembers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contact" inverseName="memberOf" inverseEntity="Contact"/>
     </entity>
+    <entity name="InvCounter" representedClassName=".InvCounter" syncable="YES">
+        <attribute name="countValue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="Invoice" representedClassName=".Invoice" syncable="YES">
         <attribute name="city" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="defaultDiscount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="email" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="hasLogo" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -138,6 +145,7 @@
         <attribute name="state" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="subStreet" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="tax" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="terms" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="website" optional="YES" attributeType="String" defaultValueString=""/>
     </entity>

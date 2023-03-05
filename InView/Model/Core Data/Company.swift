@@ -37,6 +37,9 @@ extension Company {
     @NSManaged public var shipToSubStreet: String?
     @NSManaged public var shipToCity: String?
     @NSManaged public var shipToState: String?
+    @NSManaged public var discount: Double
+    @NSManaged public var invoicePrefix: String?
+    @NSManaged public var terms: String?
     @NSManaged public var shipToPostalCode: String?
     @NSManaged public var shipToPhone: String?
     @NSManaged public var category: CompanyCategory?
