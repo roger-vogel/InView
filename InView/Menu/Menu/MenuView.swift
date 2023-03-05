@@ -95,7 +95,7 @@ class MenuView: UIView {
         controller.viewToShow = controller.importView
         
         hideMenuNoFade()
-        parentView!.parentController!.present(menuController, animated: true, completion: { return })
+        parentView!.parentController!.present(menuController, animated: true, completion: { self.parentView!.parentController!.tabBarController!.tabBar.isHidden = false })
     }
     
     func setCustomerCategories() {

@@ -55,6 +55,5 @@ class ImportView: ParentView {
     @IBAction func onReturn(_ sender: Any) {
         
         parentController!.dismiss(animated: true)
-        GlobalData.shared.activeController!.tabBarController!.tabBar.isHidden = false
     }
 }

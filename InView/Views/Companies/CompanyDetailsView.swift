@@ -211,10 +211,11 @@ class CompanyDetailsView: ParentView {
     
     func setTermsPicker() {
         
-        let defaultInvoiceValues = parentController!.contactController.coreData!.defaultInvoiceValues!.first!
+        let defaultInvoiceValues = parentController!.contactController.coreData!.defaultInvoiceValues!
         
-        if defaultInvoiceValues.terms!.isEmpty { termsTextField.text = GlobalData.shared.theTerms.first! }
-        else { termsPicker.setRow(forKey: defaultInvoiceValues.terms!, inData: GlobalData.shared.theTerms) }
+        if defaultInvoiceValues.isEmpty {  termsTextField.text = GlobalData.shared.theTerms.first! }
+        else if defaultInvoiceValues.first!.terms!.isEmpty { termsTextField.text = GlobalData.shared.theTerms.first! }
+        else { termsPicker.setRow(forKey: defaultInvoiceValues.first!.terms!, inData: GlobalData.shared.theTerms) }
     }
     
     func setActionButtonState() {

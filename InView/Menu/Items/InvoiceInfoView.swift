@@ -95,14 +95,14 @@ class InvoiceInfoView: ParentView {
         
         termsPicker.delegate = self
         termsPicker.dataSource = self
-        discountTextField.inputView = statePicker
-        discountTextField.inputAccessoryView = toolbar
-        discountTextField.rightView = UIImageView(image: UIImage(named: "button.up.down"))
-        discountTextField.rightView!.contentMode = .scaleAspectFit
-        discountTextField.translatesAutoresizingMaskIntoConstraints = false
-        discountTextField.rightView!.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        discountTextField.rightView!.heightAnchor.constraint(equalToConstant: termsTextField.frame.height * 0.95).isActive = true
-        discountTextField.rightViewMode = .always
+        termsTextField.inputView = statePicker
+        termsTextField.inputAccessoryView = toolbar
+        termsTextField.rightView = UIImageView(image: UIImage(named: "button.up.down"))
+        termsTextField.rightView!.contentMode = .scaleAspectFit
+        termsTextField.translatesAutoresizingMaskIntoConstraints = false
+        termsTextField.rightView!.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        termsTextField.rightView!.heightAnchor.constraint(equalToConstant: termsTextField.frame.height * 0.95).isActive = true
+        termsTextField.rightViewMode = .always
         
         toolbar.setup(parent: self)
         phoneTextField.inputAccessoryView = toolbar
@@ -116,6 +116,8 @@ class InvoiceInfoView: ParentView {
         
         termsTextField.inputView = termsPicker
         termsTextField.inputAccessoryView = toolbar
+        
+        signatureTextView.inputAccessoryView = toolbar
         
         setTextFieldDelegates()
         
@@ -182,8 +184,10 @@ class InvoiceInfoView: ParentView {
     
     func setTextFieldDelegates() {
         
-        let textFields = [nameTextField,primaryStreetTextField,subStreetTextField,cityTextField,stateTextField,postalCodeTextField,emailTextField,phoneTextField,marketTextField,websiteTextField,taxTextField]
+        let textFields = [nameTextField,primaryStreetTextField,subStreetTextField,cityTextField,stateTextField,postalCodeTextField,emailTextField,phoneTextField,marketTextField,websiteTextField,taxTextField,discountTextField,termsTextField]
         for field in textFields { field!.delegate = self }
+        
+        signatureTextView.delegate = self
     }
     
     func showButton(_ state: Bool) {
@@ -251,6 +255,7 @@ class InvoiceInfoView: ParentView {
         invoiceDefaults!.tax = NSString(string: taxTextField.text!).doubleValue
         invoiceDefaults!.defaultDiscount = NSString(string: discountTextField.text!).doubleValue
         invoiceDefaults!.terms = termsTextField.text!
+        invoiceDefaults!.emailSignature = signatureTextView.text!
     
         if isNew! { coreData.defaultInvoiceValues!.append(invoiceDefaults!) }
      
@@ -325,6 +330,16 @@ extension InvoiceInfoView:  UITextFieldDelegate {
      
         return true
     }
+}
+
+extension InvoiceInfoView: UITextViewDelegate {
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        
+        theViewInfocus = textView
+        return true
+    }
+    
 }
 
 // MARK: - IMAGE PICKER PROTOTOL

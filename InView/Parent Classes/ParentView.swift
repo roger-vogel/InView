@@ -145,7 +145,7 @@ class ParentView: UIView {
             currentContentOffset = theScrollView!.contentOffset.y
             theContentHeightConstraint!.constant += keyboardHeight
             
-            // Calulate where on the screen the focused view is: first get it's relationship to the content view
+            // Calculate where on the screen the focused view is: first get it's relationship to the content view
             var focusYOffset = theViewInfocus!.frame.origin.y
             
             // Adjust for content view offset pushing it "up"
