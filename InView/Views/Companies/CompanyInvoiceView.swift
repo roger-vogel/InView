@@ -303,32 +303,48 @@ extension CompanyInvoiceView {
                 
                     let invoiceLength = "Invoice #".textSize(font: addressFont).width
 
-                    textRect = CGRect(x: 612-20-Int("Invoice #".textSize(font: addressFont).width + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                    textRect = CGRect(x: 612-20-Int(invoiceLength + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
                     "Invoice #".draw(in: textRect!, withAttributes: attributes)
                 
-                    /*
                      // Draw invoice number
-                     textRect!.origin.x += (dateLength + 15)
-                     textRect!.size.width = in.textSize(font: addressFont).width + 2
-                     today.draw(in: textRect!, withAttributes: attributes)
+                     textRect!.origin.x += (invoiceLength + 15)
+                     textRect!.size.width = invoiceOptions!.poReference.textSize(font: addressFont).width + 2
+                     invoiceOptions!.poReference.draw(in: textRect!, withAttributes: attributes)
              
-                     */
-                    
                 case 2:
 
-                    textRect = CGRect(x: 612-20-Int("Due Date".textSize(font: addressFont).width + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                    let termsLength = "Due Date".textSize(font: addressFont).width
+                
+                    textRect = CGRect(x: 612-20-Int(termsLength + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
                     "Due Date".draw(in: textRect!, withAttributes: attributes)
+                
+                    // Draw terms
+                    textRect!.origin.x += (termsLength + 15)
+                    textRect!.size.width = invoiceOptions!.terms.textSize(font: addressFont).width + 2
+                    invoiceOptions!.terms.draw(in: textRect!, withAttributes: attributes)
                 
                 case 3:
 
-                    textRect = CGRect(x: 612-20-Int("PO Reference".textSize(font: addressFont).width + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                    let poLength = "PO Reference".textSize(font: addressFont).width
+                    textRect = CGRect(x: 612-20-Int(poLength + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
                     "PO Reference".draw(in: textRect!, withAttributes: attributes)
-          
+                
+                    // Draw po reference
+                    textRect!.origin.x += (poLength + 15)
+                    textRect!.size.width = invoiceOptions!.poReference.textSize(font: addressFont).width + 2
+                    invoiceOptions!.poReference.draw(in: textRect!, withAttributes: attributes)
+              
                 case 4:
 
-                    textRect = CGRect(x: 612-20-Int("Project ID / Name".textSize(font: addressFont).width + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
+                    let nameLength = "Project ID / Name".textSize(font: addressFont).width
+                    textRect = CGRect(x: 612-20-Int(nameLength + infoOffset), y: 80 + (20 * yInfo), width: Int(infoOffset), height: 20)
                     "Project ID / Name".draw(in: textRect!, withAttributes: attributes)
-                   
+                
+                    // Draw po reference
+                    textRect!.origin.x += (nameLength + 15)
+                    textRect!.size.width = invoiceOptions!.projectName.textSize(font: addressFont).width + 2
+                    invoiceOptions!.projectName.draw(in: textRect!, withAttributes: attributes)
+          
                 default: break
             }
         }

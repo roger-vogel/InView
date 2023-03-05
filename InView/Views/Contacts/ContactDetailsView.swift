@@ -79,6 +79,7 @@ class ContactDetailsView: ParentView {
         quickNotesTextView.inputAccessoryView = toolbar
         quickNotesTextView.setBorder(width: 1.0, color: ThemeColors.teal.cgcolor)
         quickNotesTextView.roundCorners(corners: .all)
+      
     }
     
     // MARK: - METHODS
