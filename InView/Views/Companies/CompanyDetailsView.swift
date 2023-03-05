@@ -56,7 +56,7 @@ class CompanyDetailsView: ParentView {
     var toolbar = Toolbar()
     var theCompany: Company?
     var theEmployees = [Contact]()
-    var invoiceOptions: InvoiceOptions?
+    var invoiceOptions = InvoiceOptions()
     var theTerms = ["Due Upon Receipt", "Net 30", "Net 60", "Net 90"]
     
     // MARK: - COMPUTED PROPERTIES
@@ -79,6 +79,8 @@ class CompanyDetailsView: ParentView {
         
         quickNotesTextView.textContainerInset = UIEdgeInsets(top: 3.5, left: 2, bottom: 2, right: 2)
         companyPhoto.frameInCircle()
+        
+        discountTextField.delegate = self
         
         toolbar.setup(parent: self)
         quickNotesTextView.delegate = self
@@ -144,9 +146,6 @@ class CompanyDetailsView: ParentView {
         cancelContactButton.roundAllCorners(value: 15)
         
         invoiceButton.roundAllCorners(value: 3)
-        
-        
-        
     }
     
     func initializeOptions() {
@@ -350,6 +349,7 @@ class CompanyDetailsView: ParentView {
         sendButton.isEnabled = false
         
         invoiceInfoView.isHidden = false
+        bringSubviewToFront(invoiceInfoView)
         UIView.animate(withDuration:0.25, animations: { self.invoiceInfoView.alpha = 1.0 })
     }
     
@@ -391,6 +391,7 @@ class CompanyDetailsView: ParentView {
         sendButton.isEnabled = false
         
         addContactView.isHidden = false
+        bringSubviewToFront(addContactView)
         UIView.animate(withDuration:0.25, animations: { self.addContactView.alpha = 1.0 })
     }
    
@@ -486,13 +487,13 @@ class CompanyDetailsView: ParentView {
         
         let projectName = parentController!.contactController.coreData!.setToArray(projects: theCompany!.projects!).first!.name!
         
-        invoiceOptions!.poReference = poReferenceTextField.text!
-        invoiceOptions!.terms = dueDateTextField.text!
-        invoiceOptions!.discount = discountTextField.text!.cleanedValue
-        invoiceOptions!.comments = commentsTextView.text!
-        invoiceOptions!.projectName = projectName
+        invoiceOptions.poReference = poReferenceTextField.text!
+        invoiceOptions.terms = dueDateTextField.text!
+        invoiceOptions.discount = discountTextField.text!.cleanedValue
+        invoiceOptions.comments = commentsTextView.text!
+        invoiceOptions.projectName = projectName
         
-        parentController!.companyController.companyInvoiceView.setCompany(company: theCompany!, options: invoiceOptions!)
+        parentController!.companyController.companyInvoiceView.setCompany(company: theCompany!, options: invoiceOptions)
         parentController!.companyController.companyInvoiceView.showView(withTabBar: false)
         
         onCancelInvoice(self)
@@ -598,6 +599,21 @@ extension CompanyDetailsView: UITableViewDelegate, UITableViewDataSource {
          
     // Show only drag bars
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {  return .none }
+}
+
+// MARK: - TEXT FIELD DELEGATE PROTOCOL
+extension CompanyDetailsView: UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        
+        textField.text = textField.text!.cleanedPercent
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        textField.text = textField.text!.formattedPercent
+    }
 }
 
 // MARK: - TEXT VIEW DELEGATE PROTOCOL

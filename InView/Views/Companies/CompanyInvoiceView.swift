@@ -42,7 +42,7 @@ class CompanyInvoiceView: ParentView {
     var commentBoxY: Int?
     var theColumns: [Column]?
     var totalColumnsWidth: CGFloat = 545
-    var invoiceOptions: InvoiceOptions?
+    var invoiceOptions = InvoiceOptions()
   
     // MARK: - COMPUTED PROPERTIES
     var invoicePDFData: Data {
@@ -308,8 +308,8 @@ extension CompanyInvoiceView {
                 
                      // Draw invoice number
                      textRect!.origin.x += (invoiceLength + 15)
-                     textRect!.size.width = invoiceOptions!.poReference.textSize(font: addressFont).width + 2
-                     invoiceOptions!.poReference.draw(in: textRect!, withAttributes: attributes)
+                     textRect!.size.width = invoiceOptions.invoiceNumber!.textSize(font: addressFont).width + 2
+                     invoiceOptions.invoiceNumber!.draw(in: textRect!, withAttributes: attributes)
              
                 case 2:
 
@@ -320,8 +320,8 @@ extension CompanyInvoiceView {
                 
                     // Draw terms
                     textRect!.origin.x += (termsLength + 15)
-                    textRect!.size.width = invoiceOptions!.terms.textSize(font: addressFont).width + 2
-                    invoiceOptions!.terms.draw(in: textRect!, withAttributes: attributes)
+                    textRect!.size.width = invoiceOptions.terms!.textSize(font: addressFont).width + 2
+                    invoiceOptions.terms!.draw(in: textRect!, withAttributes: attributes)
                 
                 case 3:
 
@@ -331,8 +331,8 @@ extension CompanyInvoiceView {
                 
                     // Draw po reference
                     textRect!.origin.x += (poLength + 15)
-                    textRect!.size.width = invoiceOptions!.poReference.textSize(font: addressFont).width + 2
-                    invoiceOptions!.poReference.draw(in: textRect!, withAttributes: attributes)
+                    textRect!.size.width = invoiceOptions.poReference!.textSize(font: addressFont).width + 2
+                    invoiceOptions.poReference!.draw(in: textRect!, withAttributes: attributes)
               
                 case 4:
 
@@ -342,8 +342,8 @@ extension CompanyInvoiceView {
                 
                     // Draw po reference
                     textRect!.origin.x += (nameLength + 15)
-                    textRect!.size.width = invoiceOptions!.projectName.textSize(font: addressFont).width + 2
-                    invoiceOptions!.projectName.draw(in: textRect!, withAttributes: attributes)
+                    textRect!.size.width = invoiceOptions.projectName!.textSize(font: addressFont).width + 2
+                    invoiceOptions.projectName!.draw(in: textRect!, withAttributes: attributes)
           
                 default: break
             }

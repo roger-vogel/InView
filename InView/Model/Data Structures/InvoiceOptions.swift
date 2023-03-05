@@ -9,10 +9,10 @@ import Foundation
 
 struct InvoiceOptions {
     
-    var poReference: String
-    var discount: String
-    var terms: String
-    var comments: String
-    var invoiceNumber: String
-    var projectName: String
+    var poReference: String? = ""
+    var discount: String? = ""
+    var terms: String? = ""
+    var comments: String? = ""
+    var invoiceNumber: String? = ""
+    var projectName: String? = ""
 }
