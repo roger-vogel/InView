@@ -287,6 +287,17 @@ class CompanyDetailsView: ParentView {
         }
     }
     
+    func createInvoiceNumber() {
+        
+        let countRecord = parentController!.contactController.coreData!.counterArray!.first!
+        let count = countRecord.countValue + 1
+       
+        invoiceOptions.invoiceNumber = "INV-" + String(count)
+        
+        countRecord.countValue = count
+        GlobalData.shared.saveCoreData()
+    }
+    
     // Get the company employees in an array
     func reloadEmployeeTable() {
         
@@ -492,6 +503,8 @@ class CompanyDetailsView: ParentView {
         invoiceOptions.discount = discountTextField.text!.cleanedValue
         invoiceOptions.comments = commentsTextView.text!
         invoiceOptions.projectName = projectName
+        
+        createInvoiceNumber()
         
         parentController!.companyController.companyInvoiceView.setCompany(company: theCompany!, options: invoiceOptions)
         parentController!.companyController.companyInvoiceView.showView(withTabBar: false)

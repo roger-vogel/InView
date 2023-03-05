@@ -119,6 +119,7 @@ class CoreDataManager {
                 self.initializeDefaultSorts()
                 self.initializeGoals()
                 self.initializeReports()
+                self.initializeCounter()
                
                 self.completion()
 
@@ -242,6 +243,17 @@ class CoreDataManager {
                 
                 reports!.append(newReport)
             }
+            
+            GlobalData.shared.saveCoreData()
+        }
+    }
+    
+    func initializeCounter() {
+        
+        if counterArray!.isEmpty {
+            
+            let theCounter = InvCounter(context: GlobalData.shared.viewContext)
+            theCounter.countValue = 0
             
             GlobalData.shared.saveCoreData()
         }

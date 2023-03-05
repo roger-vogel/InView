@@ -44,13 +44,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in ReportsTotalSalesView.monthToDate(month:):ReportsTotalSalesView.swift">
+         contextName = "ReportsCompletedProjectView.setupView():ReportsCompletedProjectView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "$0.completionDate">
-            </PersistentString>
-            <PersistentString
-               value = "$0.stage!">
+               value = "theProjects!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -101,12 +98,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ReportsFunnelProjectView.setSource(isFrom:filteredBy:withTitle:):ReportsFunnelProjectView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "tableEntries">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "CompanyInvoiceView.drawHeader(yLocation:height:font:columns:):CompanyInvoiceView.swift">
       </ContextState>
       <ContextState
          contextName = "CompanyInvoiceView.drawHeader(yLocation:height:font:headers:):CompanyInvoiceView.swift">
@@ -117,7 +109,12 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CompanyInvoiceView.drawHeader(yLocation:height:font:columns:):CompanyInvoiceView.swift">
+         contextName = "ReportsFunnelProjectView.setSource(isFrom:filteredBy:withTitle:):ReportsFunnelProjectView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "tableEntries">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "CompanyInvoiceView.drawLineItems(yLocation:height:font:):CompanyInvoiceView.swift">
@@ -134,13 +131,13 @@
                value = "invoiceInfo.logo">
             </PersistentString>
             <PersistentString
-               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!">
             </PersistentString>
             <PersistentString
                value = "hasLogo!">
             </PersistentString>
             <PersistentString
-               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!">
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -218,6 +215,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CoreDataManager.initializeCounter():CoreDataManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "counterArray!.first!.countValue">
+            </PersistentString>
+            <PersistentString
+               value = "counterArray!.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ReportsFunnelByProductView.setupView():ReportsFunnelByProductView.swift">
          <PersistentStrings>
             <PersistentString
@@ -265,6 +273,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in ReportsTotalSalesView.monthToDate(month:):ReportsTotalSalesView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "$0.completionDate">
+            </PersistentString>
+            <PersistentString
+               value = "$0.stage!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ProjectListView.setupView():ProjectListView.swift">
          <PersistentStrings>
             <PersistentString
@@ -294,14 +313,6 @@
             </PersistentString>
             <PersistentString
                value = "parentController!.contactController.coreData!.projects!.first!.products!.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ReportsCompletedProjectView.setupView():ReportsCompletedProjectView.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "theProjects!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
