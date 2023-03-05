@@ -24,6 +24,7 @@ class GlobalData {
     var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
     var contactNoPhoto = UIImage(named: "image.contact.nophoto.light")
     var companyNoPhoto = UIImage(named: "image.company.nophoto.light")
+    var theTerms = ["Due Upon Receipt", "Net 30", "Net 60", "Net 90"]
     var peopleSort: PeopleSort = .last
     var companySort: CompanySort = .name
     var menuController: MenuViewController?

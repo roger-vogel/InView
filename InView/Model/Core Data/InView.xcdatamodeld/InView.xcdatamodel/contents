@@ -96,6 +96,25 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="contacts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Contact" inverseName="category" inverseEntity="Contact"/>
     </entity>
+    <entity name="DefaultInvoiceValue" representedClassName=".DefaultInvoiceValue" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="defaultDiscount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="hasLogo" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="logo" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="market" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="name" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="phone" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="postalCode" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="primaryStreet" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="state" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="subStreet" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="tax" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="terms" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="website" optional="YES" attributeType="String" defaultValueString=""/>
+    </entity>
     <entity name="DefaultSort" representedClassName=".DefaultSort" syncable="YES">
         <attribute name="forCompany" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="forPeople" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -129,25 +148,6 @@
     </entity>
     <entity name="InvCounter" representedClassName=".InvCounter" syncable="YES">
         <attribute name="countValue" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-    </entity>
-    <entity name="Invoice" representedClassName=".Invoice" syncable="YES">
-        <attribute name="city" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="defaultDiscount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="email" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="hasLogo" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="logo" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="market" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="name" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="phone" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="postalCode" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="primaryStreet" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="state" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="subStreet" optional="YES" attributeType="String" defaultValueString=""/>
-        <attribute name="tax" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="terms" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="website" optional="YES" attributeType="String" defaultValueString=""/>
     </entity>
     <entity name="LogEntry" representedClassName=".LogEntry" syncable="YES">
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>

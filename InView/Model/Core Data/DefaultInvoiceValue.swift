@@ -9,14 +9,14 @@
 import Foundation
 import CoreData
 
-public class Invoice: NSManagedObject {
+public class DefaultInvoiceValue: NSManagedObject {
 
 }
 
-extension Invoice {
+extension DefaultInvoiceValue {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Invoice> {
-        return NSFetchRequest<Invoice>(entityName: "Invoice")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<DefaultInvoiceValue> {
+        return NSFetchRequest<DefaultInvoiceValue>(entityName: "DefaultInvoiceValue")
     }
     
     @NSManaged public var id: UUID?
@@ -34,10 +34,10 @@ extension Invoice {
     @NSManaged public var subStreet: String?
     @NSManaged public var state: String?
     @NSManaged public var tax: Double
-    @NSManaged public var terms: Int16
+    @NSManaged public var terms: String?
     @NSManaged public var website: String?
 }
 
-extension Invoice : Identifiable {
+extension DefaultInvoiceValue : Identifiable {
 
 }

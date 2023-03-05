@@ -26,7 +26,7 @@ class CoreDataManager {
     var companyCategories: [CompanyCategory]?
     var marketAreas: [MarketArea]?
     var defaultSorts: [DefaultSort]?
-    var invoices: [Invoice]?
+    var defaultInvoiceValues: [DefaultInvoiceValue]?
     var goals: [Goal]?
     var reports: [Report]?
     var products: [Product]?
@@ -89,7 +89,7 @@ class CoreDataManager {
      
         let defaultSortFetchRequest = DefaultSort.fetchRequest()
         
-        let invoiceFetchRequest = Invoice.fetchRequest()
+        let invoiceFetchRequest = DefaultInvoiceValue.fetchRequest()
         
         let reportFetchRequest = Report.fetchRequest()
         
@@ -109,7 +109,7 @@ class CoreDataManager {
                 self.productCategories = try productCategoriesFetchRequest.execute()
                 self.marketAreas = try marketAreaFetchRequest.execute()
                 self.defaultSorts = try defaultSortFetchRequest.execute()
-                self.invoices = try invoiceFetchRequest.execute()
+                self.defaultInvoiceValues = try invoiceFetchRequest.execute()
                 self.goals = try goalFetchRequest.execute()
                 self.reports = try reportFetchRequest.execute()
                 self.products = try productFetchRequest.execute()

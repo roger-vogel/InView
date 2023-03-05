@@ -133,7 +133,7 @@
 		DB0F1FE0299D86EA00ED0CCF /* DuplicatesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1FD7299D86E900ED0CCF /* DuplicatesView.swift */; };
 		DB0F1FE1299D86EA00ED0CCF /* SortPreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1FD8299D86E900ED0CCF /* SortPreferencesView.swift */; };
 		DB0F1FE2299D86EA00ED0CCF /* MarketAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1FD9299D86E900ED0CCF /* MarketAreaView.swift */; };
-		DB0F1FE3299D86EA00ED0CCF /* InvoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1FDA299D86EA00ED0CCF /* InvoiceView.swift */; };
+		DB0F1FE3299D86EA00ED0CCF /* InvoiceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1FDA299D86EA00ED0CCF /* InvoiceInfoView.swift */; };
 		DB0F1FE4299D86EA00ED0CCF /* ProductCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1FDB299D86EA00ED0CCF /* ProductCategoryView.swift */; };
 		DB0F1FE5299D86EA00ED0CCF /* CompanyCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F1FDC299D86EA00ED0CCF /* CompanyCategoryView.swift */; };
 		DB12B4B529B42A6D00C5FD65 /* InvoiceOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB12B4B429B42A6D00C5FD65 /* InvoiceOptions.swift */; };
@@ -213,7 +213,7 @@
 		DB99CC4C299D934000D5DE4A /* CustomControls in Frameworks */ = {isa = PBXBuildFile; productRef = DB99CC4B299D934000D5DE4A /* CustomControls */; };
 		DB99CC4F299D936200D5DE4A /* ToggleGroup in Frameworks */ = {isa = PBXBuildFile; productRef = DB99CC4E299D936200D5DE4A /* ToggleGroup */; };
 		DBAB806929ACB1B300448387 /* InvoiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAB806829ACB1B300448387 /* InvoiceManager.swift */; };
-		DBC6991229A9EFEF00A931B6 /* Invoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC6991029A9EFEF00A931B6 /* Invoice.swift */; };
+		DBC6991229A9EFEF00A931B6 /* DefaultInvoiceValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC6991029A9EFEF00A931B6 /* DefaultInvoiceValue.swift */; };
 		DBD1E461299DA21E00C3D8C6 /* ParentLogListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E458299DA21D00C3D8C6 /* ParentLogListView.swift */; };
 		DBD1E462299DA21E00C3D8C6 /* ParentActivityDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E459299DA21D00C3D8C6 /* ParentActivityDetailsView.swift */; };
 		DBD1E463299DA21E00C3D8C6 /* ParentActivityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E45A299DA21D00C3D8C6 /* ParentActivityListView.swift */; };
@@ -371,7 +371,7 @@
 		DB0F1FD7299D86E900ED0CCF /* DuplicatesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DuplicatesView.swift; sourceTree = "<group>"; };
 		DB0F1FD8299D86E900ED0CCF /* SortPreferencesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortPreferencesView.swift; sourceTree = "<group>"; };
 		DB0F1FD9299D86E900ED0CCF /* MarketAreaView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarketAreaView.swift; sourceTree = "<group>"; };
-		DB0F1FDA299D86EA00ED0CCF /* InvoiceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceView.swift; sourceTree = "<group>"; };
+		DB0F1FDA299D86EA00ED0CCF /* InvoiceInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoiceInfoView.swift; sourceTree = "<group>"; };
 		DB0F1FDB299D86EA00ED0CCF /* ProductCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCategoryView.swift; sourceTree = "<group>"; };
 		DB0F1FDC299D86EA00ED0CCF /* CompanyCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyCategoryView.swift; sourceTree = "<group>"; };
 		DB12B4B429B42A6D00C5FD65 /* InvoiceOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceOptions.swift; sourceTree = "<group>"; };
@@ -444,7 +444,7 @@
 		DB752FE5299F4C8000D8505F /* FunnelElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunnelElements.swift; sourceTree = "<group>"; };
 		DB783629299DBC6600F3C028 /* ReportsFunnelProjectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportsFunnelProjectView.swift; sourceTree = "<group>"; };
 		DBAB806829ACB1B300448387 /* InvoiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvoiceManager.swift; sourceTree = "<group>"; };
-		DBC6991029A9EFEF00A931B6 /* Invoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invoice.swift; sourceTree = "<group>"; };
+		DBC6991029A9EFEF00A931B6 /* DefaultInvoiceValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInvoiceValue.swift; sourceTree = "<group>"; };
 		DBD1E458299DA21D00C3D8C6 /* ParentLogListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentLogListView.swift; sourceTree = "<group>"; };
 		DBD1E459299DA21D00C3D8C6 /* ParentActivityDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentActivityDetailsView.swift; sourceTree = "<group>"; };
 		DBD1E45A299DA21D00C3D8C6 /* ParentActivityListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParentActivityListView.swift; sourceTree = "<group>"; };
@@ -702,7 +702,7 @@
 				DB0F1F4B299D85B800ED0CCF /* Document.swift */,
 				DB0F1F46299D85B700ED0CCF /* Goal.swift */,
 				DB0F1F4A299D85B800ED0CCF /* Group.swift */,
-				DBC6991029A9EFEF00A931B6 /* Invoice.swift */,
+				DBC6991029A9EFEF00A931B6 /* DefaultInvoiceValue.swift */,
 				DB12B4BF29B45DDB00C5FD65 /* InvCounter.swift */,
 				DB0F1F50299D85B900ED0CCF /* LogEntry.swift */,
 				DB0F1F45299D85B700ED0CCF /* MarketArea.swift */,
@@ -973,7 +973,7 @@
 				DB0F1FD4299D86E900ED0CCF /* DuplicateDetailsView.swift */,
 				DB0F1FD7299D86E900ED0CCF /* DuplicatesView.swift */,
 				DB0F1FD5299D86E900ED0CCF /* ImportView.swift */,
-				DB0F1FDA299D86EA00ED0CCF /* InvoiceView.swift */,
+				DB0F1FDA299D86EA00ED0CCF /* InvoiceInfoView.swift */,
 				DB0F1FD9299D86E900ED0CCF /* MarketAreaView.swift */,
 				DB0F1FDB299D86EA00ED0CCF /* ProductCategoryView.swift */,
 				DB0F1FD8299D86E900ED0CCF /* SortPreferencesView.swift */,
@@ -1142,7 +1142,7 @@
 				DB0F1F83299D862900ED0CCF /* CompanyLogEntryView.swift in Sources */,
 				DB0F1F5F299D85B900ED0CCF /* Report.swift in Sources */,
 				DB0F1F58299D85B900ED0CCF /* MarketArea.swift in Sources */,
-				DBC6991229A9EFEF00A931B6 /* Invoice.swift in Sources */,
+				DBC6991229A9EFEF00A931B6 /* DefaultInvoiceValue.swift in Sources */,
 				DB4A2E4129B09A2C00785D1F /* MenuOptions.swift in Sources */,
 				DB0F1F80299D862900ED0CCF /* CompanyDetailsView.swift in Sources */,
 				DB12B4B529B42A6D00C5FD65 /* InvoiceOptions.swift in Sources */,
@@ -1284,7 +1284,7 @@
 				DB0F1FAF299D865400ED0CCF /* ProjectActivityMoveView.swift in Sources */,
 				DBF2D3E3299F9CC900F904A0 /* ReportsCompleteListCell.swift in Sources */,
 				DBD1E46B299DA26300C3D8C6 /* ParentCalendarView.swift in Sources */,
-				DB0F1FE3299D86EA00ED0CCF /* InvoiceView.swift in Sources */,
+				DB0F1FE3299D86EA00ED0CCF /* InvoiceInfoView.swift in Sources */,
 				DB0F1FB8299D865400ED0CCF /* ProjectDocumentView.swift in Sources */,
 				DBD1E464299DA21E00C3D8C6 /* ParentActivityCell.swift in Sources */,
 				DB0F1F52299D85B900ED0CCF /* CompanyCategory.swift in Sources */,

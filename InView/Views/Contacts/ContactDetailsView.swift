@@ -255,8 +255,9 @@ class ContactDetailsView: ParentView {
             
             switch choice {
                 
-                case 0: self.parentController!.sendEmailWithAttachment(contentTitle: self.theContact!.firstName! +  " " + self.theContact!.lastName!, theData: Data(fileString.utf8))
-                case 1: self.parentController!.sendMessageWithAttachment(contentTitle: self.theContact!.firstName! +  " " + self.theContact!.lastName!, theData: Data(fileString.utf8))
+            case 0: self.parentController!.sendEmailWithAttachment(contentTitle: self.theContact!.firstName! +  " " + self.theContact!.lastName!, fileType: "vcf", theData: Data(fileString.utf8))
+                
+                case 1: self.parentController!.sendMessageWithAttachment(contentTitle: self.theContact!.firstName! +  " " + self.theContact!.lastName!, fileType: "vcf", theData: Data(fileString.utf8))
                     
                 default: break
             }

@@ -10,7 +10,7 @@ import CustomControls
 import Extensions
 import AlertManager
 
-class InvoiceView: ParentView {
+class InvoiceInfoView: ParentView {
 
     // MARK: - STORYBOARD CONNECTORS
     @IBOutlet weak var scrollView: UIScrollView!
@@ -26,14 +26,18 @@ class InvoiceView: ParentView {
     @IBOutlet weak var marketTextField: UITextField!
     @IBOutlet weak var websiteTextField: UITextField!
     @IBOutlet weak var taxTextField: UITextField!
+    @IBOutlet weak var discountTextField: UITextField!
+    @IBOutlet weak var termsTextField: UITextField!
+    @IBOutlet weak var signatureTextView: UITextView!
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var logoButton: RoundedBorderedButton!
   
     // MARK: - PROPERTIES
-    var theInvoice: Invoice?
+    var invoiceDefaults: DefaultInvoiceValue?
     var toolbar = Toolbar()
     var statePicker = UIPickerView()
     var marketPicker = UIPickerView()
+    var termsPicker = UIPickerView()
     var marketNames = [String]()
     var selectedMarket: MarketArea?
     var logoImagePicker = UIImagePickerController()
@@ -86,8 +90,19 @@ class InvoiceView: ParentView {
         marketTextField.rightView!.contentMode = .scaleAspectFit
         marketTextField.translatesAutoresizingMaskIntoConstraints = false
         marketTextField.rightView!.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        marketTextField.rightView!.heightAnchor.constraint(equalToConstant: stateTextField.frame.height * 0.95).isActive = true
+        marketTextField.rightView!.heightAnchor.constraint(equalToConstant: marketTextField.frame.height * 0.95).isActive = true
         marketTextField.rightViewMode = .always
+        
+        termsPicker.delegate = self
+        termsPicker.dataSource = self
+        discountTextField.inputView = statePicker
+        discountTextField.inputAccessoryView = toolbar
+        discountTextField.rightView = UIImageView(image: UIImage(named: "button.up.down"))
+        discountTextField.rightView!.contentMode = .scaleAspectFit
+        discountTextField.translatesAutoresizingMaskIntoConstraints = false
+        discountTextField.rightView!.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        discountTextField.rightView!.heightAnchor.constraint(equalToConstant: termsTextField.frame.height * 0.95).isActive = true
+        discountTextField.rightViewMode = .always
         
         toolbar.setup(parent: self)
         phoneTextField.inputAccessoryView = toolbar
@@ -99,6 +114,9 @@ class InvoiceView: ParentView {
         marketTextField.inputView = marketPicker
         marketTextField.inputAccessoryView = toolbar
         
+        termsTextField.inputView = termsPicker
+        termsTextField.inputAccessoryView = toolbar
+        
         setTextFieldDelegates()
         
         super.initView(inController: inController)
@@ -108,38 +126,39 @@ class InvoiceView: ParentView {
          
         let coreData = GlobalData.shared.activeController!.contactController.coreData!
         
-        if coreData.invoices!.isEmpty {
+        if coreData.defaultInvoiceValues!.isEmpty {
             
             isNew = true
-            theInvoice = Invoice(context: GlobalData.shared.viewContext)
+            invoiceDefaults = DefaultInvoiceValue(context: GlobalData.shared.viewContext)
 
         }  else {
             
             isNew = false
-            theInvoice = coreData.invoices!.first!
+            invoiceDefaults = coreData.defaultInvoiceValues!.first!
         }
        
-        if theInvoice!.hasLogo {
+        if invoiceDefaults!.hasLogo {
             
             showButton(false)
             
-            let logoData = Data(base64Encoded: theInvoice!.logo!)
+            let logoData = Data(base64Encoded: invoiceDefaults!.logo!)
             logoImageView.image = UIImage(data: logoData!)
             
         } else { showButton(true) }
             
         
-        nameTextField.text = theInvoice!.name!
-        primaryStreetTextField.text = theInvoice!.primaryStreet!
-        subStreetTextField.text = theInvoice!.subStreet!
-        cityTextField.text = theInvoice!.city!
-        stateTextField.text = theInvoice!.state!
-        postalCodeTextField.text = theInvoice!.postalCode!
-        emailTextField.text = theInvoice!.email!
-        phoneTextField.text = theInvoice!.phone!
-        marketTextField.text = theInvoice!.market!
-        websiteTextField.text = theInvoice!.website
-        taxTextField.text = String(theInvoice!.tax).formattedPercent
+        nameTextField.text = invoiceDefaults!.name!
+        primaryStreetTextField.text = invoiceDefaults!.primaryStreet!
+        subStreetTextField.text = invoiceDefaults!.subStreet!
+        cityTextField.text = invoiceDefaults!.city!
+        stateTextField.text = invoiceDefaults!.state!
+        postalCodeTextField.text = invoiceDefaults!.postalCode!
+        emailTextField.text = invoiceDefaults!.email!
+        phoneTextField.text = invoiceDefaults!.phone!
+        marketTextField.text = invoiceDefaults!.market!
+        websiteTextField.text = invoiceDefaults!.website
+        taxTextField.text = String(invoiceDefaults!.tax).formattedPercent
+        discountTextField.text = String(invoiceDefaults!.defaultDiscount).formattedPercent
         
         _ = marketDictionary
         
@@ -152,10 +171,13 @@ class InvoiceView: ParentView {
         _ = marketDictionary
         
         if stateTextField.text!.isEmpty { stateTextField.text = States.us.first!.name }
-        else { statePicker.setRow(forState: theInvoice!.state!) }
+        else { statePicker.setRow(forState: invoiceDefaults!.state!) }
         
         if marketTextField.text!.isEmpty { marketTextField.text = marketNames.first! }
-        else { marketPicker.setRow(forKey: marketTextField.text!, inData: marketNames)}
+        else { marketPicker.setRow(forKey: marketTextField.text!, inData: marketNames) }
+        
+        if termsTextField.text!.isEmpty { termsTextField.text = GlobalData.shared.theTerms.first! }
+        else { termsPicker.setRow(forKey: termsTextField.text!, inData: GlobalData.shared.theTerms) }
     }
     
     func setTextFieldDelegates() {
@@ -185,7 +207,7 @@ class InvoiceView: ParentView {
   
     @IBAction func onLogo(_ sender: Any) {
         
-        if theInvoice!.hasLogo {
+        if invoiceDefaults!.hasLogo {
             
             AlertManager(controller: GlobalData.shared.menuController!).popupWithCustomButtons(aTitle: "Logo Update", buttonTitles: ["Change Logo","Delete Logo","Cancel"], theStyle: [.default, .destructive, .cancel], theType: .actionSheet) { (choice) in
                 
@@ -197,8 +219,8 @@ class InvoiceView: ParentView {
                     
                     case 1:
                     
-                        self.theInvoice!.hasLogo = false
-                        self.theInvoice!.logo = ""
+                        self.invoiceDefaults!.hasLogo = false
+                        self.invoiceDefaults!.logo = ""
                 
                         self.showButton(true)
                   
@@ -216,19 +238,21 @@ class InvoiceView: ParentView {
         
         let coreData = GlobalData.shared.activeController!.contactController.coreData!
       
-        theInvoice!.name = nameTextField.text!
-        theInvoice!.primaryStreet = primaryStreetTextField.text!
-        theInvoice!.subStreet = subStreetTextField.text!
-        theInvoice!.city = cityTextField.text!
-        theInvoice!.state = stateTextField.text!
-        theInvoice!.postalCode = postalCodeTextField.text!
-        theInvoice!.email = emailTextField.text!
-        theInvoice!.phone = phoneTextField.text!
-        theInvoice!.market = marketTextField.text!
-        theInvoice!.website = websiteTextField.text!
-        theInvoice!.tax = NSString(string: taxTextField.text!).doubleValue
+        invoiceDefaults!.name = nameTextField.text!
+        invoiceDefaults!.primaryStreet = primaryStreetTextField.text!
+        invoiceDefaults!.subStreet = subStreetTextField.text!
+        invoiceDefaults!.city = cityTextField.text!
+        invoiceDefaults!.state = stateTextField.text!
+        invoiceDefaults!.postalCode = postalCodeTextField.text!
+        invoiceDefaults!.email = emailTextField.text!
+        invoiceDefaults!.phone = phoneTextField.text!
+        invoiceDefaults!.market = marketTextField.text!
+        invoiceDefaults!.website = websiteTextField.text!
+        invoiceDefaults!.tax = NSString(string: taxTextField.text!).doubleValue
+        invoiceDefaults!.defaultDiscount = NSString(string: discountTextField.text!).doubleValue
+        invoiceDefaults!.terms = termsTextField.text!
     
-        if isNew! { coreData.invoices!.append(theInvoice!) }
+        if isNew! { coreData.defaultInvoiceValues!.append(invoiceDefaults!) }
      
         GlobalData.shared.saveCoreData()
      
@@ -244,7 +268,7 @@ class InvoiceView: ParentView {
 }
 
 // MARK: - PICKER PROTOCOL
-extension InvoiceView: UIPickerViewDelegate, UIPickerViewDataSource {
+extension InvoiceInfoView: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int { return 1 }
     
@@ -253,13 +277,15 @@ extension InvoiceView: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         if pickerView == statePicker { return States.us.count }
-        else { return marketNames.count }
+        else if pickerView == marketPicker { return marketNames.count }
+        else { return GlobalData.shared.theTerms.count }
     }
         
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if pickerView == statePicker { return States.us[row].name }
-        else { return marketNames[row] }
+        else if pickerView == marketPicker { return marketNames[row] }
+        else { return GlobalData.shared.theTerms[row] }
     }
     
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -271,12 +297,16 @@ extension InvoiceView: UIPickerViewDelegate, UIPickerViewDataSource {
             if row == 0 { selectedMarket = nil }
             else { selectedMarket = marketDictionary[marketNames[row]] }
             
-        } else { stateTextField.text = States.us[row].name }
+        } else if pickerView == statePicker {
+            
+            stateTextField.text = States.us[row].name
+            
+        } else { termsTextField.text = GlobalData.shared.theTerms[row] }
     }
 }
 
 // MARK: - TEXT FIELD DELEGATE PROTOCOL
-extension InvoiceView:  UITextFieldDelegate {
+extension InvoiceInfoView:  UITextFieldDelegate {
    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
@@ -298,7 +328,7 @@ extension InvoiceView:  UITextFieldDelegate {
 }
 
 // MARK: - IMAGE PICKER PROTOTOL
-extension InvoiceView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension InvoiceInfoView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
    
     // MARK: - IMAGE PICKER DELEGATE PROTOCOL
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -309,8 +339,8 @@ extension InvoiceView: UIImagePickerControllerDelegate, UINavigationControllerDe
             
             guard selectedImage != nil else { return }
         
-            self.theInvoice!.logo = selectedImage!.pngData()!.base64EncodedString()
-            self.theInvoice!.hasLogo = true
+            self.invoiceDefaults!.logo = selectedImage!.pngData()!.base64EncodedString()
+            self.invoiceDefaults!.hasLogo = true
             
             self.logoImageView.image = selectedImage!
             self.showButton(false)

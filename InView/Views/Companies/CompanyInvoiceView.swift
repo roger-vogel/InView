@@ -36,13 +36,14 @@ class CompanyInvoiceView: ParentView {
     let heightFont = UIFont.systemFont(ofSize: 10, weight: .regular)
     
     var paragraphStyle = NSMutableParagraphStyle()
-    var invoiceInfo: Invoice?
+    var invoiceInfo: DefaultInvoiceValue?
     var textRect: CGRect?
     var productPendingInvoice: [Product]?
     var commentBoxY: Int?
     var theColumns: [Column]?
     var totalColumnsWidth: CGFloat = 545
     var invoiceOptions = InvoiceOptions()
+    var fileURL: URL?
   
     // MARK: - COMPUTED PROPERTIES
     var invoicePDFData: Data {
@@ -60,7 +61,7 @@ class CompanyInvoiceView: ParentView {
                 Column(title: "Amount ", rect: CGRect(x: margin + 445, y: 0, width: 120, height: 18), justification: .right)
             ]
         
-        invoiceInfo = parentController!.contactController.coreData!.invoices!.first!
+        invoiceInfo = parentController!.contactController.coreData!.defaultInvoiceValues!.first!
         format.documentInfo = metaData as [String: Any]
         
         let data = renderer.pdfData { (context) in
@@ -70,7 +71,7 @@ class CompanyInvoiceView: ParentView {
             paragraphStyle.alignment = .left
      
             // Logo image
-            if !coreData.invoices!.isEmpty { drawLogo() }
+            if !coreData.defaultInvoiceValues!.isEmpty { drawLogo() }
            
             // Top line: Company name and invoice title
             drawCompanyName()
@@ -118,13 +119,32 @@ class CompanyInvoiceView: ParentView {
         let pdfDocument = PDFDocument(data: invoicePDFData)
         
         let documentDirectoryURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileURL = documentDirectoryURL.appendingPathComponent("invoice.pdf")
+        fileURL = documentDirectoryURL.appendingPathComponent("invoice.pdf")
       
-        pdfDocument!.write(to: fileURL)
-        webView.load(URLRequest(url: fileURL))
+        pdfDocument!.write(to: fileURL!)
+        webView.load(URLRequest(url: fileURL!))
     }
     
     // MARK: ACTION HANDLERS
+    @IBAction func onSend(_ sender: Any) {
+        
+        AlertManager(controller: parentController!).popupWithCustomButtons(aMessage: "Send Invoice", buttonTitles: ["Email","Text","Cancel"], theStyle: [.default,.default,.destructive], theType: .actionSheet) { choice in
+            
+            let fileData = FileManager().contents(atPath: self.fileURL!.description)
+            
+            if choice == 0 {
+                
+                let title = "Your invoice from " + self.theCompany!.name!
+                let body = "Attached please find our invoice. Thank you for your business!"
+                self.parentController!.sendEmailWithAttachment(contentTitle: title, theBody: body, fileType: "pdf", theData: fileData!)
+                
+            } else if choice == 1 {
+           
+                self.parentController!.sendMessageWithAttachment(contentTitle: self.invoiceOptions.invoiceNumber!, fileType: ".pdf", theData: fileData!)
+            }
+        }
+    }
+    
     @IBAction func onReturn(_ sender: Any) {
         
         parentController!.companyController.companyDetailsView.showView(withTabBar: false)

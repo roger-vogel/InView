@@ -40,7 +40,7 @@ class CompanyDetailsView: ParentView {
     @IBOutlet weak var invoiceInfoView: UIView!
     @IBOutlet weak var poReferenceTextField: UITextField!
     @IBOutlet weak var discountTextField: UITextField!
-    @IBOutlet weak var dueDateTextField: UITextField!
+    @IBOutlet weak var termsTextField: UITextField!
     @IBOutlet weak var commentsTextView: UITextView!
     @IBOutlet weak var cancelInvoiceButton: RoundedBorderedButton!
     @IBOutlet weak var createInvoiceButton: RoundedBorderedButton!
@@ -57,7 +57,6 @@ class CompanyDetailsView: ParentView {
     var theCompany: Company?
     var theEmployees = [Contact]()
     var invoiceOptions = InvoiceOptions()
-    var theTerms = ["Due Upon Receipt", "Net 30", "Net 60", "Net 90"]
     
     // MARK: - COMPUTED PROPERTIES
     var hasProjects: Bool {
@@ -111,14 +110,14 @@ class CompanyDetailsView: ParentView {
         termsPicker.delegate = self
         termsPicker.dataSource = self
         
-        dueDateTextField.inputAccessoryView = toolbar
-        dueDateTextField.inputView = termsPicker
-        dueDateTextField.rightView = UIImageView(image: UIImage(named: "button.up.down"))
-        dueDateTextField.rightView!.contentMode = .scaleAspectFit
-        dueDateTextField.translatesAutoresizingMaskIntoConstraints = false
-        dueDateTextField.rightView!.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        dueDateTextField.rightView!.heightAnchor.constraint(equalToConstant: dueDateTextField.frame.height * 0.95).isActive = true
-        dueDateTextField.rightViewMode = .always
+        termsTextField.inputAccessoryView = toolbar
+        termsTextField.inputView = termsPicker
+        termsTextField.rightView = UIImageView(image: UIImage(named: "button.up.down"))
+        termsTextField.rightView!.contentMode = .scaleAspectFit
+        termsTextField.translatesAutoresizingMaskIntoConstraints = false
+        termsTextField.rightView!.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        termsTextField.rightView!.heightAnchor.constraint(equalToConstant: termsTextField.frame.height * 0.95).isActive = true
+        termsTextField.rightViewMode = .always
         
         addContactView.setBorder(width: 2.0, color: UIColor.white.cgColor)
         addContactView.roundAllCorners(value: 10)
@@ -151,9 +150,9 @@ class CompanyDetailsView: ParentView {
     func initializeOptions() {
         
         discountTextField.text = String(format: "%.02f", theCompany!.discount * 100).formattedPercent
-        dueDateTextField.text = theCompany!.terms
+        termsTextField.text = theCompany!.terms
         
-        termsPicker.setRow(forKey: theCompany!.terms!, inData: theTerms)
+        termsPicker.setRow(forKey: theCompany!.terms!, inData: GlobalData.shared.theTerms)
     }
     
     // MARK: - METHODS
@@ -203,10 +202,19 @@ class CompanyDetailsView: ParentView {
             
         } else { categoryLabel.text = "Category: None Selected" }
         
+        setTermsPicker()
         initializeOptions()
         reloadEmployeeTable()
         setActionButtonState()
    
+    }
+    
+    func setTermsPicker() {
+        
+        let defaultInvoiceValues = parentController!.contactController.coreData!.defaultInvoiceValues!.first!
+        
+        if defaultInvoiceValues.terms!.isEmpty { termsTextField.text = GlobalData.shared.theTerms.first! }
+        else { termsPicker.setRow(forKey: defaultInvoiceValues.terms!, inData: GlobalData.shared.theTerms) }
     }
     
     func setActionButtonState() {
@@ -340,7 +348,7 @@ class CompanyDetailsView: ParentView {
  
     @IBAction func onInvoice(_ sender: Any) {
         
-        if parentController!.contactController.coreData!.invoices!.isEmpty {
+        if parentController!.contactController.coreData!.defaultInvoiceValues!.isEmpty {
              
              AlertManager(controller: GlobalData.shared.activeController!).popupWithCustomButtons(aMessage: "You need to complete the invoice setup before you can create an invoice", buttonTitles: ["SETUP","CANCEL"], theStyle: [.default,.cancel], theType: .alert) { choice in
                  
@@ -358,6 +366,11 @@ class CompanyDetailsView: ParentView {
         returnButton.isEnabled = false
         editButton.isEnabled = false
         sendButton.isEnabled = false
+        
+        let invoiceInfo = parentController!.contactController.coreData!.defaultInvoiceValues!.first!
+        
+        discountTextField.text = String(invoiceInfo.defaultDiscount * 100).formattedPercent
+       // dueDateTextField.text = invoiceInfo.
         
         invoiceInfoView.isHidden = false
         bringSubviewToFront(invoiceInfoView)
@@ -430,8 +443,8 @@ class CompanyDetailsView: ParentView {
             
             switch choice {
                 
-                case 0: self.parentController!.sendEmailWithAttachment(contentTitle: self.theCompany!.name!, theData: Data(fileString.utf8))
-                case 1: self.parentController!.sendMessageWithAttachment(contentTitle: self.theCompany!.name!, theData: Data(fileString.utf8))
+                case 0: self.parentController!.sendEmailWithAttachment(contentTitle: self.theCompany!.name!, fileType: "vcf", theData: Data(fileString.utf8))
+                case 1: self.parentController!.sendMessageWithAttachment(contentTitle: self.theCompany!.name!, fileType: "vcf", theData: Data(fileString.utf8))
                     
                 default: break
             }
@@ -499,7 +512,7 @@ class CompanyDetailsView: ParentView {
         let projectName = parentController!.contactController.coreData!.setToArray(projects: theCompany!.projects!).first!.name!
         
         invoiceOptions.poReference = poReferenceTextField.text!
-        invoiceOptions.terms = dueDateTextField.text!
+        invoiceOptions.terms = termsTextField.text!
         invoiceOptions.discount = discountTextField.text!.cleanedValue
         invoiceOptions.comments = commentsTextView.text!
         invoiceOptions.projectName = projectName
@@ -678,11 +691,11 @@ extension CompanyDetailsView: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat { return 30 }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int { return theTerms.count }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int { return GlobalData.shared.theTerms.count }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? { return theTerms[row] }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? { return GlobalData.shared.theTerms[row] }
  
-    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) { dueDateTextField.text = theTerms[row] }
+    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) { termsTextField.text = GlobalData.shared.theTerms[row] }
 }
 
 // MARK: - IMAGE PICKER PROTOTOL

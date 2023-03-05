@@ -610,7 +610,7 @@ extension ParentViewController: MFMailComposeViewControllerDelegate {
         present(mailViewController, animated: true, completion: nil )
     }
     
-    func sendEmailWithAttachment(contentTitle: String, theData: Data) {
+    func sendEmailWithAttachment(contentTitle: String, theBody: String? = "", fileType: String, theData: Data) {
         
         guard MFMailComposeViewController.canSendMail() else {
             
@@ -621,9 +621,11 @@ extension ParentViewController: MFMailComposeViewControllerDelegate {
         let mailViewController = MFMailComposeViewController()
         mailViewController.mailComposeDelegate = self
         
-        mailViewController.setPreferredSendingEmailAddress("rtv0431@gmail.com")
+        let preferredEmail = contactController.coreData!.defaultInvoiceValues!.first!.email!
+        mailViewController.setPreferredSendingEmailAddress(preferredEmail)
         mailViewController.setSubject(contentTitle)
-        mailViewController.addAttachmentData(theData, mimeType: FileMimes.mimes["vcf"]!, fileName: contentTitle + ".vcf")
+        mailViewController.setMessageBody(theBody!, isHTML: false)
+        mailViewController.addAttachmentData(theData, mimeType: FileMimes.mimes[fileType]!, fileName: contentTitle + "." + fileType)
         
         present(mailViewController, animated: true, completion: nil )
     }
@@ -660,7 +662,7 @@ extension ParentViewController: MFMessageComposeViewControllerDelegate {
         present(messageViewController, animated: true, completion: nil )
     }
     
-    func sendMessageWithAttachment(contentTitle: String, theData: Data) {
+    func sendMessageWithAttachment(contentTitle: String, fileType: String, theData: Data) {
          
          guard MFMessageComposeViewController.canSendText() else {
              
@@ -669,8 +671,10 @@ extension ParentViewController: MFMessageComposeViewControllerDelegate {
          }
          
          let messageViewController = MFMessageComposeViewController()
+         let theFileType = FileMimes.mimes[fileType]
+        
          messageViewController.messageComposeDelegate = self
-         messageViewController.addAttachmentData(theData, typeIdentifier: FileMimes.mimes["vcf"]!, filename: contentTitle + ".vcf")
+         messageViewController.addAttachmentData(theData, typeIdentifier: theFileType!, filename: contentTitle + "." + theFileType!)
       
          present(messageViewController, animated: true, completion: nil )
      }

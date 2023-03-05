@@ -10,7 +10,7 @@ import UIKit
 class MenuViewController: UIViewController {
     
     // MARK: - STORYBOARD CONNECTORS
-    @IBOutlet var invoiceView: InvoiceView!
+    @IBOutlet var invoiceView: InvoiceInfoView!
     @IBOutlet var marketAreaView: MarketAreaView!
     @IBOutlet var duplicatesView: DuplicatesView!
     @IBOutlet var customerCategoryView: CustomerCategoryView!
