@@ -623,8 +623,8 @@ extension ParentViewController: MFMailComposeViewControllerDelegate {
         let mailViewController = MFMailComposeViewController()
         mailViewController.mailComposeDelegate = self
         
-        let preferredEmail = contactController.coreData!.defaultInvoiceValues!.first!.email!
-        mailViewController.setPreferredSendingEmailAddress(preferredEmail)
+        //let preferredEmail = contactController.coreData!.defaultInvoiceValues!.first!.email!
+        //mailViewController.setPreferredSendingEmailAddress(preferredEmail)
         mailViewController.setSubject(contentTitle)
         mailViewController.setMessageBody(fullBody, isHTML: false)
         mailViewController.addAttachmentData(theData, mimeType: FileMimes.mimes[fileType]!, fileName: contentTitle + "." + fileType)
