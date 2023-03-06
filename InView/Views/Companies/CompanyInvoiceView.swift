@@ -135,8 +135,7 @@ class CompanyInvoiceView: ParentView {
             if choice == 0 {
                 
                 let title = "Your invoice from " + self.theCompany!.name!
-                let body = "Attached please find our invoice."
-                self.parentController!.sendEmailWithAttachment(contentTitle: title, theBody: body, theSignature: self.invoiceInfo!.emailSignature!, fileType: "pdf", theData: fileData!)
+                self.parentController!.sendEmailWithAttachment(contentTitle: title, theBody: "", theSignature: self.invoiceInfo!.emailSignature!, fileType: "pdf", theData: fileData!)
                 
             } else if choice == 1 {
            

@@ -33,7 +33,8 @@ class InvoiceInfoView: ParentView {
     @IBOutlet weak var counterTextField: UITextField!
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var logoButton: RoundedBorderedButton!
-  
+    @IBOutlet weak var resetCounterButton: RoundedButton!
+    
     // MARK: - PROPERTIES
     var invoiceDefaults: DefaultInvoiceValue?
     var toolbar = Toolbar()
@@ -72,7 +73,7 @@ class InvoiceInfoView: ParentView {
         theContentHeightConstraint = contentHeightConstraint
         
         signatureTextView.roundAllCorners(value: 5)
-       
+    
         logoImagePicker.delegate = self
               
         statePicker.delegate = self

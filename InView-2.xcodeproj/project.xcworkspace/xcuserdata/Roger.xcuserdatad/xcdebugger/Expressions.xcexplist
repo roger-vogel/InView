@@ -263,6 +263,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ParentViewController.sendEmailWithAttachment(contentTitle:theBody:theSignature:fileType:theData:):ParentViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "contactController.coreData!.defaultInvoiceValues!.first!.email!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CompanyInvoiceView.setCompany(company:):CompanyInvoiceView.swift">
          <PersistentStrings>
             <PersistentString
