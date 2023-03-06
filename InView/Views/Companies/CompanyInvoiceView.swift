@@ -140,7 +140,7 @@ class CompanyInvoiceView: ParentView {
                 
             } else if choice == 1 {
            
-                self.parentController!.sendMessageWithAttachment(contentTitle: self.invoiceOptions.invoiceNumber!, fileType: ".pdf", theData: fileData!)
+                self.parentController!.sendMessageWithAttachment(contentTitle: self.invoiceOptions.invoiceNumber!, fileType: "pdf", theData: fileData!)
             }
         }
     }

@@ -665,21 +665,22 @@ extension ParentViewController: MFMessageComposeViewControllerDelegate {
     }
     
     func sendMessageWithAttachment(contentTitle: String, fileType: String, theData: Data) {
-         
-         guard MFMessageComposeViewController.canSendText() else {
-             
-             AlertManager(controller: GlobalData.shared.activeController!).popupMessage(aMessage: "SMS services are currently not available on your phone")
-             return
-         }
-         
-         let messageViewController = MFMessageComposeViewController()
-         let theFileType = FileMimes.mimes[fileType]
         
-         messageViewController.messageComposeDelegate = self
-         messageViewController.addAttachmentData(theData, typeIdentifier: theFileType!, filename: contentTitle + "." + theFileType!)
-      
-         present(messageViewController, animated: true, completion: nil )
-     }
+        guard MFMessageComposeViewController.canSendText() else {
+            
+            AlertManager(controller: GlobalData.shared.activeController!).popupMessage(aMessage: "SMS services are currently not available on your phone")
+            return
+        }
+        
+        let messageViewController = MFMessageComposeViewController()
+        let theFileType = FileMimes.mimes[fileType]
+        let fileExtension = theFileType!.splitString(byString: "/")
+
+        messageViewController.messageComposeDelegate = self
+        messageViewController.addAttachmentData(theData, typeIdentifier: theFileType!, filename: contentTitle + "." + fileExtension[1])
+        
+        present(messageViewController, animated: true, completion: nil )
+    }
   
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         
