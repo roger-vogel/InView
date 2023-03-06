@@ -10,7 +10,7 @@ import Foundation
 struct InvoiceOptions {
     
     var poReference: String? = ""
-    var discount: String? = ""
+    var discount: Double = 0
     var terms: String? = ""
     var comments: String? = ""
     var invoiceNumber: String? = ""

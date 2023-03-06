@@ -68,6 +68,8 @@ class InvoiceInfoView: ParentView {
         
         theScrollView = scrollView
         theContentHeightConstraint = contentHeightConstraint
+        
+        signatureTextView.roundAllCorners(value: 5)
        
         logoImagePicker.delegate = self
               
@@ -160,7 +162,9 @@ class InvoiceInfoView: ParentView {
         marketTextField.text = invoiceDefaults!.market!
         websiteTextField.text = invoiceDefaults!.website
         taxTextField.text = String(invoiceDefaults!.tax).formattedPercent
-        discountTextField.text = String(invoiceDefaults!.defaultDiscount).formattedPercent
+        discountTextField.text = String(invoiceDefaults!.defaultDiscount*100).formattedPercent
+        termsTextField.text = invoiceDefaults!.terms!
+        signatureTextView.text = invoiceDefaults!.emailSignature!
         
         _ = marketDictionary
         
@@ -252,8 +256,8 @@ class InvoiceInfoView: ParentView {
         invoiceDefaults!.phone = phoneTextField.text!
         invoiceDefaults!.market = marketTextField.text!
         invoiceDefaults!.website = websiteTextField.text!
-        invoiceDefaults!.tax = NSString(string: taxTextField.text!).doubleValue
-        invoiceDefaults!.defaultDiscount = NSString(string: discountTextField.text!).doubleValue
+        invoiceDefaults!.tax = NSString(string: taxTextField.text!).doubleValue/100
+        invoiceDefaults!.defaultDiscount = NSString(string: discountTextField.text!).doubleValue/100
         invoiceDefaults!.terms = termsTextField.text!
         invoiceDefaults!.emailSignature = signatureTextView.text!
     
@@ -318,7 +322,8 @@ extension InvoiceInfoView:  UITextFieldDelegate {
         theViewInfocus = textField
         
         if textField == phoneTextField { phoneTextField.text = phoneTextField.text!.cleanedPhone }
-        else if textField == taxTextField { taxTextField.text = taxTextField.text!.cleanedPercent }
+        if textField == taxTextField { taxTextField.text = taxTextField.text!.cleanedPercent }
+        if textField == discountTextField { discountTextField.text = discountTextField.text!.cleanedPercent }
        
         return true
     }
@@ -326,7 +331,8 @@ extension InvoiceInfoView:  UITextFieldDelegate {
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         
         if textField == phoneTextField { phoneTextField.text = phoneTextField.text!.formattedPhone }
-        else if textField == taxTextField { taxTextField.text = taxTextField.text!.formattedPercent }
+        if textField == taxTextField { taxTextField.text = taxTextField.text!.formattedPercent }
+        if textField == discountTextField { discountTextField.text = discountTextField.text!.formattedPercent }
      
         return true
     }

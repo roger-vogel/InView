@@ -130,13 +130,13 @@ class CompanyInvoiceView: ParentView {
         
         AlertManager(controller: parentController!).popupWithCustomButtons(aMessage: "Send Invoice", buttonTitles: ["Email","Text","Cancel"], theStyle: [.default,.default,.destructive], theType: .actionSheet) { choice in
             
-            let fileData = FileManager().contents(atPath: self.fileURL!.description)
+            let fileData = FileManager().contents(atPath: self.fileURL!.path(percentEncoded: true))
             
             if choice == 0 {
                 
                 let title = "Your invoice from " + self.theCompany!.name!
                 let body = "Attached please find our invoice. Thank you for your business!"
-                self.parentController!.sendEmailWithAttachment(contentTitle: title, theBody: body, fileType: "pdf", theData: fileData!)
+                self.parentController!.sendEmailWithAttachment(contentTitle: title, theBody: body, theSignature: self.invoiceInfo!.emailSignature!, fileType: "pdf", theData: fileData!)
                 
             } else if choice == 1 {
            
@@ -643,8 +643,8 @@ extension CompanyInvoiceView {
         
         for product in productPendingInvoice! { invoiceSubtotal += (Double(product.quantity) * product.unitPrice) }
         
-        let discount: Double = 0.05 * invoiceSubtotal
-        let tax = invoiceInfo!.tax/100 * (invoiceSubtotal-discount)
+        let discount: Double = invoiceOptions.discount * invoiceSubtotal
+        let tax = invoiceInfo!.tax * (invoiceSubtotal-discount)
       
         context!.addRect(inRect)
         UIColor.white.setFill()

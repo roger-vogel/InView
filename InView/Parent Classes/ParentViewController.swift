@@ -610,7 +610,7 @@ extension ParentViewController: MFMailComposeViewControllerDelegate {
         present(mailViewController, animated: true, completion: nil )
     }
     
-    func sendEmailWithAttachment(contentTitle: String, theBody: String? = "", fileType: String, theData: Data) {
+    func sendEmailWithAttachment(contentTitle: String, theBody: String? = "", theSignature: String? = "", fileType: String, theData: Data) {
         
         guard MFMailComposeViewController.canSendMail() else {
             
@@ -618,13 +618,15 @@ extension ParentViewController: MFMailComposeViewControllerDelegate {
             return
         }
         
+        let fullBody = theBody! + "\n\n\n" + theSignature!
+        
         let mailViewController = MFMailComposeViewController()
         mailViewController.mailComposeDelegate = self
         
         let preferredEmail = contactController.coreData!.defaultInvoiceValues!.first!.email!
         mailViewController.setPreferredSendingEmailAddress(preferredEmail)
         mailViewController.setSubject(contentTitle)
-        mailViewController.setMessageBody(theBody!, isHTML: false)
+        mailViewController.setMessageBody(fullBody, isHTML: false)
         mailViewController.addAttachmentData(theData, mimeType: FileMimes.mimes[fileType]!, fileName: contentTitle + "." + fileType)
         
         present(mailViewController, animated: true, completion: nil )

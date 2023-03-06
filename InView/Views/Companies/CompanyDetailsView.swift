@@ -80,6 +80,7 @@ class CompanyDetailsView: ParentView {
         companyPhoto.frameInCircle()
         
         discountTextField.delegate = self
+        discountTextField.inputAccessoryView = toolbar
         
         toolbar.setup(parent: self)
         quickNotesTextView.delegate = self
@@ -346,7 +347,9 @@ class CompanyDetailsView: ParentView {
         
         else { parentController!.present(photoImagePicker, animated: true, completion: nil) }
     }
- 
+    
+    @IBAction func primaryActionTriggered(_ sender: Any) { dismissKeyboard() }
+    
     @IBAction func onInvoice(_ sender: Any) {
         
         if parentController!.contactController.coreData!.defaultInvoiceValues!.isEmpty {
@@ -371,7 +374,7 @@ class CompanyDetailsView: ParentView {
         let invoiceInfo = parentController!.contactController.coreData!.defaultInvoiceValues!.first!
         
         discountTextField.text = String(invoiceInfo.defaultDiscount * 100).formattedPercent
-       // dueDateTextField.text = invoiceInfo.
+        termsTextField.text = invoiceInfo.terms!
         
         invoiceInfoView.isHidden = false
         bringSubviewToFront(invoiceInfoView)
@@ -514,7 +517,7 @@ class CompanyDetailsView: ParentView {
         
         invoiceOptions.poReference = poReferenceTextField.text!
         invoiceOptions.terms = termsTextField.text!
-        invoiceOptions.discount = discountTextField.text!.cleanedValue
+        invoiceOptions.discount = NSString(string: discountTextField.text!.cleanedValue).doubleValue/100
         invoiceOptions.comments = commentsTextView.text!
         invoiceOptions.projectName = projectName
         
