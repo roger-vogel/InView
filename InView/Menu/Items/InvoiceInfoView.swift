@@ -29,6 +29,8 @@ class InvoiceInfoView: ParentView {
     @IBOutlet weak var discountTextField: UITextField!
     @IBOutlet weak var termsTextField: UITextField!
     @IBOutlet weak var signatureTextView: UITextView!
+    @IBOutlet weak var prefixTextField: UITextField!
+    @IBOutlet weak var counterTextField: UITextField!
     @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var logoButton: RoundedBorderedButton!
   
@@ -161,10 +163,12 @@ class InvoiceInfoView: ParentView {
         phoneTextField.text = invoiceDefaults!.phone!
         marketTextField.text = invoiceDefaults!.market!
         websiteTextField.text = invoiceDefaults!.website
-        taxTextField.text = String(invoiceDefaults!.tax).formattedPercent
+        taxTextField.text = String(invoiceDefaults!.tax*100).formattedPercent
         discountTextField.text = String(invoiceDefaults!.defaultDiscount*100).formattedPercent
         termsTextField.text = invoiceDefaults!.terms!
         signatureTextView.text = invoiceDefaults!.emailSignature!
+        prefixTextField.text = invoiceDefaults!.invoicePrefix!
+        counterTextField.text = String(coreData.invoiceCounter).formattedValue
         
         _ = marketDictionary
         
@@ -213,6 +217,14 @@ class InvoiceInfoView: ParentView {
     // MARK: - ACTION HANDLERS
     @IBAction func primaryActionTriggered(_ sender: Any) { dismissKeyboard() }
   
+    @IBAction func onReset(_ sender: Any) {
+        
+        parentController!.contactController.coreData!.invoiceCounter = 0
+        counterTextField.text = "0".formattedValue
+        
+        GlobalData.shared.saveCoreData()
+    }
+    
     @IBAction func onLogo(_ sender: Any) {
         
         if invoiceDefaults!.hasLogo {
@@ -260,6 +272,7 @@ class InvoiceInfoView: ParentView {
         invoiceDefaults!.defaultDiscount = NSString(string: discountTextField.text!).doubleValue/100
         invoiceDefaults!.terms = termsTextField.text!
         invoiceDefaults!.emailSignature = signatureTextView.text!
+        invoiceDefaults!.invoicePrefix = prefixTextField.text!
     
         if isNew! { coreData.defaultInvoiceValues!.append(invoiceDefaults!) }
      

@@ -618,7 +618,7 @@ extension ParentViewController: MFMailComposeViewControllerDelegate {
             return
         }
         
-        let fullBody = theBody! + "\n\n\n" + theSignature!
+        let fullBody = theBody! + "\n\n∫∫∫" + theSignature!
         
         let mailViewController = MFMailComposeViewController()
         mailViewController.mailComposeDelegate = self

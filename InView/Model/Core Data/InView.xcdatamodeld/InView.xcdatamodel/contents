@@ -103,6 +103,7 @@
         <attribute name="emailSignature" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="hasLogo" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="invoicePrefix" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="logo" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="market" optional="YES" attributeType="String" defaultValueString=""/>
         <attribute name="name" optional="YES" attributeType="String" defaultValueString=""/>

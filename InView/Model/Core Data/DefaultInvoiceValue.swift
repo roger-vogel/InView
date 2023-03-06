@@ -37,6 +37,7 @@ extension DefaultInvoiceValue {
     @NSManaged public var terms: String?
     @NSManaged public var website: String?
     @NSManaged public var emailSignature: String?
+    @NSManaged public var invoicePrefix: String?
 }
 
 extension DefaultInvoiceValue : Identifiable {

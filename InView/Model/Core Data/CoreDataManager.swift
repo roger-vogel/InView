@@ -41,6 +41,17 @@ class CoreDataManager {
         return theCompanyNames
     }
     
+    var invoiceCounter: Int32 {
+        
+        get {
+            
+            if counterArray!.isEmpty { return 0 }
+            else { return counterArray!.first!.countValue}
+        }
+      
+        set { counterArray!.first!.countValue = newValue }
+    }
+    
     // MARK: - INITIALIZATION
     init(parent: ContactViewController, onCompletion: @escaping () -> Void) {
         

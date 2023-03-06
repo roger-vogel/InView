@@ -653,6 +653,19 @@ extension CompanyInvoiceView {
         
         drawInfoBar(title: " Comments", inRect: CGRect(x: Int(margin), y: yLocation, width: Int(halfPageWidth), height: 18), withOffset: 0, background: ThemeColors.blue, foreground: ColorManager(color: .white))
         
+        let wrappedComments = invoiceOptions.comments!.wrapToFit(spaceAvailable: halfPageWidth - 10, withFont: UIFont.systemFont(ofSize: 10))
+        let attributes = [
+            
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.paragraphStyle: paragraphStyle,
+            NSAttributedString.Key.foregroundColor: UIColor.label,
+            NSAttributedString.Key.backgroundColor: UIColor.white
+        ]
+        let text = wrappedComments.text
+        let textRect = CGRect(x: margin+5, y: CGFloat(yLocation+21), width: halfPageWidth-10, height: wrappedComments.lines*18)
+        
+        text.draw(in: textRect, withAttributes: attributes)
+            
         for (index,value) in ["Subtotal","Discount","Taxes","Invoice Total"].enumerated() {
             
             var theTextRect = CGRect(x: Int(margin + 300), y: yLocation - 18, width: 100, height: 20)
@@ -721,7 +734,16 @@ extension CompanyInvoiceView {
         ]
 
         let message = "Thank You For Your Business!"
-        let JustifiedMessageRect = message.justified(textRect: CGRect(x: margin, y: CGFloat(commentBoxY! + 70), width: halfPageWidth, height: message.textSize(font: font).height + 10), justification: .center, font: font)
+        let JustifiedMessageRect = message.justified(
+            
+            textRect: CGRect(
+                x: (pageWidthMargined - message.textSize(font: font).width)/2,
+                y: CGFloat(commentBoxY! + 90),
+                width: halfPageWidth,
+                height: message.textSize(font: font).height + 10 ),
+                
+            justification: .center, font: font
+        )
 
         message.draw(in: JustifiedMessageRect, withAttributes: attributes)
     }

@@ -75,8 +75,7 @@ class ProjectProductDetailsView: ParentView {
         
         quantityTextField.inputAccessoryView = toolbar
         unitPriceTextField.inputAccessoryView = toolbar
-        unitDescriptionTextField.inputAccessoryView = toolbar
-        
+     
         super.initView(inController: inController)
     }
     

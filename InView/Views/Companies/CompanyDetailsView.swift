@@ -299,12 +299,14 @@ class CompanyDetailsView: ParentView {
     
     func createInvoiceNumber() {
         
-        let countRecord = parentController!.contactController.coreData!.counterArray!.first!
-        let count = countRecord.countValue + 1
-       
-        invoiceOptions.invoiceNumber = "INV-" + String(count)
+        let coreData = parentController!.contactController.coreData!
+        let countValue = coreData.invoiceCounter
+        let count = countValue + 1
+        let invoicePrefix = parentController!.contactController.coreData!.defaultInvoiceValues!.first!.invoicePrefix!
+    
+        invoiceOptions.invoiceNumber = invoicePrefix + "-" + String(count)
         
-        countRecord.countValue = count
+        coreData.invoiceCounter = count
         GlobalData.shared.saveCoreData()
     }
     
