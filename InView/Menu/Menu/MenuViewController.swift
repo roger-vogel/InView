@@ -19,7 +19,8 @@ class MenuViewController: UIViewController {
     @IBOutlet var productCategoryView: ProductCategoryView!
     @IBOutlet var duplicateDetailsView: DuplicateDetailsView!
     @IBOutlet var importView: ImportView!
- 
+    @IBOutlet var productListView: ProductListView!
+    
     // MARK: - PROPERTIES
     var presentingController: ParentViewController?
     var viewToShow: ParentView?
@@ -38,7 +39,8 @@ class MenuViewController: UIViewController {
             sortPreferencesView,
             productCategoryView,
             duplicateDetailsView,
-            importView
+            importView,
+            productListView
         ])
         
         GlobalData.shared.menuController = self

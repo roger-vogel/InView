@@ -508,14 +508,3 @@ extension ParentActivityListView: ActivityTableCellDelegate {
     
     func onDetailsButton(indexPath: IndexPath) { }
 }
-
-
-/*
- 
- let taskCount =  pastDueTasks.count + todaysTasks.count + thisWeeksTasks.count + upcomingTasks.count
- let eventCount = pastDueEvents.count + todaysEvents.count + thisWeeksEvents.count + upcomingEvents.count
- 
- if taskCount > 0 { theActivityTypeSegmentControl.selectedSegmentIndex = 0 }
- else if taskCount == 0 && eventCount > 0 { theActivityTypeSegmentControl.selectedSegmentIndex = 1 }
- else if eventCount == 0 { theActivityTypeSegmentControl.selectedSegmentIndex = 0 }
- */

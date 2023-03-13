@@ -122,7 +122,7 @@ extension ProjectProductListView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var theProduct: Product?
-        let cell = tableView.dequeueReusableCell(withIdentifier: "productListStyle", for: indexPath) as! ProjectProductListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "projectProductListStyle", for: indexPath) as! ProjectProductListCell
         
         cell.delegate = self
         cell.myIndexPath = indexPath
@@ -191,7 +191,7 @@ extension ProjectProductListView: UITableViewDelegate, UITableViewDataSource {
     // Allow editing
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool { return true }
     
-    // Delete project
+    // Delete product
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
@@ -233,3 +233,27 @@ extension ProjectProductListView: ProjectProductCellDelegate {
         GlobalData.shared.saveCoreData()
     }
 }
+
+
+/*
+ func doDelete(row: Int, group: Group) {
+     
+     let coreDataIndex = Int(theGroups[row].sortOrder)
+     
+     theGroups.remove(at: row)
+     parentController!.contactController.coreData!.groups!.remove(at: coreDataIndex)
+     
+     GlobalData.shared.viewContext.delete(group)
+     GlobalData.shared.saveCoreData()
+
+     if parentController!.contactController.coreData!.groups!.isEmpty && groupsTableView.isEditing { onEditMode(editModeButton) }
+    
+     refresh()
+ }
+ 
+ // Trailing Swipes
+ func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+     
+     return UISwipeActionsConfiguration(actions: [deleteRow(row: indexPath.row)])
+ }
+ */

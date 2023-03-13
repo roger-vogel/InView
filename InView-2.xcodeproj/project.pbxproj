@@ -238,6 +238,8 @@
 		DBD1E483299DADE300C3D8C6 /* ReportsFunnelByStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E482299DADE300C3D8C6 /* ReportsFunnelByStartView.swift */; };
 		DBD1E485299DAE7800C3D8C6 /* ReportsFunnelByStageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E484299DAE7800C3D8C6 /* ReportsFunnelByStageView.swift */; };
 		DBD1E487299DAF1D00C3D8C6 /* ReportsFunnelByProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD1E486299DAF1D00C3D8C6 /* ReportsFunnelByProductView.swift */; };
+		DBECAD5029BE75D300543061 /* ProductListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBECAD4F29BE75D300543061 /* ProductListCell.swift */; };
+		DBECAD5229BE80FE00543061 /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBECAD5129BE80FE00543061 /* ProductListView.swift */; };
 		DBF2D3E3299F9CC900F904A0 /* ReportsCompleteListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF2D3E2299F9CC900F904A0 /* ReportsCompleteListCell.swift */; };
 		DBF2D3E5299F9D9000F904A0 /* ReportsCompletedProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF2D3E4299F9D9000F904A0 /* ReportsCompletedProjectView.swift */; };
 /* End PBXBuildFile section */
@@ -469,6 +471,8 @@
 		DBD1E482299DADE300C3D8C6 /* ReportsFunnelByStartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportsFunnelByStartView.swift; sourceTree = "<group>"; };
 		DBD1E484299DAE7800C3D8C6 /* ReportsFunnelByStageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportsFunnelByStageView.swift; sourceTree = "<group>"; };
 		DBD1E486299DAF1D00C3D8C6 /* ReportsFunnelByProductView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportsFunnelByProductView.swift; sourceTree = "<group>"; };
+		DBECAD4F29BE75D300543061 /* ProductListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListCell.swift; sourceTree = "<group>"; };
+		DBECAD5129BE80FE00543061 /* ProductListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
 		DBF2D3E2299F9CC900F904A0 /* ReportsCompleteListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsCompleteListCell.swift; sourceTree = "<group>"; };
 		DBF2D3E4299F9D9000F904A0 /* ReportsCompletedProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsCompletedProjectView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -804,6 +808,7 @@
 				DBD1E47A299DACBA00C3D8C6 /* ReportsTotalSalesListCell.swift */,
 				DBD1E47E299DAD1800C3D8C6 /* ReportsByEntityListCell.swift */,
 				DBF2D3E2299F9CC900F904A0 /* ReportsCompleteListCell.swift */,
+				DBECAD4F29BE75D300543061 /* ProductListCell.swift */,
 			);
 			path = "Table Cells";
 			sourceTree = "<group>";
@@ -977,6 +982,7 @@
 				DB0F1FD9299D86E900ED0CCF /* MarketAreaView.swift */,
 				DB0F1FDB299D86EA00ED0CCF /* ProductCategoryView.swift */,
 				DB0F1FD8299D86E900ED0CCF /* SortPreferencesView.swift */,
+				DBECAD5129BE80FE00543061 /* ProductListView.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -1194,6 +1200,7 @@
 				DB0F1F86299D862900ED0CCF /* CompanyActivityMoveView.swift in Sources */,
 				DB484C4329A349CF00DB29FA /* CompanyInvoiceView.swift in Sources */,
 				DB0F1FE2299D86EA00ED0CCF /* MarketAreaView.swift in Sources */,
+				DBECAD5229BE80FE00543061 /* ProductListView.swift in Sources */,
 				DB0F1ED8299D84CB00ED0CCF /* DocumentCollectionCell.swift in Sources */,
 				DBD1E466299DA21E00C3D8C6 /* ParentProjectListView.swift in Sources */,
 				DB0F1FB5299D865400ED0CCF /* ProjectLogListView.swift in Sources */,
@@ -1290,6 +1297,7 @@
 				DB0F1F52299D85B900ED0CCF /* CompanyCategory.swift in Sources */,
 				DB0F1F92299D863D00ED0CCF /* ContactEditView.swift in Sources */,
 				DB0F1EFA299D84DB00ED0CCF /* CompanyListCell.swift in Sources */,
+				DBECAD5029BE75D300543061 /* ProductListCell.swift in Sources */,
 				DB0F1F95299D863D00ED0CCF /* ContactDetailsView.swift in Sources */,
 				DB0F1FB9299D865400ED0CCF /* ProjectProductListView.swift in Sources */,
 				DB0F1F2C299D857B00ED0CCF /* FileTypes.swift in Sources */,

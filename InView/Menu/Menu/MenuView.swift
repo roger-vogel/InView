@@ -17,7 +17,7 @@ class MenuView: UIView {
     var parentView: ParentView?
     var menuTableView: UITableView?
     var preselectedValue: Menu?
-    var menuItems = ["Sort Preferences","Find Duplicates","Import Contacts","Customer Categories","Company Categories","Product Categories","Market Areas","Setup Company Invoice","Reports"]
+    var menuItems = ["Sort Preferences","Find Duplicates","Import Contacts","Customer Categories","Company Categories","Products","Product Categories","Market Areas","Setup Company Invoice","Reports"]
    
     weak var delegate: MenuViewDelegate?
     
@@ -121,6 +121,17 @@ class MenuView: UIView {
         
     }
     
+    func gotoProductLibrary() {
+        
+        let controller = menuController as! MenuViewController
+        
+        controller.presentingController = parentView!.parentController!
+        controller.viewToShow = controller.productListView
+        
+        hideMenuNoFade()
+        parentView!.parentController!.present(menuController, animated: true, completion: { return })
+    }
+    
     func setProductCategories() {
        
         let controller = menuController as! MenuViewController
@@ -222,7 +233,7 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return menuItems.count }
  
     // Report the row height
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { return 45 }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { return 40 }
       
     // Allow highlight
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool { return true }
@@ -262,10 +273,11 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
             case 2: importContacts()
             case 3: setCustomerCategories()
             case 4: setCompanyCategories()
-            case 5: setProductCategories()
-            case 6: setMarketAreas()
-            case 7: setupCompanyInvoice()
-            case 8: gotoReports()
+            case 5: gotoProductLibrary()
+            case 6: setProductCategories()
+            case 7: setMarketAreas()
+            case 8: setupCompanyInvoice()
+            case 9: gotoReports()
             
             default: break
         }
