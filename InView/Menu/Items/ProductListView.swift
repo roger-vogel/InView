@@ -289,9 +289,12 @@ extension ProductListView: UITableViewDelegate, UITableViewDataSource {
             
         } else {
             
-            theProject!.addToProducts(theProducts![indexPath.row])
-            
-            GlobalData.shared.saveCoreData()
+            if !theProject!.products!.contains(theProducts![indexPath.row]) {
+                
+                theProject!.addToProducts(theProducts![indexPath.row])
+                GlobalData.shared.saveCoreData()
+            }
+   
             GlobalData.shared.activeController!.projectController.projectProductListView.reloadProductList()
             
             parentController!.dismiss(animated: true)
