@@ -178,7 +178,9 @@ class ProductListView: ParentView {
         clear()
         
         parentController!.dismiss(animated: true)
-        GlobalData.shared.activeController!.tabBarController!.tabBar.isHidden = false
+        
+        if isFromMenu { GlobalData.shared.activeController!.tabBarController!.tabBar.isHidden = false }
+        else { GlobalData.shared.activeController!.tabBarController!.tabBar.isHidden = true }
     }
 }
 
@@ -298,7 +300,6 @@ extension ProductListView: UITableViewDelegate, UITableViewDataSource {
             GlobalData.shared.activeController!.projectController.projectProductListView.reloadProductList()
             
             parentController!.dismiss(animated: true)
-            GlobalData.shared.activeController!.tabBarController!.tabBar.isHidden = true
         }
     }
 
