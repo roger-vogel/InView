@@ -127,6 +127,7 @@ class MenuView: UIView {
         
         controller.presentingController = parentView!.parentController!
         controller.viewToShow = controller.productListView
+        controller.productListView.isFromMenu = true
         
         hideMenuNoFade()
         parentView!.parentController!.present(menuController, animated: true, completion: { return })

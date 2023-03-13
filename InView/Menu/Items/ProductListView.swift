@@ -31,11 +31,13 @@ class ProductListView: ParentView {
     // MARK: - PROPERTIES
     var theProducts: [Product]?
     var theProduct: Product?
+    var theProject: Project?
     var categoryPicker = UIPickerView()
     var toolbar = Toolbar()
     var isNew: Bool?
     var selectedCategory: ProductCategory?
-    
+    var isFromMenu: Bool = true
+   
     // MARK: COMPUTED PROPERTIES
     var theProductCategories: [AProductCategory] {
         
@@ -95,6 +97,12 @@ class ProductListView: ParentView {
     }
     
     // MARK: - METHODS
+    func projectCaller(project: Project, fromMenu: Bool) {
+        
+        isFromMenu = fromMenu
+        theProject = project
+    }
+    
     func enableButtons(_ state: Bool) {
         
         returnButton.isEnabled = state
@@ -274,8 +282,21 @@ extension ProductListView: UITableViewDelegate, UITableViewDataSource {
     // Capture selection
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        setProduct(product: theProducts![indexPath.row])
-        displayAddProductView()
+        if isFromMenu {
+            
+            setProduct(product: theProducts![indexPath.row])
+            displayAddProductView()
+            
+        } else {
+            
+            theProject!.addToProducts(theProducts![indexPath.row])
+            
+            GlobalData.shared.saveCoreData()
+            GlobalData.shared.activeController!.projectController.projectProductListView.reloadProductList()
+            
+            parentController!.dismiss(animated: true)
+            GlobalData.shared.activeController!.tabBarController!.tabBar.isHidden = true
+        }
     }
 
     // Delete product

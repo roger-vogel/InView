@@ -103,6 +103,19 @@ class ProjectProductListView: ParentView {
         parentController!.projectController.projectProductDetailsView.showView(withTabBar: false)
     }
     
+    @IBAction func onList(_ sender: Any) {
+        
+        let menuController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "menuController") as UIViewController
+        
+        let controller = menuController as! MenuViewController
+        
+        controller.presentingController = GlobalData.shared.activeController!
+        controller.viewToShow = controller.productListView
+        controller.productListView.projectCaller(project: theProject!, fromMenu: false)
+      
+        GlobalData.shared.activeController!.present(menuController, animated: true, completion: { return })
+    }
+  
     @IBAction func onEditMode(_ sender: UIButton) {
         
         guard !parentController!.contactController.coreData!.projects!.isEmpty else { return }
