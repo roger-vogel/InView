@@ -51,15 +51,20 @@ class ReportsFunnelByProductView: ParentView {
                 categoryDetails.append(CategoryDetail(category: category))
                 
                 // Get the products in the category
-                for product in coreData.products! {
+                for (index,product) in coreData.products!.enumerated() {
                     
                     if product.category!.category! == category.category! {
                         
-                        // Get the associated project and the sales if completed
-                        if product.project!.status!.lowercased() != "closed" && product.project!.stage!.lowercased() != "complete"  {
+                        if product.projects != nil {
                             
-                            categoryDetails[categoryDetails.count - 1].theProjects.append(product.project!)
-                            categoryDetails[categoryDetails.count - 1].value += Int32(Double(product.quantity) * product.unitPrice)
+                            let projectArray = parentController!.contactController.coreData!.setToArray(projects: product.projects!)
+                            
+                            // Get the associated project and the sales if completed
+                            if projectArray[index].status!.lowercased() != "closed" && projectArray[index].stage!.lowercased() != "complete"  {
+                                
+                                categoryDetails[categoryDetails.count - 1].theProjects.append(projectArray[index])
+                                categoryDetails[categoryDetails.count - 1].value += Int32(Double(product.quantity) * product.unitPrice)
+                            }
                         }
                     }
                 }

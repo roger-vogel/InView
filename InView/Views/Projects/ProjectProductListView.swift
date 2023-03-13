@@ -78,6 +78,24 @@ class ProjectProductListView: ParentView {
         totalInvoiceLabel.text = "$" + formatter.string(from: NSNumber(value: totalInvoiceCost))!
     }
     
+    func removeRow(row: Int) -> UIContextualAction {
+        
+        let contextualAction = UIContextualAction(style: .normal, title: "Remove", handler: { (contextualAction: UIContextualAction, swipeButton: UIView, completionHandler: (Bool) -> Void) in
+            
+            let theProduct = self.theProducts[row]
+           
+            self.theProducts.remove(at: row)
+            self.theProject!.removeFromProducts(theProduct)
+        
+            GlobalData.shared.saveCoreData()
+            self.reloadProductList()
+
+        })
+ 
+        contextualAction.backgroundColor = .red
+        return contextualAction
+   }
+    
     // MARK: - ACTION HANDLERS
     @IBAction func onPlus(_ sender: Any) {
         
@@ -207,11 +225,16 @@ extension ProjectProductListView: UITableViewDelegate, UITableViewDataSource {
                     GlobalData.shared.viewContext.delete(product)
                     GlobalData.shared.saveCoreData()
                     
-                    
                     self.reloadProductList()
                 }
             }
         }
+    }
+    
+    // Trailing Swipes
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        return UISwipeActionsConfiguration(actions: [removeRow(row: indexPath.row)])
     }
 }
 
@@ -233,27 +256,3 @@ extension ProjectProductListView: ProjectProductCellDelegate {
         GlobalData.shared.saveCoreData()
     }
 }
-
-
-/*
- func doDelete(row: Int, group: Group) {
-     
-     let coreDataIndex = Int(theGroups[row].sortOrder)
-     
-     theGroups.remove(at: row)
-     parentController!.contactController.coreData!.groups!.remove(at: coreDataIndex)
-     
-     GlobalData.shared.viewContext.delete(group)
-     GlobalData.shared.saveCoreData()
-
-     if parentController!.contactController.coreData!.groups!.isEmpty && groupsTableView.isEditing { onEditMode(editModeButton) }
-    
-     refresh()
- }
- 
- // Trailing Swipes
- func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-     
-     return UISwipeActionsConfiguration(actions: [deleteRow(row: indexPath.row)])
- }
- */

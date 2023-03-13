@@ -22,6 +22,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ProductListView.setCategoryPicker():ProductListView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "theProductCategories">
+            </PersistentString>
+            <PersistentString
+               value = "addButton.titleLabel!.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "InvoiceInfoView.onSave(_:):InvoiceInfoView.swift">
          <PersistentStrings>
             <PersistentString
@@ -82,13 +93,13 @@
                value = "invoiceInfo.logo">
             </PersistentString>
             <PersistentString
-               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!">
             </PersistentString>
             <PersistentString
                value = "hasLogo!">
             </PersistentString>
             <PersistentString
-               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!">
+               value = "GlobalData.shared.activeController!.contactController.coreData!.invoiceInfo!.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -118,21 +129,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CompanyInvoiceView.drawLineItems(yLocation:height:font:):CompanyInvoiceView.swift">
+         contextName = "ProductListView.initView(inController:backgroundImage:withAlpha:):ProductListView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "productsToInvoice.count+1">
+               value = "theProducts">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "DateManager.isIn(month:):DateManager.swift">
+         contextName = "CompanyInvoiceView.drawLineItems(yLocation:height:font:):CompanyInvoiceView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "dateComponents">
-            </PersistentString>
-            <PersistentString
-               value = "theDate!">
+               value = "productsToInvoice.count+1">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -148,10 +156,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProductListView.initView(inController:backgroundImage:withAlpha:):ProductListView.swift">
+         contextName = "DateManager.isIn(month:):DateManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "theProducts">
+               value = "dateComponents">
+            </PersistentString>
+            <PersistentString
+               value = "theDate!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -214,13 +225,21 @@
          contextName = "ProductListView.tableView(_:cellForRowAt:):ProductListView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "product.category">
+               value = "product.productDescription">
             </PersistentString>
             <PersistentString
                value = "theProducts">
             </PersistentString>
             <PersistentString
-               value = "product.productDescription">
+               value = "product.category">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProductListView.setProduct(product:):ProductListView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "addButton.titleLabel!.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -228,21 +247,24 @@
          contextName = "CompanyInvoiceView.drawHeader(yLocation:height:font:columns:):CompanyInvoiceView.swift">
       </ContextState>
       <ContextState
-         contextName = "ParentViewController.sendEmailWithAttachment(contentTitle:theBody:theSignature:fileType:theData:):ParentViewController.swift">
+         contextName = "CoreDataManager.initializeCounter():CoreDataManager.swift">
          <PersistentStrings>
             <PersistentString
-               value = "contactController.coreData!.defaultInvoiceValues!.first!.email!">
+               value = "counterArray!.first!.countValue">
+            </PersistentString>
+            <PersistentString
+               value = "counterArray!.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CoreDataManager.initializeCounter():CoreDataManager.swift">
+         contextName = "ProjectDetailsView.onReturn(_:):ProjectDetailsView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "counterArray!.count">
+               value = "isFromReports">
             </PersistentString>
             <PersistentString
-               value = "counterArray!.first!.countValue">
+               value = "parentController!.contactController.coreData!.projects!.first!.products!.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -266,13 +288,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ProjectDetailsView.onReturn(_:):ProjectDetailsView.swift">
+         contextName = "ReportsCompletedProjectView.setupView():ReportsCompletedProjectView.swift">
          <PersistentStrings>
             <PersistentString
-               value = "isFromReports">
-            </PersistentString>
-            <PersistentString
-               value = "parentController!.contactController.coreData!.projects!.first!.products!.count">
+               value = "theProjects!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -285,10 +304,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ReportsCompletedProjectView.setupView():ReportsCompletedProjectView.swift">
+         contextName = "ParentViewController.sendEmailWithAttachment(contentTitle:theBody:theSignature:fileType:theData:):ParentViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "theProjects!">
+               value = "contactController.coreData!.defaultInvoiceValues!.first!.email!">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -341,6 +360,14 @@
          <PersistentStrings>
             <PersistentString
                value = "header.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ProductListView.displayAddProductView():ProductListView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "addButton.titleLabel!.text">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

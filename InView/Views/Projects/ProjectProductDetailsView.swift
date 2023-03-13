@@ -80,7 +80,7 @@ class ProjectProductDetailsView: ParentView {
     }
     
     // MARK: - METHODS
-    func setProjectProduct(project: Project, product: Product? = nil) {
+    func setProjectProduct(project: Project? = nil, product: Product? = nil) {
         
         _ = categoryDictionary
         
@@ -155,7 +155,10 @@ class ProjectProductDetailsView: ParentView {
             
             if selectedCategory != nil { newProduct.category = selectedCategory }
             
+            if theProject != nil { theProject!.addToProducts(newProduct) }
+         
             theProject!.addToProducts(newProduct)
+            parentController!.contactController.coreData!.products!.append(newProduct)
             
         } else {
             

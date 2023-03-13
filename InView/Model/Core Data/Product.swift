@@ -9,32 +9,45 @@
 import Foundation
 import CoreData
 
-// MARK: - CLASS DEFINITION
-public class Product: NSManagedObject {
+public class Product: NSManagedObject { }
 
-}
-
-// MARK: - PROPERTIES
 extension Product {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Product> {
-        
         return NSFetchRequest<Product>(entityName: "Product")
     }
 
     @NSManaged public var id: UUID?
-    @NSManaged public var category: ProductCategory?
+    @NSManaged public var invoiced: Int16
     @NSManaged public var productDescription: String?
     @NSManaged public var productID: String?
-    @NSManaged public var unitDescription: String?
-    @NSManaged public var timestamp: Date?
-    @NSManaged public var unitPrice: Double
     @NSManaged public var quantity: Int32
-    @NSManaged public var invoiced: Int16
-    @NSManaged public var project: Project?
+    @NSManaged public var timestamp: Date?
+    @NSManaged public var unitDescription: String?
+    @NSManaged public var unitPrice: Double
+    @NSManaged public var category: ProductCategory?
+    @NSManaged public var projects: NSSet?
 }
 
-// MARK: - DECLARE CLASS IDENTIFIABLE
-extension Product : Identifiable {
+// MARK: Generated accessors for project
+extension Product {
+
+    @objc(addProjectObject:)
+    @NSManaged public func addToProject(_ value: Project)
+
+    @objc(removeProjectObject:)
+    @NSManaged public func removeFromProject(_ value: Project)
+
+    @objc(addProject:)
+    @NSManaged public func addToProject(_ values: NSSet)
+
+    @objc(removeProject:)
+    @NSManaged public func removeFromProject(_ values: NSSet)
 
 }
+
+extension Product : Identifiable { }
+
+
+
+

@@ -344,6 +344,16 @@ class CoreDataManager {
         return theCategories
     }
     
+    func compressedProductCategoriesArray() -> [String] {
+        
+        
+        var theCategories = [String]()
+        let theProductCategories = productCategories!.filter { $0.category! != "" }
+        
+        for category in theProductCategories { theCategories.append(category.category!) }
+        return theCategories
+    }
+    
     func marketAreasAsArray() -> [String] {
         
         var theAreas = [String]()
